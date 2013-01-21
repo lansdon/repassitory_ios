@@ -8,6 +8,10 @@
 
 #import "LRPAppDelegate.h"
 
+#import "LRPLoginViewController.h"
+#import "Users.h"
+
+
 @implementation LRPAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -16,10 +20,47 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
+    rootView.managedObjectContext = self.managedObjectContext;
+    
+    // Get a reference to the stardard user defaults
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    // Check if the app has run before by checking a key in user defaults
+    if ([prefs boolForKey:@"hasRunBefore"] != YES)
+    {
+        // Set flag so we know not to run this next time
+        [prefs setBool:YES forKey:@"hasRunBefore"];
+        [prefs synchronize];
+        
+        // Add our default user object in Core Data
+        Users *user = (Users *)[NSEntityDescription insertNewObjectForEntityForName:@"Users" inManagedObjectContext:self.managedObjectContext];
+        [user setUsername:@"admin"];
+        [user setPassword:@"password"];
+        
+        // Commit to core data
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+            NSLog(@"Failed to add default user with error: %@", [error domain]);
+    }
+    
+    //   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+//    _loginViewController = [[LRPLoginViewController alloc] init];
+    
+//    [self.window setRootViewController:_loginViewController];
+
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window makeKeyAndVisible];
+    
+    
+//    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    
+//     _loginViewController = (LRPLoginViewController *)self.window.rootViewController;
+
+   
+    
     return YES;
 }
 
@@ -131,6 +172,7 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
          
          */
+//        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    

@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Users.h"
+
+
+@class LRPLoginViewController;
+
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) LRPLoginViewController *loginViewController;
 
 @property (strong, nonatomic) UIWindow *window;
 
