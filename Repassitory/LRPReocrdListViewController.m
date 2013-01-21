@@ -17,7 +17,6 @@
 
 @implementation LRPReocrdListViewController
 
-@synthesize managedObjectContext, recordListData;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style
@@ -113,7 +112,7 @@
 - (void)readDataForTable
 {
     //  Grab the data
-    recordListData = [CoreDataHelper getObjectsForEntity:@"Pictures" withSortKey:@"title" andSortAscending:YES andContext:managedObjectContext];
+    self.recordListData = [CoreDataHelper getObjectsForEntity:@"Pictures" withSortKey:@"title" andSortAscending:YES andContext:self.managedObjectContext];
     
     //  Force table refresh
     [self.tableView reloadData];
@@ -138,7 +137,7 @@
 //  Return the number of rows in the section (the amount of items in our array)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [recordListData count];
+    return [self.recordListData count];
 }
 
 //  Create / reuse a table cell and configure it for display
@@ -152,7 +151,7 @@
     }
     
     // Get the core data object we need to use to populate this table cell
-    Record *currentCell = [recordListData objectAtIndex:indexPath.row];
+    Record *currentCell = [self.recordListData objectAtIndex:indexPath.row];
     
     //  Fill in the cell contents
     cell.textLabel.text = [currentCell title];
@@ -180,7 +179,7 @@
         [self.managedObjectContext deleteObject:itemToDelete];
         
         //  Remove the item from our array
-        [recordListData removeObjectAtIndex:indexPath.row];
+        [self.recordListData removeObjectAtIndex:indexPath.row];
         
         //  Commit the deletion in core data
         NSError *error;

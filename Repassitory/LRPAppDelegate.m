@@ -23,6 +23,13 @@
     LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
     rootView.managedObjectContext = self.managedObjectContext;
     
+//    NSArray *viewControllers = rootView.childViewControllers;
+//    NSEnumerator *enumerator = [viewControllers objectEnumerator];
+//    UIViewController* obj;
+//    while ( obj = [enumerator nextObject] ) {
+//        obj.managedObjectContext = self.managedObjectContext;        
+ //   }
+    
     // Get a reference to the stardard user defaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -43,6 +50,15 @@
         if (![self.managedObjectContext save:&error])
             NSLog(@"Failed to add default user with error: %@", [error domain]);
     }
+
+    // Split Window optional loading for ipad/iphone
+    // Override point for customization after application launch.
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+        splitViewController.delegate = (id)navigationController.topViewController;
+    }
+
     
     //   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

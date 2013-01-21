@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590EDBE516AD4770006E7C24 /* LRPRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 590EDBE416AD4770006E7C24 /* LRPRecord.m */; };
+		5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924733B16AD180400A8DD14 /* LRPMasterViewController.m */; };
+		5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */; };
+		5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */; };
+		5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */; };
+		5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39016AD437700C2EBDE /* LRPDetailViewController.m */; };
+		5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39416AD437700C2EBDE /* LRPRecordDataController.m */; };
+		59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5616A7BD5700C36331 /* CoreDataHelper.m */; };
+		59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5A16A7C50900C36331 /* LRPLoginViewController.m */; };
 		59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091916A73E0500267021 /* UIKit.framework */; };
 		59A7091C16A73E0500267021 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091B16A73E0500267021 /* Foundation.framework */; };
 		59A7091E16A73E0500267021 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091D16A73E0500267021 /* CoreGraphics.framework */; };
@@ -18,9 +27,32 @@
 		59A7093016A73E0500267021 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7092F16A73E0500267021 /* Default@2x.png */; };
 		59A7093216A73E0500267021 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7093116A73E0500267021 /* Default-568h@2x.png */; };
 		59A7093516A73E0500267021 /* Repassitory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */; };
+		59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */; };
+		59A7094916A74C8300267021 /* Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094816A74C8300267021 /* Users.m */; };
+		59A7094C16A74C8400267021 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094B16A74C8400267021 /* Record.m */; };
+		59CE449516A8B70B00AA967D /* LRPReocrdListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		590EDBE316AD4770006E7C24 /* LRPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecord.h; sourceTree = "<group>"; };
+		590EDBE416AD4770006E7C24 /* LRPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecord.m; sourceTree = "<group>"; };
+		5924733A16AD180400A8DD14 /* LRPMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPMasterViewController.h; sourceTree = "<group>"; };
+		5924733B16AD180400A8DD14 /* LRPMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPMasterViewController.m; sourceTree = "<group>"; };
+		5924734716AD185400A8DD14 /* LRPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRPRecord.h; path = ../LRPRecord.h; sourceTree = "<group>"; };
+		5924734816AD185400A8DD14 /* LRPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRPRecord.m; path = ../LRPRecord.m; sourceTree = "<group>"; };
+		5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPSplitViewController.h; sourceTree = "<group>"; };
+		5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPSplitViewController.m; sourceTree = "<group>"; };
+		5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
+		5938C38D16AD437700C2EBDE /* LRPAddRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAddRecordViewController.h; sourceTree = "<group>"; };
+		5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAddRecordViewController.m; sourceTree = "<group>"; };
+		5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPDetailViewController.h; sourceTree = "<group>"; };
+		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
+		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
+		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
+		59951B5516A7BD5700C36331 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
+		59951B5616A7BD5700C36331 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		59951B5916A7C50900C36331 /* LRPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPLoginViewController.h; sourceTree = "<group>"; };
+		59951B5A16A7C50900C36331 /* LRPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPLoginViewController.m; sourceTree = "<group>"; };
 		59A7091516A73E0500267021 /* Repassitory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repassitory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A7091916A73E0500267021 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		59A7091B16A73E0500267021 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -36,6 +68,13 @@
 		59A7092F16A73E0500267021 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		59A7093116A73E0500267021 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		59A7093416A73E0500267021 /* Repassitory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Repassitory.xcdatamodel; sourceTree = "<group>"; };
+		59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
+		59A7094716A74C8300267021 /* Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Users.h; sourceTree = "<group>"; };
+		59A7094816A74C8300267021 /* Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Users.m; sourceTree = "<group>"; };
+		59A7094A16A74C8400267021 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
+		59A7094B16A74C8400267021 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		59CE449316A8B70B00AA967D /* LRPReocrdListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPReocrdListViewController.h; sourceTree = "<group>"; };
+		59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPReocrdListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +92,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5924734F16AD3C5100A8DD14 /* to_be_removed */ = {
+			isa = PBXGroup;
+			children = (
+				59CE449316A8B70B00AA967D /* LRPReocrdListViewController.h */,
+				59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */,
+				5924734716AD185400A8DD14 /* LRPRecord.h */,
+				5924734816AD185400A8DD14 /* LRPRecord.m */,
+			);
+			name = to_be_removed;
+			sourceTree = "<group>";
+		};
 		59A7090A16A73E0500267021 = {
 			isa = PBXGroup;
 			children = (
 				59A7092116A73E0500267021 /* Repassitory */,
+				59A7092216A73E0500267021 /* Supporting Files */,
 				59A7091816A73E0500267021 /* Frameworks */,
 				59A7091616A73E0500267021 /* Products */,
 			);
@@ -84,10 +135,24 @@
 		59A7092116A73E0500267021 /* Repassitory */ = {
 			isa = PBXGroup;
 			children = (
+				5938C38D16AD437700C2EBDE /* LRPAddRecordViewController.h */,
+				5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */,
+				5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */,
+				5938C39016AD437700C2EBDE /* LRPDetailViewController.m */,
+				5938C39316AD437700C2EBDE /* LRPRecordDataController.h */,
+				5938C39416AD437700C2EBDE /* LRPRecordDataController.m */,
+				5924734F16AD3C5100A8DD14 /* to_be_removed */,
+				5924733A16AD180400A8DD14 /* LRPMasterViewController.h */,
+				5924733B16AD180400A8DD14 /* LRPMasterViewController.m */,
 				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
 				59A7092B16A73E0500267021 /* LRPAppDelegate.m */,
-				59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */,
-				59A7092216A73E0500267021 /* Supporting Files */,
+				59951B5916A7C50900C36331 /* LRPLoginViewController.h */,
+				59951B5A16A7C50900C36331 /* LRPLoginViewController.m */,
+				59A7094616A74AFC00267021 /* Core data */,
+				5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */,
+				5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */,
+				5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */,
+				59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */,
 			);
 			path = Repassitory;
 			sourceTree = "<group>";
@@ -104,6 +169,23 @@
 				59A7093116A73E0500267021 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = Repassitory;
+			sourceTree = "<group>";
+		};
+		59A7094616A74AFC00267021 /* Core data */ = {
+			isa = PBXGroup;
+			children = (
+				590EDBE316AD4770006E7C24 /* LRPRecord.h */,
+				590EDBE416AD4770006E7C24 /* LRPRecord.m */,
+				59951B5516A7BD5700C36331 /* CoreDataHelper.h */,
+				59951B5616A7BD5700C36331 /* CoreDataHelper.m */,
+				59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */,
+				59A7094A16A74C8400267021 /* Record.h */,
+				59A7094B16A74C8400267021 /* Record.m */,
+				59A7094716A74C8300267021 /* Users.h */,
+				59A7094816A74C8300267021 /* Users.m */,
+			);
+			name = "Core data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +244,8 @@
 				59A7092E16A73E0500267021 /* Default.png in Resources */,
 				59A7093016A73E0500267021 /* Default@2x.png in Resources */,
 				59A7093216A73E0500267021 /* Default-568h@2x.png in Resources */,
+				59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */,
+				5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +259,17 @@
 				59A7092816A73E0500267021 /* main.m in Sources */,
 				59A7092C16A73E0500267021 /* LRPAppDelegate.m in Sources */,
 				59A7093516A73E0500267021 /* Repassitory.xcdatamodeld in Sources */,
+				59A7094916A74C8300267021 /* Users.m in Sources */,
+				59A7094C16A74C8400267021 /* Record.m in Sources */,
+				59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */,
+				59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */,
+				59CE449516A8B70B00AA967D /* LRPReocrdListViewController.m in Sources */,
+				5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */,
+				5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */,
+				5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */,
+				5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */,
+				5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */,
+				590EDBE516AD4770006E7C24 /* LRPRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +346,7 @@
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -262,6 +358,7 @@
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -285,6 +382,7 @@
 				59A7093A16A73E0500267021 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

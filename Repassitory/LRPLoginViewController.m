@@ -8,6 +8,8 @@
 
 #import "LRPLoginViewController.h"
 
+
+#import "LRPSplitViewController.h"
 #import "CoreDataHelper.h"
 
 @interface LRPLoginViewController ()
@@ -75,11 +77,44 @@
     }
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"LoginSegue"]) {
+ 
+        // Set managed object on Split View
+//        LRPSplitViewController* splitVC = [segue destinationViewController];
+//        splitVC.managedObjectContext = self.managedObjectContext;
+
+        // Split Window optional loading for ipad/iphone
+        // Override point for customization after application launch.
+ //       if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+//                    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+//                    UINavigationController *navigationController = [splitVC.viewControllers lastObject];
+//                    splitVC.delegate = (id)navigationController.topViewController;
+//        }
+
+    }
+
+    
+}
+
+
+
+
+
 //  When the view reappears after logout we want to wipe the username and password fields
 - (void)viewWillAppear:(BOOL)animated
 {
     [usernameField setText:@""];
     [passwordField setText:@""];
+    
+    // Obtain managedContext
+    self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    self.managedObjectContext = self.splitVC.managedObjectContext;
+    
+    // register self with SplitVC
+    self.splitVC.loginVC = self;
 }
 
 
