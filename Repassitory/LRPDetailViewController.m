@@ -10,6 +10,8 @@
 
 #import "LRPSplitViewController.h"
 #import "LRPRecord.h"
+#import "LRPUser.h"
+#import "LRPLoginViewController.h"
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -64,6 +66,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    // Obtain managedContext
+    self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    self.managedObjectContext = self.splitVC.managedObjectContext;
+    
+    // register self with SplitVC
+    self.splitVC.detailVC = self;
+    
+    // Test for user logged in
+//    if (self.splitVC.user.password || self.splitVC.user.username) {
+    NSString *test = self.splitVC.user.password;
+    if ([test isEqualToString:@""]) {
+        [self performSegueWithIdentifier:@"DoLoginSegue" sender:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,12 +106,18 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // Obtain managedContext
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.managedObjectContext = self.splitVC.managedObjectContext;
-    
-    // register self with SplitVC
-    self.splitVC.detailVC = self;
+
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"DoLoginSegue"]) {
+        // Set managed object on Split View
+        LRPLoginViewController* loginVC = [segue destinationViewController];
+        loginVC.managedObjectContext = self.managedObjectContext;
+        loginVC.splitVC = self.splitVC;
+    }
 }
 
 @end

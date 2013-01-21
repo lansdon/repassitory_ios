@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Users.h"
-
 
 @class LRPLoginViewController;
+//@class User;
 
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
 

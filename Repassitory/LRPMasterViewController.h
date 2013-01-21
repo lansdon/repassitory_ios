@@ -14,7 +14,7 @@
 
 @interface LRPMasterViewController : UITableViewController
 
-//@property (strong, nonatomic) LRPDetailViewController *detailViewController;
+@property (strong, nonatomic) LRPDetailViewController *detailViewController;
 
 @property (strong, nonatomic) LRPRecordDataController* dataController;
 

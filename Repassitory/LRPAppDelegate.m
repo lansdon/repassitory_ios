@@ -9,7 +9,7 @@
 #import "LRPAppDelegate.h"
 
 #import "LRPLoginViewController.h"
-#import "Users.h"
+#import "User.h"
 
 
 @implementation LRPAppDelegate
@@ -22,14 +22,7 @@
 {
     LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
     rootView.managedObjectContext = self.managedObjectContext;
-    
-//    NSArray *viewControllers = rootView.childViewControllers;
-//    NSEnumerator *enumerator = [viewControllers objectEnumerator];
-//    UIViewController* obj;
-//    while ( obj = [enumerator nextObject] ) {
-//        obj.managedObjectContext = self.managedObjectContext;        
- //   }
-    
+        
     // Get a reference to the stardard user defaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -41,7 +34,7 @@
         [prefs synchronize];
         
         // Add our default user object in Core Data
-        Users *user = (Users *)[NSEntityDescription insertNewObjectForEntityForName:@"Users" inManagedObjectContext:self.managedObjectContext];
+        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
         [user setUsername:@"admin"];
         [user setPassword:@"password"];
         

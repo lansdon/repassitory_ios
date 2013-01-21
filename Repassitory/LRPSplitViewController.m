@@ -8,6 +8,8 @@
 
 #import "LRPSplitViewController.h"
 
+#import "LRPUser.h"
+
 @interface LRPSplitViewController ()
 
 @end
@@ -27,6 +29,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    _user = [[LRPUser alloc] init];
 }
 
 - (void)didReceiveMemoryWarning

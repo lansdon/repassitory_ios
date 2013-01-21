@@ -11,6 +11,8 @@
 
 #import "LRPSplitViewController.h"
 #import "CoreDataHelper.h"
+#import "LRPUser.h"
+#import "User.h"
 
 @interface LRPLoginViewController ()
 - (IBAction)resignAndLogin:(id)sender;
@@ -34,6 +36,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // Obtain managedContext
+    if(!self.splitVC)
+        self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    if(!self.managedObjectContext)
+        self.managedObjectContext = self.splitVC.managedObjectContext;
+    
+    // register self with SplitVC
+    if(!self.splitVC.loginVC)
+        self.splitVC.loginVC = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,15 +76,21 @@
         
         //  Actually run the query in Core Data and return the count of found users with these details
         //  Obviously if it found ANY then we got the username and password right!
-        if ([CoreDataHelper countForEntity:@"Users" withPredicate:pred andContext:managedObjectContext] > 0)
+        LRPUser *temp = [LRPUser alloc];
+        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:managedObjectContext] > 0) {
             
             //  We found a matching login user!  Force the segue transition to the next view
-            [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
-        
-        else
+            temp.username = usernameField.text;
+            temp.password = passwordField.text;
+ 
+            [self dismissViewControllerAnimated:true completion:nil];
+ //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
             
+        } else {
             //  We didn't find any matching login users. Wipe the password field to re-enter
             [passwordField setText:@""];
+        }
+        self.splitVC.user = temp; // Update splitVC User
     }
 }
 
@@ -109,12 +126,6 @@
     [usernameField setText:@""];
     [passwordField setText:@""];
     
-    // Obtain managedContext
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.managedObjectContext = self.splitVC.managedObjectContext;
-    
-    // register self with SplitVC
-    self.splitVC.loginVC = self;
 }
 
 

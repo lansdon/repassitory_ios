@@ -7,9 +7,9 @@
         <!--Login View Controller-->
         <scene sceneID="u4D-Q7-82K">
             <objects>
-                <viewController id="bZU-8m-ukd" customClass="LRPLoginViewController" sceneMemberID="viewController">
+                <viewController autoresizesArchivedViewToFullSize="NO" id="bZU-8m-ukd" customClass="LRPLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aZk-le-Hso">
-                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BWe-pc-l3x">
@@ -73,12 +73,11 @@
                     <connections>
                         <outlet property="passwordField" destination="Wa6-Nu-QpQ" id="pcv-sW-rJa"/>
                         <outlet property="usernameField" destination="BWe-pc-l3x" id="XFr-B5-8CM"/>
-                        <segue destination="C9Z-Mz-sva" kind="push" identifier="LoginSegue" id="THb-tr-MfJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPh-FK-3GH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-890" y="319"/>
+            <point key="canvasLocation" x="-126" y="352"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KT5-B9-5IK">
@@ -245,16 +244,17 @@
                         <outlet property="titleLabel" destination="ytR-cy-tmW" id="Sqa-NE-VAO"/>
                         <outlet property="urlLabel" destination="j5p-PF-KvH" id="Ld1-DM-hjB"/>
                         <outlet property="usernameLabel" destination="1rQ-af-fQ0" id="M7q-8j-lGS"/>
+                        <segue destination="bZU-8m-ukd" kind="modal" identifier="DoLoginSegue" id="AjP-We-66l"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ocY-QN-bwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="44" y="319"/>
+            <point key="canvasLocation" x="-1056" y="312"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Split View Controller - Repassitory-->
         <scene sceneID="d0I-MF-VtG">
             <objects>
-                <splitViewController id="Yrh-6T-8Af" customClass="LRPSplitViewController" sceneMemberID="viewController">
+                <splitViewController title="Repassitory" id="Yrh-6T-8Af" customClass="LRPSplitViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -329,7 +329,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="bZU-8m-ukd" kind="relationship" relationship="rootViewController" id="gs6-ov-u2D"/>
+                        <segue destination="C9Z-Mz-sva" kind="relationship" relationship="rootViewController" id="fmj-0c-1EW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xkC-TS-adD" userLabel="First Responder" sceneMemberID="firstResponder"/>

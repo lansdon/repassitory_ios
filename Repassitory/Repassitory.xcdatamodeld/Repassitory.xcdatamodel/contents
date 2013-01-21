@@ -8,12 +8,12 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Users" representedClassName="Users" syncable="YES">
+    <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Users" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Record" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

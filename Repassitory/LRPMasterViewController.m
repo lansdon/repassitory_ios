@@ -44,8 +44,8 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
  */
-//    self.detailViewController = (LRPDetailViewController *)
-//        [[self.splitViewController.viewControllers lastObject] topViewController];
+    self.detailViewController = (LRPDetailViewController *)
+        [[self.splitViewController.viewControllers lastObject] topViewController];
 
 }
 
@@ -138,8 +138,8 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
          LRPRecord* currentRecord = [self.dataController recordAtIndex:indexPath.row];
-        [self.splitVC.detailVC setRecord:currentRecord];
-//        [self.detailViewController setRecord:currentRecord];
+//        [self.splitVC.detailVC setRecord:currentRecord];
+        [self.detailViewController setRecord:currentRecord];
     
     }
 }

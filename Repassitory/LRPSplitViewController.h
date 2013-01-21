@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class LRPUser;
 @class LRPLoginViewController;
 @class LRPDetailViewController;
 @class LRPMasterViewController;
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) LRPDetailViewController *detailVC;
 @property (strong, nonatomic) LRPMasterViewController *masterVC;
 @property (strong, nonatomic) LRPAddRecordViewController *addVC;
+
+ @property (strong, nonatomic) LRPUser *user;
 
 
 @end
