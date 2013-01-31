@@ -16,7 +16,9 @@
 
 @interface LRPSplitViewController : UISplitViewController
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (weak, nonatomic) NSManagedObjectModel *managedObjectModel;
 
 @property (strong, nonatomic) LRPLoginViewController *loginVC;
 @property (strong, nonatomic) LRPDetailViewController *detailVC;

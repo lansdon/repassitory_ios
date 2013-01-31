@@ -2,7 +2,7 @@
 //  User.h
 //  Repassitory
 //
-//  Created by Lansdon Page on 1/21/13.
+//  Created by Lansdon Page on 1/29/13.
 //  Copyright (c) 2013 Lansdon Page. All rights reserved.
 //
 
@@ -14,7 +14,5 @@
 
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, retain) NSString * username;
-
-- (id)init;
 
 @end

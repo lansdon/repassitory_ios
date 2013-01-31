@@ -2,7 +2,7 @@
 //  Record.m
 //  Repassitory
 //
-//  Created by Lansdon Page on 1/16/13.
+//  Created by Lansdon Page on 1/29/13.
 //  Copyright (c) 2013 Lansdon Page. All rights reserved.
 //
 
@@ -12,10 +12,8 @@
 @implementation Record
 
 @dynamic title;
-@dynamic username;
-@dynamic password;
 @dynamic url;
-@dynamic notes;
-@dynamic updated;
+@dynamic password;
+@dynamic username;
 
 @end

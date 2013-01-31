@@ -12,10 +12,14 @@
 
 @interface LRPLoginViewController : UIViewController
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (weak, nonatomic) NSManagedObjectModel *managedObjectModel;
+
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
+
 
 @end
