@@ -79,14 +79,14 @@
         
         //  Actually run the query in Core Data and return the count of found users with these details
         //  Obviously if it found ANY then we got the username and password right!
-        LRPUser *temp = [LRPUser alloc];
-        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:managedObjectContext] > 0) {
+        LRPUser *currentUser = [LRPUser alloc];
+        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
             
             //  We found a matching login user!  Force the segue transition to the next view
-            temp.username = usernameField.text;
-            temp.password = passwordField.text;
+            currentUser.username = usernameField.text;
+            currentUser.password = passwordField.text;
             
-            _persistentStoreCoordinator = [CoreDataHelper loadUserStore:temp persistentStoreCoordinator:_persistentStoreCoordinator managedObjectModel:_managedObjectModel];
+            _persistentStoreCoordinator = [CoreDataHelper loadUserStore:currentUser];
             
             [self dismissViewControllerAnimated:true completion:nil];
  //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
@@ -95,7 +95,7 @@
             //  We didn't find any matching login users. Wipe the password field to re-enter
             [passwordField setText:@""];
         }
-        self.splitVC.user = temp; // Update splitVC User
+        self.splitVC.user = currentUser; // Update splitVC User
     }
 }
 

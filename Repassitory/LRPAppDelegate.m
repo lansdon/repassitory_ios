@@ -16,22 +16,22 @@
 
 @implementation LRPAppDelegate
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+//@synthesize managedObjectContext = _managedObjectContext;
+//@synthesize managedObjectModel = _managedObjectModel;
+//@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
-    _managedObjectModel = [CoreDataHelper managedObjectModel:_managedObjectModel];
+    NSManagedObjectModel* _managedObjectModel = [CoreDataHelper managedObjectModel];
     
-    _persistentStoreCoordinator = [CoreDataHelper loadPersistentStoreCoordinator:_persistentStoreCoordinator managedObjectModel:_managedObjectModel];
+    NSPersistentStoreCoordinator* _persistentStoreCoordinator = [CoreDataHelper persistentStoreCoordinator];
 
-    _managedObjectContext = [CoreDataHelper managedObjectContext:_managedObjectContext managedObjectModel:_managedObjectModel];
+    NSManagedObjectContext* _managedObjectContext = [CoreDataHelper managedObjectContext];
     
-    rootView.managedObjectContext = _managedObjectContext;
-    rootView.persistentStoreCoordinator = _persistentStoreCoordinator;
-    rootView.managedObjectModel = _managedObjectModel;
+//    rootView.managedObjectContext = _managedObjectContext;
+//    rootView.persistentStoreCoordinator = _persistentStoreCoordinator;
+//    rootView.managedObjectModel = _managedObjectModel;
     
     // Get a reference to the stardard user defaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -44,13 +44,13 @@
         [prefs synchronize];
         
         // Add our default user object in Core Data
-        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:_managedObjectContext];
         [user setUsername:@"admin"];
         [user setPassword:@"password"];
         
         // Commit to core data
         NSError *error;
-        if (![self.managedObjectContext save:&error])
+        if (![_managedObjectContext save:&error])
             NSLog(@"Failed to add default user with error: %@", [error domain]);
     }
 
@@ -78,8 +78,6 @@
     
 //     _loginViewController = (LRPLoginViewController *)self.window.rootViewController;
 
-   
-    
     return YES;
 }
 
@@ -114,7 +112,7 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    NSManagedObjectContext *managedObjectContext = [CoreDataHelper managedObjectContext];
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
              // Replace this implementation with code to handle the error appropriately.
@@ -124,27 +122,6 @@
         } 
     }
 }
-
-#pragma mark - Core Data stack
-/*
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-
-*/
 
 
 #pragma mark - Application's Documents directory

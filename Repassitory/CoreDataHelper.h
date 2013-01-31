@@ -19,15 +19,13 @@
 
 // Load databases
 
-+ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user
-            persistentStoreCoordinator:(NSPersistentStoreCoordinator*) persistentStoreCoordinator
-                           managedObjectModel:(NSManagedObjectModel*)managedObjectModel;
++ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user;
  
-+ (NSPersistentStoreCoordinator *)loadPersistentStoreCoordinator:(NSPersistentStoreCoordinator*)persistentStoreCoordinator managedObjectModel:(NSManagedObjectModel *)managedObjectModel;
++ (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 
-+ (NSManagedObjectModel *)managedObjectModel:(NSManagedObjectModel*)managedObjectModel;
++ (NSManagedObjectModel *)managedObjectModel;
 
-+ (NSManagedObjectContext *)managedObjectContext:(NSManagedObjectContext*)managedObjectContext managedObjectModel:(NSManagedObjectModel*)managedObjectModel;
++ (NSManagedObjectContext *)managedObjectContext;
 
 + (NSURL *)applicationDocumentsDirectory;
 
