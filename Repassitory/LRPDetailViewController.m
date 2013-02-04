@@ -78,7 +78,7 @@
     if ([[[LRPAppState currentUser] username] isEqualToString:@""] ||
         [[[LRPAppState currentUser] password] isEqualToString:@""]) {
 
-        [self performSegueWithIdentifier:@"DoLoginSegue" sender:self];
+//        [self performSegueWithIdentifier:@"DoLoginSegue" sender:self];
     }
 }
 

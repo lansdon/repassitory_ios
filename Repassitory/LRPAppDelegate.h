@@ -10,17 +10,18 @@
 
 
 @class LRPLoginViewController;
-//@class User;
+@class LRPSplitViewController;
+
 
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) LRPLoginViewController *loginViewController;
+@property (strong, nonatomic) LRPLoginViewController *loginVC;
+@property (strong, nonatomic) LRPSplitViewController *splitVC;
 
 @property (strong, nonatomic) UIWindow *window;
 
-//@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-//@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-//@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void) loginSuccessfuil;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

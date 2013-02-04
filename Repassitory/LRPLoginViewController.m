@@ -12,6 +12,8 @@
 #import "CoreDataHelper.h"
 #import "LRPUser.h"
 #import "LRPAppState.h"
+#import "LRPAppDelegate.h"
+
 
 @interface LRPLoginViewController ()
 - (IBAction)resignAndLogin:(id)sender;
@@ -81,7 +83,10 @@
             
             [LRPAppState setCurrentUser:loginUser];
             [CoreDataHelper loadUserStore:loginUser];   // load db into context
- //           [self.splitVC.masterVC.dataController lo]
+
+            // Load new root view from app delegate
+            LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate loginSuccessfuil];
             
             [self dismissViewControllerAnimated:true completion:nil];
  //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
@@ -95,70 +100,12 @@
 }
 
 
-/*
-- (NSPersistentStoreCoordinator *)getUserStore:(NSString*)username password:(NSString*) password;
-{
-    if (!_persistentStoreCoordinator) {
-        _persistentStoreCoordinator = self.persistentStoreCoordinator;
-    }
-    
-    NSString *userStr = [NSString stringWithFormat:@"%@%@.sqlite", username, password];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:
-                       userStr];
-    
-    NSError *error = nil;
-    //    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
- 
-        //        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
-}
-*/
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"LoginSegue"]) {
+ //   if ([[segue identifier] isEqualToString:@"LoginSegue"]) {
  
-        // Set managed object on Split View
-//        LRPSplitViewController* splitVC = [segue destinationViewController];
-//        splitVC.managedObjectContext = self.managedObjectContext;
-
-        // Split Window optional loading for ipad/iphone
-        // Override point for customization after application launch.
- //       if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//                    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-//                    UINavigationController *navigationController = [splitVC.viewControllers lastObject];
-//                    splitVC.delegate = (id)navigationController.topViewController;
-//        }
-
-    }
+ //   }
 
     
 }
