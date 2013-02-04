@@ -11,6 +11,7 @@
 #import "LRPLoginViewController.h"
 #import "User.h"
 #import "CoreDataHelper.h"
+#import "LRPAppState.h"
 
 
 
@@ -22,12 +23,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
-    NSManagedObjectModel* _managedObjectModel = [CoreDataHelper managedObjectModel];
+//    LRPLoginViewController *rootView = (LRPLoginViewController *)self.window.rootViewController;
+//    NSManagedObjectModel* _managedObjectModel =
+    [CoreDataHelper managedObjectModel];
     
-    NSPersistentStoreCoordinator* _persistentStoreCoordinator = [CoreDataHelper persistentStoreCoordinator];
+//    NSPersistentStoreCoordinator* _persistentStoreCoordinator =
+    [CoreDataHelper persistentStoreCoordinator];
 
-    NSManagedObjectContext* _managedObjectContext = [CoreDataHelper managedObjectContext];
+//    NSManagedObjectContext* _managedObjectContext =
+    [CoreDataHelper managedObjectContext];
     
 //    rootView.managedObjectContext = _managedObjectContext;
 //    rootView.persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -44,15 +48,18 @@
         [prefs synchronize];
         
         // Add our default user object in Core Data
-        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:_managedObjectContext];
+        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         [user setUsername:@"admin"];
         [user setPassword:@"password"];
         
         // Commit to core data
         NSError *error;
-        if (![_managedObjectContext save:&error])
+        if (![[CoreDataHelper managedObjectContext] save:&error])
             NSLog(@"Failed to add default user with error: %@", [error domain]);
-    }
+        }
+    
+    // Reset App State
+    [LRPAppState reset];
 
     // Split Window optional loading for ipad/iphone
     // Override point for customization after application launch.
@@ -85,28 +92,33 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [LRPAppState reset];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [LRPAppState reset];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [LRPAppState reset];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [LRPAppState reset];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    [LRPAppState reset];
 }
 
 - (void)saveContext

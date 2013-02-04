@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class LRPUser;
 @class LRPLoginViewController;
 @class LRPDetailViewController;
 @class LRPMasterViewController;
@@ -16,16 +15,11 @@
 
 @interface LRPSplitViewController : UISplitViewController
 
-@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (weak, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (weak, nonatomic) NSManagedObjectModel *managedObjectModel;
 
 @property (strong, nonatomic) LRPLoginViewController *loginVC;
 @property (strong, nonatomic) LRPDetailViewController *detailVC;
 @property (strong, nonatomic) LRPMasterViewController *masterVC;
 @property (strong, nonatomic) LRPAddRecordViewController *addVC;
-
- @property (strong, nonatomic) LRPUser *user;
 
 
 @end

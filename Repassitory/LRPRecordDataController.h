@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class LRPRecord;
+@class LRPUser;
 
 @interface LRPRecordDataController : NSObject
 
 @property (nonatomic, copy) NSMutableArray* masterRecordList;
+
+//- (id)initWithUser:(LRPUser*)currentUser;
 
 - (NSUInteger)countOfList;
 
@@ -20,6 +23,6 @@
 
 - (void)addRecord:(LRPRecord*)record;
 
-
+- (BOOL)loadUserRecordsFromContext;
 
 @end

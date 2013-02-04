@@ -13,6 +13,7 @@
 #import "LRPRecord.h"
 #import "LRPAddRecordViewController.h"
 #import "LRPSplitViewController.h"
+#import "LRPAppState.h"
 
 /*
 @interface LRPMasterViewController () {
@@ -31,7 +32,7 @@
     }
     [super awakeFromNib];
 
-    self.dataController = [[LRPRecordDataController alloc] init];
+//    self.dataController = [[LRPRecordDataController alloc] initWithUser:[LRPAppState currentUser]];
 
 }
 
@@ -47,6 +48,7 @@
     self.detailViewController = (LRPDetailViewController *)
         [[self.splitViewController.viewControllers lastObject] topViewController];
 
+    self.dataController = [[LRPRecordDataController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,7 +99,6 @@
     [[cell textLabel] setText:recordAtIndex.title];
     
     [[cell detailTextLabel] setText:recordAtIndex.username];
-    
     
     return cell;
 }
@@ -178,12 +179,18 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {    
-    // Obtain managedContext
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.managedObjectContext = self.splitVC.managedObjectContext;
-    
     // register self with SplitVC
+    self.splitVC = (LRPSplitViewController *)self.splitViewController;
     self.splitVC.masterVC = self;
+
+    // Check for valid Data Controller
+    if (!_dataController) {
+        self.dataController = [[LRPRecordDataController alloc] init];
+    }
+    if(![self.dataController loadUserRecordsFromContext]) {
+        // error loading user records
+    }
+        
 }
 
 

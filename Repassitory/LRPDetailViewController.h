@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel* urlLabel;
 @property (weak, nonatomic) IBOutlet UILabel* dateLabel;
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 @end

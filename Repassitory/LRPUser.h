@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class User;
+
 @interface LRPUser : NSObject
 
-@property (nonatomic, retain) NSString *password;
-@property (nonatomic, retain) NSString *username;
+@property (nonatomic, retain) NSString* password;
+@property (nonatomic, retain) NSString* username;
 
 - (id)init;
+- (id)initWithName:(NSString*)name password:(NSString*)password;
+- (id)initWithUser:(User*)sourceUser;
 
 @end

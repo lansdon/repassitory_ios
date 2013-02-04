@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) LRPRecordDataController* dataController;
 
-@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 - (IBAction)done:(UIStoryboardSegue *)segue;

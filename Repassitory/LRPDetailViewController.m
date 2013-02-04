@@ -12,6 +12,7 @@
 #import "LRPRecord.h"
 #import "LRPUser.h"
 #import "LRPLoginViewController.h"
+#import "LRPAppState.h"
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -56,7 +57,7 @@
         self.titleLabel.text = theRecord.title;
         self.usernameLabel.text = theRecord.username;
         self.passwordLabel.text = theRecord.password;
-        self.urlLabel.text = [theRecord.url absoluteString];
+        self.urlLabel.text = theRecord.url;
         self.dateLabel.text = [formatter stringFromDate:(NSDate*)theRecord.date];
     }
 }
@@ -68,15 +69,15 @@
     [self configureView];
     // Obtain managedContext
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.managedObjectContext = self.splitVC.managedObjectContext;
+//    self.managedObjectContext = self.splitVC.managedObjectContext;
     
     // register self with SplitVC
     self.splitVC.detailVC = self;
     
     // Test for user logged in
-//    if (self.splitVC.user.password || self.splitVC.user.username) {
-    NSString *test = self.splitVC.user.password;
-    if ([test isEqualToString:@""]) {
+    if ([[[LRPAppState currentUser] username] isEqualToString:@""] ||
+        [[[LRPAppState currentUser] password] isEqualToString:@""]) {
+
         [self performSegueWithIdentifier:@"DoLoginSegue" sender:self];
     }
 }
@@ -115,7 +116,7 @@
     if ([[segue identifier] isEqualToString:@"DoLoginSegue"]) {
         // Set managed object on Split View
         LRPLoginViewController* loginVC = [segue destinationViewController];
-        loginVC.managedObjectContext = self.managedObjectContext;
+//        loginVC.managedObjectContext = self.managedObjectContext;
         loginVC.splitVC = self.splitVC;
     }
 }

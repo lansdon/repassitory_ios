@@ -17,8 +17,8 @@
 +(NSUInteger)countForEntity:(NSString *)entityName andContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSUInteger)countForEntity:(NSString *)entityName withPredicate:(NSPredicate *)predicate andContext:(NSManagedObjectContext *)managedObjectContext;
 
-// Load databases
 
+// Core Data singleton functions
 + (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user;
  
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
@@ -29,7 +29,7 @@
 
 + (NSURL *)applicationDocumentsDirectory;
 
-// Static pointers
++ (void)saveContext;
 
 
 @end

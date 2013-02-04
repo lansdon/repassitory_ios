@@ -14,11 +14,12 @@
 @property (copy, nonatomic) NSString* title;
 @property (copy, nonatomic) NSString* username;
 @property (strong, nonatomic) NSString* password;
-@property (strong, nonatomic) NSURL* url;
+@property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) NSDate* date;
+@property (strong, nonatomic) NSString* notes;
 //@property (strong, nonatomic) NSMutableString* category;
 // ID ??
 
--(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSURL*)url;
+-(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSString*)url notes:(NSString*)notes;
 
 @end

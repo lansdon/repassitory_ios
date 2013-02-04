@@ -103,12 +103,12 @@
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         if ([self.titleInput.text length]) {
 //            NSDate *today = [NSDate date];
-            NSURL *newUrl = [[NSURL alloc] initWithString:self.urlInput.text];
+//            NSURL *newUrl = [[NSURL alloc] initWithString:self.urlInput.text];
 //            LRPRecord *record;
             self.record = [[LRPRecord alloc] initWithTitle:self.titleInput.text
                                         username:self.usernameInput.text
                                         password:self.passwordInput.text
-                                        url:newUrl];
+                                                       url:self.urlInput.text notes:@"" ]; //self.notesInput.text];
  //           self.record = record;
         }
     }
@@ -118,7 +118,7 @@
 {
     // Obtain managedContext
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.managedObjectContext = self.splitVC.managedObjectContext;
+//    self.managedObjectContext = self.splitVC.managedObjectContext;
     
     // register self with SplitVC
     self.splitVC.addVC = self;

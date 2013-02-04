@@ -10,7 +10,7 @@
 
 @implementation LRPRecord
 
--(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSURL*)url {
+-(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSString*)url notes:(NSString*)notes {
     
     if(self) {
         _title = title;
@@ -18,6 +18,7 @@
         _password = password;
         _url = url;
         _date = [[NSDate alloc] init];
+        _notes = notes;
         
         return self;
     }

@@ -11,7 +11,7 @@
 #import "LRPSplitViewController.h"
 #import "CoreDataHelper.h"
 #import "LRPUser.h"
-#import "User.h"
+#import "LRPAppState.h"
 
 @interface LRPLoginViewController ()
 - (IBAction)resignAndLogin:(id)sender;
@@ -19,7 +19,7 @@
 
 @implementation LRPLoginViewController
 
-@synthesize managedObjectContext, usernameField, passwordField;
+@synthesize usernameField, passwordField;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,12 +38,6 @@
     // Obtain managedContext
     if(!self.splitVC)
         self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    if(!self.managedObjectContext)
-        self.managedObjectContext = self.splitVC.managedObjectContext;
-    if(!self.managedObjectModel)
-        self.managedObjectModel = self.splitVC.managedObjectModel;
-    if(!self.persistentStoreCoordinator)
-        self.persistentStoreCoordinator = self.splitVC.persistentStoreCoordinator;
 
     // register self with SplitVC
     if(!self.splitVC.loginVC)
@@ -79,14 +73,15 @@
         
         //  Actually run the query in Core Data and return the count of found users with these details
         //  Obviously if it found ANY then we got the username and password right!
-        LRPUser *currentUser = [LRPUser alloc];
+        LRPUser *loginUser = nil;
         if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
             
             //  We found a matching login user!  Force the segue transition to the next view
-            currentUser.username = usernameField.text;
-            currentUser.password = passwordField.text;
+            loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
             
-            _persistentStoreCoordinator = [CoreDataHelper loadUserStore:currentUser];
+            [LRPAppState setCurrentUser:loginUser];
+            [CoreDataHelper loadUserStore:loginUser];   // load db into context
+ //           [self.splitVC.masterVC.dataController lo]
             
             [self dismissViewControllerAnimated:true completion:nil];
  //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
@@ -95,7 +90,7 @@
             //  We didn't find any matching login users. Wipe the password field to re-enter
             [passwordField setText:@""];
         }
-        self.splitVC.user = currentUser; // Update splitVC User
+        [LRPAppState setCurrentUser:loginUser]; // Update splitVC User
     }
 }
 
