@@ -21,7 +21,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
-- (void) loginSuccessfuil;
+- (void) loginSuccessfull;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

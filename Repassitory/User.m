@@ -2,7 +2,7 @@
 //  User.m
 //  Repassitory
 //
-//  Created by Lansdon Page on 2/3/13.
+//  Created by Lansdon Page on 2/5/13.
 //  Copyright (c) 2013 Lansdon Page. All rights reserved.
 //
 
@@ -11,8 +11,10 @@
 
 @implementation User
 
-@dynamic password;
 @dynamic username;
-@dynamic id;
+@dynamic password;
+@dynamic user_id;
+@dynamic security_answer;
+@dynamic security_question;
 
 @end

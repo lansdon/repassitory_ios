@@ -10,6 +10,7 @@
 
 #import "LRPLoginViewController.h"
 #import "LRPSplitViewController.h"
+#import "LRPMasterViewController.h"
 #import "User.h"
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
@@ -45,6 +46,8 @@
         User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         [user setUsername:@"admin"];
         [user setPassword:@"password"];
+        [user setSecurity_question:[NSNumber numberWithInt:1]];
+        [user setUser_id:[NSNumber numberWithInt:1]];
         
         // Commit to core data
         NSError *error;
@@ -57,22 +60,24 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
                                                              bundle: nil];
     
-    self.loginVC = (LRPLoginViewController*)self.window.rootViewController;
-
-    
+    if(!self.loginVC) {
+    self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+    }
+    if(!self.splitVC) {
     self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
-        
+    }
+    
  // Load Login first
     [self.window setRootViewController:_loginVC];
     
     
     // Split Window optional loading for ipad/iphone
     // Override point for customization after application launch.
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 //        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
         _splitVC.delegate = (id)navigationController.topViewController;
-//    }
+    }
 
     
     // Override point for customization after application launch.
@@ -83,23 +88,23 @@
 
 
 // Unload login screen and load split view
-- (void) loginSuccessfuil {
+- (void) loginSuccessfull {
     
     // remove old view
     [[[[self window ] subviews] objectAtIndex:0] removeFromSuperview];
 
-    // Load Login first
+    // Load User records into master view
+    [self.splitVC.masterVC loadUserRecords];
+
+    // add split view as new root controller
     [self.window setRootViewController:_splitVC];
     
-    
-    // add split view
-    
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//            UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-            UINavigationController *navigationController =
-            [_splitVC.viewControllers lastObject];
-            _splitVC.delegate = (id)navigationController.topViewController;
-        }
+    // ipad specific split view behavior
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UINavigationController *navigationController =
+        [_splitVC.viewControllers lastObject];
+        _splitVC.delegate = (id)navigationController.topViewController;
+    }
     
 }
 
@@ -138,6 +143,12 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [LRPAppState reset];
+    // remove old view
+//    [[[[self window ] subviews] objectAtIndex:0] removeFromSuperview];
+    
+    // Load Login first
+    [self.window setRootViewController:_loginVC];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

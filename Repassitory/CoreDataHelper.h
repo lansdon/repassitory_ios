@@ -19,8 +19,10 @@
 
 
 // Core Data singleton functions
-+ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user;
- 
+//+ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user;
+
++ (BOOL)createNewUserFromObject:(LRPUser*)newUser;
+
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 
 + (NSManagedObjectModel *)managedObjectModel;
@@ -31,5 +33,6 @@
 
 + (void)saveContext;
 
++ (int) getUniqueUserID;
 
 @end

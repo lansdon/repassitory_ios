@@ -23,4 +23,6 @@
 - (IBAction)done:(UIStoryboardSegue *)segue;
 - (IBAction)cancel:(UIStoryboardSegue *)segue;
 
+- (void) loadUserRecords;
+
 @end

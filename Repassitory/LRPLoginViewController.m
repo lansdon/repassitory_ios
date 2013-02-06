@@ -11,6 +11,7 @@
 #import "LRPSplitViewController.h"
 #import "CoreDataHelper.h"
 #import "LRPUser.h"
+#import "User.h"
 #import "LRPAppState.h"
 #import "LRPAppDelegate.h"
 
@@ -77,16 +78,18 @@
         //  Obviously if it found ANY then we got the username and password right!
         LRPUser *loginUser = nil;
         if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
+            User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
             
             //  We found a matching login user!  Force the segue transition to the next view
-            loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
+            loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
+//                                                     :[usernameField text] password:[passwordField text]];
             
             [LRPAppState setCurrentUser:loginUser];
-            [CoreDataHelper loadUserStore:loginUser];   // load db into context
+//            [CoreDataHelper loadUserStore:loginUser];   // load db into context
 
             // Load new root view from app delegate
             LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate loginSuccessfuil];
+            [appDelegate loginSuccessfull];
             
             [self dismissViewControllerAnimated:true completion:nil];
  //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
@@ -122,6 +125,43 @@
     
 }
 
+
+
+
+
+- (IBAction) createNewUser:(id)sender {
+
+    LRPUser* newUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
+    
+    // To do - collect security questions
+    
+    if([CoreDataHelper createNewUserFromObject:newUser]) {
+        // login new user automatically
+        [self resignAndLogin:sender];
+    } else {
+        
+        // ERROR CREATING USER - todo: send error message
+
+        [usernameField setText:@""];
+        [passwordField setText:@""];
+        
+        NSLog(@"Error - Failed to create new user");
+
+    }
+/*
+    // Check if username is taken
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@)", [usernameField text]];
+    
+    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
+        NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+        
+        [cdNewUser setValue:[usernameField text] forKey:@"username"];
+        [cdNewUser setValue:[passwordField text] forKey:@"password"];
+        
+        [self resignAndLogin:sender];
+    }
+ */
+}
 
 
 @end

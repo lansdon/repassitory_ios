@@ -7,6 +7,8 @@
 //
 
 #import "LRPRecord.h"
+#import "LRPAppState.h"
+#import "LRPUser.h"
 
 @implementation LRPRecord
 
@@ -17,8 +19,9 @@
         _username = username;
         _password = password;
         _url = url;
-        _date = [[NSDate alloc] init];
+        _updated = [[NSDate alloc] init];
         _notes = notes;
+        _user_id = [[LRPAppState currentUser] user_id];
         
         return self;
     }

@@ -102,13 +102,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         if ([self.titleInput.text length]) {
-//            NSDate *today = [NSDate date];
-//            NSURL *newUrl = [[NSURL alloc] initWithString:self.urlInput.text];
-//            LRPRecord *record;
             self.record = [[LRPRecord alloc] initWithTitle:self.titleInput.text
                                         username:self.usernameInput.text
                                         password:self.passwordInput.text
-                                                       url:self.urlInput.text notes:@"" ]; //self.notesInput.text];
+                                        url:self.urlInput.text notes:@"" ];
+                                        //self.notesInput.text];
  //           self.record = record;
         }
     }

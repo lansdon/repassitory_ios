@@ -190,8 +190,13 @@
     if(![self.dataController loadUserRecordsFromContext]) {
         // error loading user records
     }
-        
+    [self.tableView reloadData];
 }
 
+#pragma mark - User Functions
+- (void) loadUserRecords {
+    [_dataController loadUserRecordsFromContext];    
+    [self.tableView reloadData];
+}
 
 @end

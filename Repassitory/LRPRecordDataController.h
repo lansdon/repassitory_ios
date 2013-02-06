@@ -6,10 +6,12 @@
 //  Copyright (c) 2013 Lansdon Page. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 
-@class LRPRecord;
+
 @class LRPUser;
+@class LRPRecord;
 
 @interface LRPRecordDataController : NSObject
 

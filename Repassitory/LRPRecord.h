@@ -15,8 +15,10 @@
 @property (copy, nonatomic) NSString* username;
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* url;
-@property (strong, nonatomic) NSDate* date;
+@property (strong, nonatomic) NSDate* updated;
 @property (strong, nonatomic) NSString* notes;
+@property (strong, nonatomic) NSNumber* user_id;
+
 //@property (strong, nonatomic) NSMutableString* category;
 // ID ??
 

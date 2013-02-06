@@ -21,5 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
+- (IBAction) createNewUser:(id)sender;
+
 
 @end

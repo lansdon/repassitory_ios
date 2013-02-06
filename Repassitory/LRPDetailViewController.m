@@ -58,7 +58,9 @@
         self.usernameLabel.text = theRecord.username;
         self.passwordLabel.text = theRecord.password;
         self.urlLabel.text = theRecord.url;
-        self.dateLabel.text = [formatter stringFromDate:(NSDate*)theRecord.date];
+        self.dateLabel.text = [formatter stringFromDate:(NSDate*)theRecord.updated];
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -67,9 +69,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    // Obtain managedContext
+
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
-//    self.managedObjectContext = self.splitVC.managedObjectContext;
     
     // register self with SplitVC
     self.splitVC.detailVC = self;
@@ -78,7 +79,6 @@
     if ([[[LRPAppState currentUser] username] isEqualToString:@""] ||
         [[[LRPAppState currentUser] password] isEqualToString:@""]) {
 
-//        [self performSegueWithIdentifier:@"DoLoginSegue" sender:self];
     }
 }
 
