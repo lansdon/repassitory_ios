@@ -15,7 +15,7 @@
 
 @interface LRPRecordDataController ()
 
--(void)initializeDefaultDataList;
+//-(void)initializeDefaultDataList;
 
 @end
 

@@ -40,4 +40,18 @@
     [[LRPAppState currentUser] setSecurity_answer:@""];
 }
 
+
+
+// Check for current user
++(bool)checkForUser {
+    if ([[[LRPAppState currentUser] username] isEqualToString:@""] ||
+        [[[LRPAppState currentUser] password] isEqualToString:@""] ||
+        ![LRPAppState currentUser]) {
+        return false;
+    }
+    return true;
+}
+
+
+
 @end

@@ -51,15 +51,19 @@
             formatter = [[NSDateFormatter alloc] init];
             [formatter setDateStyle:NSDateFormatterMediumStyle];
         }
-        
-//        self.detailDescriptionLabel.text = theRecord.title;
-        
+                
         self.titleLabel.text = theRecord.title;
         self.usernameLabel.text = theRecord.username;
         self.passwordLabel.text = theRecord.password;
         self.urlLabel.text = theRecord.url;
         self.dateLabel.text = [formatter stringFromDate:(NSDate*)theRecord.updated];
-        
+        [self.tableView reloadData];
+    } else {
+        self.titleLabel.text = @"";
+        self.usernameLabel.text = @"";
+        self.passwordLabel.text = @"";
+        self.urlLabel.text = @"";
+        self.dateLabel.text = @"";
         [self.tableView reloadData];
     }
 }
@@ -76,9 +80,7 @@
     self.splitVC.detailVC = self;
     
     // Test for user logged in
-    if ([[[LRPAppState currentUser] username] isEqualToString:@""] ||
-        [[[LRPAppState currentUser] password] isEqualToString:@""]) {
-
+    if ( [LRPAppState checkForUser] ) {
     }
 }
 
@@ -107,7 +109,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    [self configureView];
 }
 
 

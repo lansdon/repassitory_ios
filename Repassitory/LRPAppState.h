@@ -23,4 +23,8 @@
 // Reset Current User
 +(void)reset;
 
+// Check for current user
++(bool)checkForUser;
+
+
 @end
