@@ -18,21 +18,17 @@
 +(NSUInteger)countForEntity:(NSString *)entityName withPredicate:(NSPredicate *)predicate andContext:(NSManagedObjectContext *)managedObjectContext;
 
 
-// Core Data singleton functions
-//+ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user;
-
-+ (BOOL)createNewUserFromObject:(LRPUser*)newUser;
-
+// Core Data Objects
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
-
 + (NSManagedObjectModel *)managedObjectModel;
-
 + (NSManagedObjectContext *)managedObjectContext;
-
 + (NSURL *)applicationDocumentsDirectory;
-
 + (void)saveContext;
 
+// User Entity Functions
++ (BOOL)createNewUserFromObject:(LRPUser*)newUser;
 + (int) getUniqueUserID;
++ (bool)usernameExists:(NSString*) testName;
+
 
 @end

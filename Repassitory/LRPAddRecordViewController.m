@@ -94,7 +94,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ((textField == self.titleInput) || (textField == self.usernameInput) ||
-        (textField == self.passwordInput) || (textField == self.urlInput)) {
+        (textField == self.passwordInput) || (textField == self.urlInput) ||
+        (textField == self.notesInput)) {
         [textField resignFirstResponder];
     }
     return YES;
@@ -109,9 +110,8 @@
             self.record = [[LRPRecord alloc] initWithTitle:self.titleInput.text
                                         username:self.usernameInput.text
                                         password:self.passwordInput.text
-                                        url:self.urlInput.text notes:@"" ];
-                                        //self.notesInput.text];
- //           self.record = record;
+                                        url:self.urlInput.text
+                                        notes:self.notesInput.text];
         }
     }
 }
@@ -120,10 +120,37 @@
 {
     // Obtain managedContext
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
-//    self.managedObjectContext = self.splitVC.managedObjectContext;
     
     // register self with SplitVC
     self.splitVC.addVC = self;
+}
+
+#pragma mark - Reposition Text Fields (when keyboard is blocking them)
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: YES];
+}
+
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: NO];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        const int movementDistance = 120; // tweak as needed
+        const float movementDuration = 0.3f; // tweak as needed
+        
+        int movement = (up ? -movementDistance : movementDistance);
+        
+        [UIView beginAnimations: @"anim" context: nil];
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        [UIView setAnimationDuration: movementDuration];
+        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+        [UIView commitAnimations];
+    }
 }
 
 @end

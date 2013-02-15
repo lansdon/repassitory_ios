@@ -29,6 +29,7 @@
     // Reset App State
     [LRPAppState reset];
 
+    // Initialize Core Data
     [CoreDataHelper managedObjectModel];    
     [CoreDataHelper persistentStoreCoordinator];
     [CoreDataHelper managedObjectContext];
@@ -85,6 +86,9 @@
     
     // Set background image for window
         self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
+    
+    // Start orientation calls
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
     return YES;
 }

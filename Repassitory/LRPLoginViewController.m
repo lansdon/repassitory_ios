@@ -28,9 +28,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+//    if (self) {
         // Custom initialization
-    }
+//    }
     return self;
 }
 
@@ -82,10 +82,8 @@
             
             //  We found a matching login user!  Force the segue transition to the next view
             loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
-//                                                     :[usernameField text] password:[passwordField text]];
             
             [LRPAppState setCurrentUser:loginUser];
-//            [CoreDataHelper loadUserStore:loginUser];   // load db into context
 
             // Load new root view from app delegate
             LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -142,7 +140,13 @@
     } else {
         
         // ERROR CREATING USER - todo: send error message
-
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Error - Failed to create user"
+                              message:@"That username/password combination is invalid. Please try again."
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
         [usernameField setText:@""];
         [passwordField setText:@""];
         
@@ -163,6 +167,48 @@
     }
  */
 }
+
+#pragma mark - Reposition Text Fields (when keyboard is blocking them)
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: YES];
+}
+
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: NO];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    // make sure device has started sending orientation
+    if(![[UIDevice currentDevice] orientation]) {
+        // Start orientation calls
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+
+    
+    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        const int movementDistance = 120; // tweak as needed
+        const float movementDuration = 0.3f; // tweak as needed
+        
+        int movement = 0;
+        if([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft) {
+            movement = (!up ? -movementDistance : movementDistance);
+        } else if([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
+            movement = (up ? -movementDistance : movementDistance);
+        }
+        
+        [UIView beginAnimations: @"anim" context: nil];
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        [UIView setAnimationDuration: movementDuration];
+        self.view.frame = CGRectOffset(self.view.frame, movement, 0);
+        [UIView commitAnimations];
+    }
+}
+
+
 
 
 @end

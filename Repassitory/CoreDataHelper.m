@@ -151,13 +151,19 @@
     return  newId + 1;
 }
 
+// Check if username is taken
++ (bool)usernameExists:(NSString*) testName {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username LIKE[c] %@)", testName];
+    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
+        return false;
+    }
+    return true;
+}
 
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser {
     
     // Check if username is taken
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username LIKE[c] %@)", newUser.username];
-//    [NSPredicate predicateWithFormat:@"unique LIKE %@", uniqueValue];
-    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
+    if (![CoreDataHelper usernameExists:newUser.username]) {
         NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         
         NSNumber* newID = [NSNumber numberWithInt:[CoreDataHelper getUniqueUserID]];

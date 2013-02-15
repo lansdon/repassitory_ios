@@ -12,16 +12,16 @@
 
 @interface LRPLoginViewController : UIViewController
 
-//@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
-//@property (weak, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-//@property (weak, nonatomic) NSManagedObjectModel *managedObjectModel;
-
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
 - (IBAction) createNewUser:(id)sender;
+
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField;
+- (IBAction)textFieldDidEndEditing:(UITextField *)textField;
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up;
 
 
 @end

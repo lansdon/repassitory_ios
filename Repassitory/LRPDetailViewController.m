@@ -41,11 +41,18 @@
 
 - (void)configureView
 {
+    // Current User Label
+    // Test for user logged in
+    if ( [LRPAppState checkForUser] ) {
+        NSString* temp = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
+        self.currentUserLabel.text = temp;
+    }
+
+    
+    
     // Update the user interface for the detail item.
     LRPRecord* theRecord = self.record;
-    
     if (theRecord) {
-        
         static NSDateFormatter *formatter = nil;
         if(!formatter) {
             formatter = [[NSDateFormatter alloc] init];

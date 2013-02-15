@@ -14,10 +14,8 @@
 
 @interface LRPMasterViewController : UITableViewController
 
-@property (strong, nonatomic) LRPDetailViewController *detailViewController;
-
 @property (strong, nonatomic) LRPRecordDataController* dataController;
-
+@property (strong, nonatomic) LRPDetailViewController *detailViewController;
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 - (IBAction)done:(UIStoryboardSegue *)segue;

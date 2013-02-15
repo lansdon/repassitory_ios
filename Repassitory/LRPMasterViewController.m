@@ -40,7 +40,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+//    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 /*
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -87,22 +87,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- /*
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
-
-    static NSString* CellIdentifier = @"RecordCell";
- */   
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecordCell"];
     
-    //    NSDate *object = _objects[indexPath.row];
     LRPRecord* recordAtIndex = [self.dataController recordAtIndex:indexPath.row];
     
     [[cell textLabel] setText:recordAtIndex.title];
-    
-    [[cell detailTextLabel] setText:recordAtIndex.username];
+//    [[cell detailTextLabel] setText:recordAtIndex.username];
     
     return cell;
 }
