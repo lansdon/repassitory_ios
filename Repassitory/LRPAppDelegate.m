@@ -83,6 +83,8 @@
     
     // Override point for customization after application launch.
     
+    // Set background image for window
+        self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
 
     return YES;
 }

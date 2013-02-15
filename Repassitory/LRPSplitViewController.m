@@ -30,6 +30,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 //    _user = [[LRPUser alloc] init];
+    
+    // opaque background exposes window image
+    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+
 }
 
 - (void)didReceiveMemoryWarning

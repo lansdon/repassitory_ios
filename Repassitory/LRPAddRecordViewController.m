@@ -37,6 +37,10 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // opaque background exposes window image
+    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+
 }
 
 - (void)didReceiveMemoryWarning

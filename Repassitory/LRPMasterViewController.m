@@ -49,6 +49,10 @@
         [[self.splitViewController.viewControllers lastObject] topViewController];
 
     self.dataController = [[LRPRecordDataController alloc] init];
+    
+    // opaque background exposes window image
+    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+
 }
 
 - (void)didReceiveMemoryWarning

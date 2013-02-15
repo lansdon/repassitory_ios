@@ -57,13 +57,15 @@
         self.passwordLabel.text = theRecord.password;
         self.urlLabel.text = theRecord.url;
         self.dateLabel.text = [formatter stringFromDate:(NSDate*)theRecord.updated];
+        self.notesLabel.text = theRecord.notes;
         [self.tableView reloadData];
     } else {
-        self.titleLabel.text = @"";
-        self.usernameLabel.text = @"";
-        self.passwordLabel.text = @"";
-        self.urlLabel.text = @"";
-        self.dateLabel.text = @"";
+        self.titleLabel.text = @"-";
+        self.usernameLabel.text = @"-";
+        self.passwordLabel.text = @"-";
+        self.urlLabel.text = @"-";
+        self.dateLabel.text = @"-";
+        self.notesLabel.text = @"-";
         [self.tableView reloadData];
     }
 }
@@ -82,6 +84,10 @@
     // Test for user logged in
     if ( [LRPAppState checkForUser] ) {
     }
+    
+    // opaque background exposes window image
+    self.view.backgroundColor = [UIColor clearColor];
+
 }
 
 - (void)didReceiveMemoryWarning

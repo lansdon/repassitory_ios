@@ -123,6 +123,7 @@
     [usernameField setText:@""];
     [passwordField setText:@""];
     
+    self.view.backgroundColor = [UIColor clearColor];
 }
 
 
