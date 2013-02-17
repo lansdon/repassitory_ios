@@ -29,7 +29,8 @@
 // User Entity Functions
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser;
 + (int) getUniqueUserID;
-+ (bool)usernameExists:(LRPUser*)testUser;
++ (bool)usernameExistsByUser:(LRPUser*)testUser;
++ (bool)usernameExistsByString:(NSString*)testUsername;
 +(User*)getUser:(LRPUser*)testUser;
 
 

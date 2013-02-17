@@ -9,6 +9,7 @@
 #import "LRPLoginViewController.h"
 
 #import "LRPSplitViewController.h"
+#import "LRPNewUserViewController.h"
 #import "CoreDataHelper.h"
 #import "LRPUser.h"
 #import "User.h"
@@ -58,7 +59,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
+    
 }
+
+
+
 //  When the view reappears after logout we want to wipe the username and password fields
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -102,15 +107,6 @@
         LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
         
         NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
-        
-        
-        // DEBUG
-//        NSMutableArray* debugList = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
-        
-//        for(int i=0; i<debugList.count; ++i) {
-//            NSLog(@"%@, %@, %@", [debugList[i] username], [debugList[i] password], [debugList[i] user_id]);
-//        }
-               
         
 //        User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
 
@@ -156,10 +152,10 @@
 
 - (IBAction) createNewUser:(id)sender {
 
-    LRPUser* newUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
+//    LRPUser* newUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
     
     // To do - collect security questions
-    
+/*
     if([CoreDataHelper createNewUserFromObject:newUser]) {
         // login new user automatically
         [self resignAndLogin:sender];
@@ -177,8 +173,11 @@
         [passwordField setText:@""];
         
         NSLog(@"Error - Failed to create new user");
+*/
+        [self performSegueWithIdentifier:@"newUserStart" sender:sender];
 
-    }
+        
+//    }
 /*
     // Check if username is taken
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@)", [usernameField text]];

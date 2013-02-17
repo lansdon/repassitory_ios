@@ -14,7 +14,7 @@
         <attribute name="security_answer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="security_question" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="user_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="username" attributeType="Transformable" valueTransformerName="LRPStringEncryptionTransformer" syncable="YES"/>
+        <attribute name="username" attributeType="String" valueTransformerName="LRPStringEncryptionTransformer" syncable="YES"/>
     </entity>
     <elements>
         <element name="Record" positionX="-54" positionY="162" width="128" height="150"/>

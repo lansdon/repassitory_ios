@@ -153,7 +153,9 @@
 }
 
 // Check if username is taken
-+ (bool)usernameExists:(LRPUser*)testUser {
++ (bool)usernameExistsByUser:(LRPUser*)testUser {
+
+/*
     // Use users key
     [LRPAppState setKey:testUser.password];
     
@@ -166,8 +168,20 @@
             return true;
         }
     }
-    return false;
+ */
+    return [CoreDataHelper usernameExistsByString:testUser.username];
 }
+
+// Check if username is taken
++ (bool)usernameExistsByString:(NSString*)testUsername {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@)", testUsername];
+    
+    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
+        return false;
+    }
+    return true;
+}
+
 
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser {
     // Must update user key prior to accessing core data!
@@ -176,7 +190,7 @@
     NSLog(@"Creating user:%@, pass:%@, key:%@", newUser.username, newUser.password, [LRPAppState getKey]);
 
     // Check if username is taken
-    if (![CoreDataHelper usernameExists:newUser]) {
+    if (![CoreDataHelper usernameExistsByUser:newUser]) {
         
         NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         
@@ -191,7 +205,9 @@
         [CoreDataHelper saveContext];
         
         return true;
-    }
+    } else {
+		NSLog(@"Create user:FAILED");
+	}
     return false;
 }
 
