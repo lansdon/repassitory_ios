@@ -54,6 +54,25 @@
 }
 
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
+//  When the view reappears after logout we want to wipe the username and password fields
+- (void)viewWillAppear:(BOOL)animated
+{
+    [usernameField setText:@""];
+    [passwordField setText:@""];
+    
+    self.view.backgroundColor = [UIColor clearColor];
+}
+
+
+
+#pragma mark - User/DB Operations
+
+
 //  When we are done editing on the keyboard
 - (IBAction)resignAndLogin:(id)sender
 {
@@ -65,7 +84,7 @@
         
         [passwordField becomeFirstResponder];
         
-        //  Otherwise we pressed done on the password field, and want to attempt login
+    //  Otherwise we pressed done on the password field, and want to attempt login
     } else {
         
         //  First put away the keyboard
@@ -73,6 +92,9 @@
         
         //  Set up a predicate (or search criteria) for checking the username and password
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@ && password == %@)", [usernameField text], [passwordField text]];
+        
+        // Setup search key
+        [LRPAppState setKey:[passwordField text]];
         
         //  Actually run the query in Core Data and return the count of found users with these details
         //  Obviously if it found ANY then we got the username and password right!
@@ -99,31 +121,6 @@
         [LRPAppState setCurrentUser:loginUser]; // Update splitVC User
     }
 }
-
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
- //   if ([[segue identifier] isEqualToString:@"LoginSegue"]) {
- 
- //   }
-
-    
-}
-
-
-
-
-
-//  When the view reappears after logout we want to wipe the username and password fields
-- (void)viewWillAppear:(BOOL)animated
-{
-    [usernameField setText:@""];
-    [passwordField setText:@""];
-    
-    self.view.backgroundColor = [UIColor clearColor];
-}
-
 
 
 

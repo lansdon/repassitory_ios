@@ -2,6 +2,7 @@
 
 #import "LRPUser.h"
 #import "User.h"
+#import "LRPAppState.h"
 
 
 @interface CoreDataHelper ()
@@ -164,6 +165,9 @@
     
     // Check if username is taken
     if (![CoreDataHelper usernameExists:newUser.username]) {
+        // Must update user key prior to accessing core data!
+        [LRPAppState setKey:newUser.password];
+        
         NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         
         NSNumber* newID = [NSNumber numberWithInt:[CoreDataHelper getUniqueUserID]];

@@ -26,5 +26,9 @@
 // Check for current user
 +(bool)checkForUser;
 
+// Encryption Keys
++(void)setKey:(NSString*)newKey; // User creation must manually set the key prior to db activity.
++(NSString*)getKey;
+
 
 @end

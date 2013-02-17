@@ -9,6 +9,10 @@
 #import "LRPAppState.h"
 #import "LRPUser.h"
 
+@interface LRPAppState ()
+
+@end
+
 @implementation LRPAppState
 
 // Get Currently Logged in User
@@ -38,6 +42,8 @@
     [[LRPAppState currentUser] setUser_id:[NSNumber numberWithInt:-2]];
     [[LRPAppState currentUser] setSecurity_question:[NSNumber numberWithInt:-2]];
     [[LRPAppState currentUser] setSecurity_answer:@""];
+    
+    [LRPAppState setKey:@""];
 }
 
 
@@ -52,6 +58,27 @@
     return true;
 }
 
+#pragma mark - Encryption Keys
+
++(void)setKey:(NSString*)newKey { // User creation must manually set the key prior to db activity.
+    NSString* key = [LRPAppState getKey];
+    key = newKey;
+}
+
++(NSString*)getKey {
+    static NSString* key = nil;
+    if(!key) {
+        key = [[NSString alloc]init];
+    }
+    
+    // Validation
+    if([LRPAppState checkForUser]) {
+        key = [LRPAppState currentUser].password;
+    } else {
+        // No current user means we're hoping the key was set properly during new user creation
+    }
+    return key;
+}
 
 
 @end
