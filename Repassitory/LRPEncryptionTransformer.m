@@ -1,4 +1,4 @@
-//
+ //
 //  LRPEncryptionTransformer.m
 //  Repassitory
 //
@@ -28,6 +28,7 @@
 {
     // User key
     return [LRPAppState getKey];
+//    return @"stuff";
 }
 
 - (id)transformedValue:(NSData*)data

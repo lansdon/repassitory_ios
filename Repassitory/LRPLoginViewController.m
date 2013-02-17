@@ -64,6 +64,7 @@
 {
     [usernameField setText:@""];
     [passwordField setText:@""];
+    [usernameField becomeFirstResponder];
     
     self.view.backgroundColor = [UIColor clearColor];
 }
@@ -91,16 +92,32 @@
         [sender resignFirstResponder];
         
         //  Set up a predicate (or search criteria) for checking the username and password
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@ && password == %@)", [usernameField text], [passwordField text]];
+//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@ && password == %@)", [usernameField text], [passwordField text]];
         
         // Setup search key
         [LRPAppState setKey:[passwordField text]];
         
         //  Actually run the query in Core Data and return the count of found users with these details
         //  Obviously if it found ANY then we got the username and password right!
-        LRPUser *loginUser = nil;
-        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
-            User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
+        LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
+        
+        NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
+        
+        
+        // DEBUG
+//        NSMutableArray* debugList = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
+        
+//        for(int i=0; i<debugList.count; ++i) {
+//            NSLog(@"%@, %@, %@", [debugList[i] username], [debugList[i] password], [debugList[i] user_id]);
+//        }
+               
+        
+//        User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
+
+        User* userLoggingIn = [CoreDataHelper getUser:loginUser];
+        if((![userLoggingIn.username isEqualToString:@""] && ![userLoggingIn.password isEqualToString:@""]) &&
+           (userLoggingIn != nil)) {
+//        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
             
             //  We found a matching login user!  Force the segue transition to the next view
             loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
@@ -115,10 +132,22 @@
  //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
             
         } else {
-            //  We didn't find any matching login users. Wipe the password field to re-enter
+            // ERROR CREATING USER - todo: send error message
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Login Error!"
+                                  message:@"Invalid username/password. Please try again."
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+//            [usernameField setText:@""];
             [passwordField setText:@""];
+            [passwordField becomeFirstResponder];
+            
+            NSLog(@"Error - Login attempt failed for %@", [usernameField text]);
+            
         }
-        [LRPAppState setCurrentUser:loginUser]; // Update splitVC User
+//        [LRPAppState reset]; // INvalid login, make sure appstate is reset
     }
 }
 

@@ -126,26 +126,26 @@
 }
 
 
-#pragma mark - Database
-/*
-+ (NSPersistentStoreCoordinator *)loadUserStore:(LRPUser*)user
-{
-    NSPersistentStoreCoordinator* _persistentStoreCoordinator = [CoreDataHelper persistentStoreCoordinator];
-    NSString *userStr = [NSString stringWithFormat:@"%@.sqlite", user.username];
-    NSURL *storeURL = [[CoreDataHelper applicationDocumentsDirectory] URLByAppendingPathComponent:
-                       userStr];    
-    if(![_persistentStoreCoordinator persistentStoreForURL:storeURL]) {
-    
-        NSError *error = nil;
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+#pragma mark - User/Records
+
++(User*)getUser:(LRPUser*)testUser {
+    // Use users key
+    [LRPAppState setKey:testUser.password];
+        
+	// Execute the count request
+	NSArray *fetchResults = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
+                              
+//    NSLog(@"getUser --start");
+    for(int i=0; i<fetchResults.count; ++i) {
+//        NSLog(@"%@, %@, %@", [fetchResults[i] username], [fetchResults[i] password], [fetchResults[i] user_id]);
+        if([[fetchResults[i] username] isEqualToString:testUser.username] &&
+           [[fetchResults[i] password] isEqualToString:testUser.password]) {
+            return fetchResults[i];
         }
     }
-    
-    return _persistentStoreCoordinator;
+    return nil;
 }
-*/
+
 
 + (int) getUniqueUserID {
     int newId = [CoreDataHelper countForEntity:@"User" andContext:[CoreDataHelper managedObjectContext]];
@@ -153,20 +153,30 @@
 }
 
 // Check if username is taken
-+ (bool)usernameExists:(NSString*) testName {
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username LIKE[c] %@)", testName];
-    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
-        return false;
++ (bool)usernameExists:(LRPUser*)testUser {
+    // Use users key
+    [LRPAppState setKey:testUser.password];
+    
+	// Execute the count request
+	NSArray *fetchResults = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
+    
+    for(int i=0; i<fetchResults.count; ++i) {
+        if([[[fetchResults[i] username] lowercaseString] isEqualToString:[testUser.username lowercaseString]] &&
+            [[[fetchResults[i] password] lowercaseString] isEqualToString:[testUser.password lowercaseString]]) {
+            return true;
+        }
     }
-    return true;
+    return false;
 }
 
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser {
-    
+    // Must update user key prior to accessing core data!
+    [LRPAppState setKey:newUser.password];
+
+    NSLog(@"Creating user:%@, pass:%@, key:%@", newUser.username, newUser.password, [LRPAppState getKey]);
+
     // Check if username is taken
-    if (![CoreDataHelper usernameExists:newUser.username]) {
-        // Must update user key prior to accessing core data!
-        [LRPAppState setKey:newUser.password];
+    if (![CoreDataHelper usernameExists:newUser]) {
         
         NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         
@@ -185,6 +195,7 @@
     return false;
 }
 
+#pragma mark - Persistent Objects
 
 // Returns the persistent store coordinator for the application.
 // If the coordinator doesn't already exist, it is created and the application's store added to it.

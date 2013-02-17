@@ -27,7 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Reset App State
-    [LRPAppState reset];
+//    [LRPAppState reset];
 
     // Initialize Core Data
     [CoreDataHelper managedObjectModel];    
@@ -38,6 +38,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     // Check if the app has run before by checking a key in user defaults
+/*
     if ([prefs boolForKey:@"hasRunBefore"] != YES)
     {
         // Set flag so we know not to run this next time
@@ -56,17 +57,17 @@
         if (![[CoreDataHelper managedObjectContext] save:&error])
             NSLog(@"Failed to add default user with error: %@", [error domain]);
         }
-    
+*/
     // Get Login and Split View references
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
                                                              bundle: nil];
     
     if(!self.loginVC) {
-    self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+        self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
     }
     if(!self.splitVC) {
-    self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
+        self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
     }
     
  // Load Login first
@@ -74,16 +75,11 @@
     
     
     // Split Window optional loading for ipad/iphone
-    // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
         _splitVC.delegate = (id)navigationController.topViewController;
     }
 
-    
-    // Override point for customization after application launch.
-    
     // Set background image for window
         self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     

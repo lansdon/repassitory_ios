@@ -2,6 +2,7 @@
 #import <CoreData/CoreData.h>
 
 @class LRPUser;
+@class User;
 
 @interface CoreDataHelper : NSObject
 
@@ -28,7 +29,8 @@
 // User Entity Functions
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser;
 + (int) getUniqueUserID;
-+ (bool)usernameExists:(NSString*) testName;
++ (bool)usernameExists:(LRPUser*)testUser;
++(User*)getUser:(LRPUser*)testUser;
 
 
 @end

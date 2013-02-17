@@ -67,12 +67,12 @@
         self.notesLabel.text = theRecord.notes;
         [self.tableView reloadData];
     } else {
-        self.titleLabel.text = @"-";
-        self.usernameLabel.text = @"-";
-        self.passwordLabel.text = @"-";
-        self.urlLabel.text = @"-";
-        self.dateLabel.text = @"-";
-        self.notesLabel.text = @"-";
+        self.titleLabel.text = @"-NO RECORD-";
+        self.usernameLabel.text = @"-NO RECORD-";
+        self.passwordLabel.text = @"-NO RECORD-";
+        self.urlLabel.text = @"-NO RECORD-";
+        self.dateLabel.text = @"-NO RECORD-";
+        self.notesLabel.text = @"-NO RECORD-";
         [self.tableView reloadData];
     }
 }
