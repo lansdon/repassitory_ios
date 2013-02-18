@@ -19,6 +19,12 @@ static NSString* _key = nil;            // Static variable for user key
 
 @implementation LRPAppState
 
+// PROGRAM VERSION
++(NSString*) getVersion {
+	
+	return @"0.5.0";
+}
+
 // Get Currently Logged in User
 +(LRPUser*)currentUser {
     static LRPUser* currentUser = nil;

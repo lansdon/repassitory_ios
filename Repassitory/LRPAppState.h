@@ -30,5 +30,5 @@
 +(void)setKey:(NSString*)newKey; // User creation must manually set the key prior to db activity.
 +(NSString*)getKey;
 
-
++(NSString*) getVersion;
 @end

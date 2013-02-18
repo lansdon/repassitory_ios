@@ -43,7 +43,7 @@
                               @"How many digits of PI can you recite?", nil];
     
     // opaque background exposes window image
-    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+    self.view.backgroundColor = [UIColor clearColor];
 
 	[self.usernameInput becomeFirstResponder];
 	
@@ -357,15 +357,35 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)textFieldDidExit:(UITextField *)textField
 {
+	// INPUT COMPLETED - Confirm User Save and then Login
     if(usernameOK && passwordOK && password2OK && securityAnswerOK) {
 		[textField resignFirstResponder];
 		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
 	}
-
-//	if(textField.tag == 5) {
-//		[textField resignFirstResponder];
-//	}
-	
+	// INPUT INCOMPLETE - Set next input field to first responder
+	else {
+		switch (textField.tag) {
+			case 1:
+				[textField resignFirstResponder];
+				[self.passwordInput becomeFirstResponder];
+				break;
+			case 2:
+				[textField resignFirstResponder];
+				[self.password2Input becomeFirstResponder];
+				break;
+			case 3:
+				[textField resignFirstResponder];
+				[self.securityAnswerInput becomeFirstResponder];
+				break;
+			case 4:
+				[textField resignFirstResponder];
+				[self.usernameInput becomeFirstResponder];
+				break;
+			default:
+				// set #1 first responder?
+				break;				
+		}
+	}
 	
     [self animateTextField: textField up: NO];
 }

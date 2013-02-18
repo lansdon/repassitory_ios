@@ -15,6 +15,8 @@
 
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
 
+
+@property (strong, nonatomic) UINavigationController *loginNavC;
 @property (strong, nonatomic) LRPLoginViewController *loginVC;
 @property (strong, nonatomic) LRPSplitViewController *splitVC;
 

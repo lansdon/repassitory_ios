@@ -19,6 +19,8 @@
 
 @interface LRPLoginViewController ()
 - (IBAction)resignAndLogin:(id)sender;
+- (void) loginUser;
+
 @end
 
 @implementation LRPLoginViewController
@@ -46,7 +48,24 @@
     // register self with SplitVC
     if(!self.splitVC.loginVC)
         self.splitVC.loginVC = self;
+	
+	
+	// Add extra buttons to nav bar
+	UIBarButtonItem* loginBtn = [[UIBarButtonItem alloc] initWithTitle:@"   Login   " style:UIBarButtonItemStyleBordered target:self action:@selector(resignAndLogin:)];
+	UIBarButtonItem* newUserBtn = [[UIBarButtonItem alloc] initWithTitle:@"New User" style:UIBarButtonItemStyleBordered target:self action:@selector(createNewUser:)];
+	
+	NSArray* rBtnList = [[NSArray alloc] initWithObjects:loginBtn, newUserBtn, nil];
+	self.navigationItem.rightBarButtonItems = rBtnList;
+
+//	UIBarButtonItem* exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"Exit" style:UIBarButtonItemStyleBordered target:self action:@selector(resignAndLogin:)];
+	UIBarButtonItem* aboutBtn = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAppInfo:)];
+	
+	NSArray* lBtnList = [[NSArray alloc] initWithObjects:aboutBtn, nil];
+	self.navigationItem.leftBarButtonItems = lBtnList;
+
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -78,6 +97,50 @@
 
 #pragma mark - User/DB Operations
 
+- (void) loginUser {
+	
+	LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
+	
+	[LRPAppState setKey:[passwordField text]];
+	
+	NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
+	
+	//        User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
+	
+	User* userLoggingIn = [CoreDataHelper getUser:loginUser];
+	if((![userLoggingIn.username isEqualToString:@""] && ![userLoggingIn.password isEqualToString:@""]) &&
+	   (userLoggingIn != nil)) {
+		//        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
+		
+		//  We found a matching login user!  Force the segue transition to the next view
+		loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
+		
+		[LRPAppState setCurrentUser:loginUser];
+		
+		// Load new root view from app delegate
+		LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
+		[appDelegate loginSuccessfull];
+		
+		[self dismissViewControllerAnimated:true completion:nil];
+	}
+	else { // ERROR CREATING USER
+		
+		UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle:@"Login Error!"
+						  message:@"Invalid username/password. Please try again."
+						  delegate:nil
+						  cancelButtonTitle:@"OK"
+						  otherButtonTitles:nil];
+		[alert show];
+	//            [usernameField setText:@""];
+		[passwordField setText:@""];
+		[passwordField becomeFirstResponder];
+	
+		NSLog(@"Error - Login attempt failed for %@", [usernameField text]);
+	
+	}
+}
+
 
 //  When we are done editing on the keyboard
 - (IBAction)resignAndLogin:(id)sender
@@ -87,110 +150,50 @@
     
     //  Check the tag. If this is the username field, then jump to the password field automatically
     if (tf.tag == 1) {
-        
         [passwordField becomeFirstResponder];
-        
+
     //  Otherwise we pressed done on the password field, and want to attempt login
     } else {
-        
         //  First put away the keyboard
         [sender resignFirstResponder];
         
-        //  Set up a predicate (or search criteria) for checking the username and password
-//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@ && password == %@)", [usernameField text], [passwordField text]];
-        
-        // Setup search key
-        [LRPAppState setKey:[passwordField text]];
-        
-        //  Actually run the query in Core Data and return the count of found users with these details
-        //  Obviously if it found ANY then we got the username and password right!
-        LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
-        
-        NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
-        
-//        User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
+        [self loginUser];
+            
 
-        User* userLoggingIn = [CoreDataHelper getUser:loginUser];
-        if((![userLoggingIn.username isEqualToString:@""] && ![userLoggingIn.password isEqualToString:@""]) &&
-           (userLoggingIn != nil)) {
-//        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
-            
-            //  We found a matching login user!  Force the segue transition to the next view
-            loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
-            
-            [LRPAppState setCurrentUser:loginUser];
-
-            // Load new root view from app delegate
-            LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate loginSuccessfull];
-            
-            [self dismissViewControllerAnimated:true completion:nil];
- //           [self performSegueWithIdentifier:@"LoginSegue" sender:sender];
-            
-        } else {
-            // ERROR CREATING USER - todo: send error message
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Login Error!"
-                                  message:@"Invalid username/password. Please try again."
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
-//            [usernameField setText:@""];
-            [passwordField setText:@""];
-            [passwordField becomeFirstResponder];
-            
-            NSLog(@"Error - Login attempt failed for %@", [usernameField text]);
-            
-        }
 //        [LRPAppState reset]; // INvalid login, make sure appstate is reset
     }
 }
 
 
-
+- (IBAction) showAppInfo:(id)sender {
+	
+	NSString* aboutMsg = [[NSString alloc] initWithFormat:
+						@"Repassitory\n" 
+						"Version %@\n" 
+						"By Lansdon Page\n" 
+						"Copyright 2013\n" 
+						"\n" 
+						"Repassitory is a password database where you can store " 
+						"your passwords in one spot. You'll never lose those annoying, " 
+						"infrequently used passwords again!\n" 
+						"" 
+						"Security: Repassitory uses a powerful AES encryption algorithm " 
+						"in combination with Apple's Core Data storage technology. This means " 
+						"your information is stored on your device in a secure encrypted format " 
+						"that only YOU can get to!", [LRPAppState getVersion]];
+	
+	UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle:@"About Repassitory"
+						  message:aboutMsg
+						  delegate:nil
+						  cancelButtonTitle:@"OK"
+						  otherButtonTitles:nil];
+	[alert show];
+	
+}
 
 - (IBAction) createNewUser:(id)sender {
-
-//    LRPUser* newUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
-    
-    // To do - collect security questions
-/*
-    if([CoreDataHelper createNewUserFromObject:newUser]) {
-        // login new user automatically
-        [self resignAndLogin:sender];
-    } else {
-        
-        // ERROR CREATING USER - todo: send error message
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Error - Failed to create user"
-                              message:@"That username/password combination is invalid. Please try again."
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-        [usernameField setText:@""];
-        [passwordField setText:@""];
-        
-        NSLog(@"Error - Failed to create new user");
-*/
         [self performSegueWithIdentifier:@"newUserStart" sender:sender];
-
-        
-//    }
-/*
-    // Check if username is taken
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(username == %@)", [usernameField text]];
-    
-    if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] <= 0) {
-        NSManagedObject *cdNewUser = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
-        
-        [cdNewUser setValue:[usernameField text] forKey:@"username"];
-        [cdNewUser setValue:[passwordField text] forKey:@"password"];
-        
-        [self resignAndLogin:sender];
-    }
- */
 }
 
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)

@@ -35,7 +35,7 @@
     [CoreDataHelper managedObjectContext];
         
     // Get a reference to the stardard user defaults
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     // Check if the app has run before by checking a key in user defaults
 /*
@@ -62,6 +62,9 @@
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
                                                              bundle: nil];
+	if(!self.loginNavC) {
+        self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
+	}
     
     if(!self.loginVC) {
         self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
@@ -71,7 +74,7 @@
     }
     
  // Load Login first
-    [self.window setRootViewController:_loginVC];
+    [self.window setRootViewController:self.loginNavC];
     
     
     // Split Window optional loading for ipad/iphone
@@ -148,7 +151,7 @@
     }
 */
 	// Load Login first
-    [self.window setRootViewController:_loginVC];
+    [self.window setRootViewController:self.loginNavC];
     
     [LRPAppState reset];
 }
@@ -161,7 +164,7 @@
 //    [[[[self window ] subviews] objectAtIndex:0] removeFromSuperview];
     
     // Load Login first
-    [self.window setRootViewController:_loginVC];
+    [self.window setRootViewController:self.loginNavC];
 
 }
 
