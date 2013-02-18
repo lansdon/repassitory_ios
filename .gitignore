@@ -1,0 +1,4 @@
+# Ignore Project Files
+#*.pbxproj
+*.xcuserstate
+*.xcbkptlist

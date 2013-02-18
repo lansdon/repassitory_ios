@@ -121,20 +121,44 @@
     
 }
 
+- (void)applicationUnload {
+	// Remove views (we want to always come back on the login screen)
+//	for(int i = [[[self window] subviews] count]; i > 0; --i) {
+//		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
+//	}
 
+	// Set login view controller to top level view
+	[self.loginNavC popToRootViewControllerAnimated:YES];
+	
+    // Reset App State (current user, etc)
+	[LRPAppState reset];
+	
+	// Reset the detail view so records aren't partially visible when reloading app
+    [_splitVC.detailVC setRecord:nil];
+}
+
+- (void)applicationLoad {
+    
+	[LRPAppState reset]; // redundant but safe
+
+	// Load Login first
+	[self.loginNavC popToRootViewControllerAnimated:YES];
+    [self.window setRootViewController:self.loginNavC];
+}
+
+	
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [LRPAppState reset];
+	[self applicationUnload];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [LRPAppState reset];
-    [_splitVC.detailVC setRecord:nil];
+	[self applicationUnload];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -150,21 +174,14 @@
         splitViewController.delegate = (id)navigationController.topViewController;
     }
 */
-	// Load Login first
-    [self.window setRootViewController:self.loginNavC];
-    
-    [LRPAppState reset];
+	[self applicationLoad];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [LRPAppState reset];
-    // remove old view
-//    [[[[self window ] subviews] objectAtIndex:0] removeFromSuperview];
-    
-    // Load Login first
-    [self.window setRootViewController:self.loginNavC];
+
+	[self applicationLoad];
 
 }
 

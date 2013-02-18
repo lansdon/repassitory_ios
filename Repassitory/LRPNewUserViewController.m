@@ -36,7 +36,9 @@
     [super viewDidLoad];
 
     self.securityQuestions = [[NSArray alloc]
-                              initWithObjects: @"What's your favorite pet's name?",
+                              initWithObjects:
+							  @"<Choose a question>",
+							  @"What's your favorite pet's name?",
                               @"What city were you born in?",
                               @"How many fingers am I holding up?",
                               @"What's your favorite number?",
@@ -51,6 +53,7 @@
     usernameOK = NO;
     passwordOK = NO;
     password2OK = NO;
+	securityQuestionOK = NO;
 	securityAnswerOK = NO;
 
 	securityQuestionIndex = 0;
@@ -100,18 +103,8 @@ numberOfRowsInComponent:(NSInteger)component
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component
 {
-//	NSInteger temp = row;
 	securityQuestionIndex = row;
-/*
-    float rate = [[exchangeRates objectAtIndex:row] floatValue];
-    float dollars = [dollarText.text floatValue];
-    float result = dollars * rate;
-    
-    NSString *resultString = [[NSString alloc] initWithFormat:
-                              @"%.2f USD = %.2f %@", dollars, result,
-                              [countryNames objectAtIndex:row]];
-    resultLabel.text = resultString;
- */
+	[self validateSecurityQuestion];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -207,6 +200,19 @@ numberOfRowsInComponent:(NSInteger)component
 // Cancel Button
 -(IBAction)cancel:(id)sender {
 	[self dismissViewControllerAnimated:false completion:nil];
+}
+
+
+-(bool)validateSecurityQuestion {
+	if(securityQuestionIndex > 0) {
+        self.securityQuestionFeedback.text = @"OK!";
+        self.securityQuestionFeedback.textColor = [UIColor greenColor];
+        securityQuestionOK = YES;		
+	} else {
+        self.securityQuestionFeedback.text = @"(*Required)";
+        self.securityQuestionFeedback.textColor = [UIColor redColor];
+        securityQuestionOK = NO;		
+	}
 }
 
 // Username incrimental validation (confirm username isn't used)
@@ -310,7 +316,7 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 -(void)updateSaveButton {
-    if(usernameOK && passwordOK && password2OK && securityAnswerOK) {
+    if(usernameOK && passwordOK && password2OK && securityAnswerOK && securityQuestionOK) {
         self.saveButton.alpha = 1.0;
         self.saveButton.enabled = YES;
     } else {

@@ -7,13 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		590EDBE516AD4770006E7C24 /* LRPRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 590EDBE416AD4770006E7C24 /* LRPRecord.m */; };
 		5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924733B16AD180400A8DD14 /* LRPMasterViewController.m */; };
 		5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */; };
 		5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */; };
 		5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */; };
 		5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39016AD437700C2EBDE /* LRPDetailViewController.m */; };
 		5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39416AD437700C2EBDE /* LRPRecordDataController.m */; };
+		594F8A5B16D1EE92007AF3F1 /* MainStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5916D1EE92007AF3F1 /* MainStore.xcdatamodeld */; };
+		594F8A6716D1EF05007AF3F1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5816D1EDF1007AF3F1 /* User.m */; };
+		594F8A7016D1EF5F007AF3F1 /* LRPRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A6D16D1EF5F007AF3F1 /* LRPRecord.m */; };
+		594F8A7116D1EF5F007AF3F1 /* LRPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A6F16D1EF5F007AF3F1 /* LRPUser.m */; };
+		594F8A7616D1EFF4007AF3F1 /* LRPAppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A7516D1EFF4007AF3F1 /* LRPAppState.m */; };
+		594F8A7B16D1F0E2007AF3F1 /* LRPEncryptionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A7816D1F0E2007AF3F1 /* LRPEncryptionTransformer.m */; };
+		594F8A7C16D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A7A16D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.m */; };
+		594F8A8E16D1F0FB007AF3F1 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8116D1F0FB007AF3F1 /* RNCryptor.m */; };
+		594F8A8F16D1F0FB007AF3F1 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8316D1F0FB007AF3F1 /* RNCryptorEngine.m */; };
+		594F8A9016D1F0FB007AF3F1 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8516D1F0FB007AF3F1 /* RNDecryptor.m */; };
+		594F8A9116D1F0FB007AF3F1 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8716D1F0FB007AF3F1 /* RNEncryptor.m */; };
+		594F8A9216D1F0FB007AF3F1 /* RNOpenSSLCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8916D1F0FB007AF3F1 /* RNOpenSSLCryptor.m */; };
+		594F8A9316D1F0FB007AF3F1 /* RNOpenSSLDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8B16D1F0FB007AF3F1 /* RNOpenSSLDecryptor.m */; };
+		594F8A9416D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A8D16D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m */; };
+		594F8A9616D1F162007AF3F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F8A9516D1F162007AF3F1 /* Security.framework */; };
+		594F8A9916D1F205007AF3F1 /* LRPNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A9816D1F205007AF3F1 /* LRPNewUserViewController.m */; };
+		594F8A9C16D21A91007AF3F1 /* LRPStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A9B16D21A91007AF3F1 /* LRPStartViewController.m */; };
+		594F8AA316D2245F007AF3F1 /* Background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8A9E16D2245F007AF3F1 /* Background-568h@2x.png */; };
+		594F8AA416D2245F007AF3F1 /* Background-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8A9F16D2245F007AF3F1 /* Background-iPad.png */; };
+		594F8AA516D2245F007AF3F1 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA016D2245F007AF3F1 /* Background.png */; };
+		594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA116D2245F007AF3F1 /* Background@2x.png */; };
+		594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA216D2245F007AF3F1 /* blue_bk.jpg */; };
 		59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5616A7BD5700C36331 /* CoreDataHelper.m */; };
 		59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5A16A7C50900C36331 /* LRPLoginViewController.m */; };
 		59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091916A73E0500267021 /* UIKit.framework */; };
@@ -26,20 +47,13 @@
 		59A7092E16A73E0500267021 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7092D16A73E0500267021 /* Default.png */; };
 		59A7093016A73E0500267021 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7092F16A73E0500267021 /* Default@2x.png */; };
 		59A7093216A73E0500267021 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7093116A73E0500267021 /* Default-568h@2x.png */; };
-		59A7093516A73E0500267021 /* Repassitory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */; };
 		59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */; };
-		59A7094916A74C8300267021 /* Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094816A74C8300267021 /* Users.m */; };
 		59A7094C16A74C8400267021 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094B16A74C8400267021 /* Record.m */; };
-		59CE449516A8B70B00AA967D /* LRPReocrdListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		590EDBE316AD4770006E7C24 /* LRPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecord.h; sourceTree = "<group>"; };
-		590EDBE416AD4770006E7C24 /* LRPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecord.m; sourceTree = "<group>"; };
 		5924733A16AD180400A8DD14 /* LRPMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPMasterViewController.h; sourceTree = "<group>"; };
 		5924733B16AD180400A8DD14 /* LRPMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPMasterViewController.m; sourceTree = "<group>"; };
-		5924734716AD185400A8DD14 /* LRPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRPRecord.h; path = ../LRPRecord.h; sourceTree = "<group>"; };
-		5924734816AD185400A8DD14 /* LRPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRPRecord.m; path = ../LRPRecord.m; sourceTree = "<group>"; };
 		5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPSplitViewController.h; sourceTree = "<group>"; };
 		5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPSplitViewController.m; sourceTree = "<group>"; };
 		5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
@@ -49,6 +63,45 @@
 		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
 		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
 		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
+		594F8A5716D1EDF1007AF3F1 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		594F8A5816D1EDF1007AF3F1 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		594F8A5A16D1EE92007AF3F1 /* MainStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MainStore.xcdatamodel; sourceTree = "<group>"; };
+		594F8A6C16D1EF5F007AF3F1 /* LRPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecord.h; sourceTree = "<group>"; };
+		594F8A6D16D1EF5F007AF3F1 /* LRPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecord.m; sourceTree = "<group>"; };
+		594F8A6E16D1EF5F007AF3F1 /* LRPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPUser.h; sourceTree = "<group>"; };
+		594F8A6F16D1EF5F007AF3F1 /* LRPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPUser.m; sourceTree = "<group>"; };
+		594F8A7416D1EFF4007AF3F1 /* LRPAppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAppState.h; sourceTree = "<group>"; };
+		594F8A7516D1EFF4007AF3F1 /* LRPAppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAppState.m; sourceTree = "<group>"; };
+		594F8A7716D1F0E2007AF3F1 /* LRPEncryptionTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPEncryptionTransformer.h; sourceTree = "<group>"; };
+		594F8A7816D1F0E2007AF3F1 /* LRPEncryptionTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPEncryptionTransformer.m; sourceTree = "<group>"; };
+		594F8A7916D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPStringEncryptionTransformer.h; sourceTree = "<group>"; };
+		594F8A7A16D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPStringEncryptionTransformer.m; sourceTree = "<group>"; };
+		594F8A7E16D1F0FB007AF3F1 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
+		594F8A7F16D1F0FB007AF3F1 /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
+		594F8A8016D1F0FB007AF3F1 /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
+		594F8A8116D1F0FB007AF3F1 /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
+		594F8A8216D1F0FB007AF3F1 /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
+		594F8A8316D1F0FB007AF3F1 /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
+		594F8A8416D1F0FB007AF3F1 /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDecryptor.h; sourceTree = "<group>"; };
+		594F8A8516D1F0FB007AF3F1 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
+		594F8A8616D1F0FB007AF3F1 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
+		594F8A8716D1F0FB007AF3F1 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
+		594F8A8816D1F0FB007AF3F1 /* RNOpenSSLCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNOpenSSLCryptor.h; sourceTree = "<group>"; };
+		594F8A8916D1F0FB007AF3F1 /* RNOpenSSLCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpenSSLCryptor.m; sourceTree = "<group>"; };
+		594F8A8A16D1F0FB007AF3F1 /* RNOpenSSLDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNOpenSSLDecryptor.h; sourceTree = "<group>"; };
+		594F8A8B16D1F0FB007AF3F1 /* RNOpenSSLDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpenSSLDecryptor.m; sourceTree = "<group>"; };
+		594F8A8C16D1F0FB007AF3F1 /* RNOpenSSLEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNOpenSSLEncryptor.h; sourceTree = "<group>"; };
+		594F8A8D16D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpenSSLEncryptor.m; sourceTree = "<group>"; };
+		594F8A9516D1F162007AF3F1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		594F8A9716D1F205007AF3F1 /* LRPNewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPNewUserViewController.h; sourceTree = "<group>"; };
+		594F8A9816D1F205007AF3F1 /* LRPNewUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPNewUserViewController.m; sourceTree = "<group>"; };
+		594F8A9A16D21A91007AF3F1 /* LRPStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPStartViewController.h; sourceTree = "<group>"; };
+		594F8A9B16D21A91007AF3F1 /* LRPStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPStartViewController.m; sourceTree = "<group>"; };
+		594F8A9E16D2245F007AF3F1 /* Background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background-568h@2x.png"; sourceTree = "<group>"; };
+		594F8A9F16D2245F007AF3F1 /* Background-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background-iPad.png"; sourceTree = "<group>"; };
+		594F8AA016D2245F007AF3F1 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		594F8AA116D2245F007AF3F1 /* Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x.png"; sourceTree = "<group>"; };
+		594F8AA216D2245F007AF3F1 /* blue_bk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blue_bk.jpg; sourceTree = "<group>"; };
 		59951B5516A7BD5700C36331 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		59951B5616A7BD5700C36331 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		59951B5916A7C50900C36331 /* LRPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPLoginViewController.h; sourceTree = "<group>"; };
@@ -67,14 +120,9 @@
 		59A7092D16A73E0500267021 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		59A7092F16A73E0500267021 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		59A7093116A73E0500267021 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		59A7093416A73E0500267021 /* Repassitory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Repassitory.xcdatamodel; sourceTree = "<group>"; };
 		59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
-		59A7094716A74C8300267021 /* Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Users.h; sourceTree = "<group>"; };
-		59A7094816A74C8300267021 /* Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Users.m; sourceTree = "<group>"; };
 		59A7094A16A74C8400267021 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		59A7094B16A74C8400267021 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
-		59CE449316A8B70B00AA967D /* LRPReocrdListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPReocrdListViewController.h; sourceTree = "<group>"; };
-		59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPReocrdListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				594F8A9616D1F162007AF3F1 /* Security.framework in Frameworks */,
 				59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */,
 				59A7091C16A73E0500267021 /* Foundation.framework in Frameworks */,
 				59A7091E16A73E0500267021 /* CoreGraphics.framework in Frameworks */,
@@ -92,15 +141,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5924734F16AD3C5100A8DD14 /* to_be_removed */ = {
+		594F8A7D16D1F0FB007AF3F1 /* RNCryptor */ = {
 			isa = PBXGroup;
 			children = (
-				59CE449316A8B70B00AA967D /* LRPReocrdListViewController.h */,
-				59CE449416A8B70B00AA967D /* LRPReocrdListViewController.m */,
-				5924734716AD185400A8DD14 /* LRPRecord.h */,
-				5924734816AD185400A8DD14 /* LRPRecord.m */,
+				594F8A7E16D1F0FB007AF3F1 /* RNCryptor+Private.h */,
+				594F8A7F16D1F0FB007AF3F1 /* RNCryptor-Prefix.pch */,
+				594F8A8016D1F0FB007AF3F1 /* RNCryptor.h */,
+				594F8A8116D1F0FB007AF3F1 /* RNCryptor.m */,
+				594F8A8216D1F0FB007AF3F1 /* RNCryptorEngine.h */,
+				594F8A8316D1F0FB007AF3F1 /* RNCryptorEngine.m */,
+				594F8A8416D1F0FB007AF3F1 /* RNDecryptor.h */,
+				594F8A8516D1F0FB007AF3F1 /* RNDecryptor.m */,
+				594F8A8616D1F0FB007AF3F1 /* RNEncryptor.h */,
+				594F8A8716D1F0FB007AF3F1 /* RNEncryptor.m */,
+				594F8A8816D1F0FB007AF3F1 /* RNOpenSSLCryptor.h */,
+				594F8A8916D1F0FB007AF3F1 /* RNOpenSSLCryptor.m */,
+				594F8A8A16D1F0FB007AF3F1 /* RNOpenSSLDecryptor.h */,
+				594F8A8B16D1F0FB007AF3F1 /* RNOpenSSLDecryptor.m */,
+				594F8A8C16D1F0FB007AF3F1 /* RNOpenSSLEncryptor.h */,
+				594F8A8D16D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m */,
 			);
-			name = to_be_removed;
+			path = RNCryptor;
+			sourceTree = "<group>";
+		};
+		594F8A9D16D2245F007AF3F1 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				594F8A9E16D2245F007AF3F1 /* Background-568h@2x.png */,
+				594F8A9F16D2245F007AF3F1 /* Background-iPad.png */,
+				594F8AA016D2245F007AF3F1 /* Background.png */,
+				594F8AA116D2245F007AF3F1 /* Background@2x.png */,
+				594F8AA216D2245F007AF3F1 /* blue_bk.jpg */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 		59A7090A16A73E0500267021 = {
@@ -124,6 +197,7 @@
 		59A7091816A73E0500267021 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				594F8A9516D1F162007AF3F1 /* Security.framework */,
 				59A7091916A73E0500267021 /* UIKit.framework */,
 				59A7091B16A73E0500267021 /* Foundation.framework */,
 				59A7091D16A73E0500267021 /* CoreGraphics.framework */,
@@ -135,17 +209,20 @@
 		59A7092116A73E0500267021 /* Repassitory */ = {
 			isa = PBXGroup;
 			children = (
+				594F8A9716D1F205007AF3F1 /* LRPNewUserViewController.h */,
+				594F8A9816D1F205007AF3F1 /* LRPNewUserViewController.m */,
+				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
+				59A7092B16A73E0500267021 /* LRPAppDelegate.m */,
+				594F8A7416D1EFF4007AF3F1 /* LRPAppState.h */,
+				594F8A7516D1EFF4007AF3F1 /* LRPAppState.m */,
 				5938C38D16AD437700C2EBDE /* LRPAddRecordViewController.h */,
 				5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */,
 				5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */,
 				5938C39016AD437700C2EBDE /* LRPDetailViewController.m */,
 				5938C39316AD437700C2EBDE /* LRPRecordDataController.h */,
 				5938C39416AD437700C2EBDE /* LRPRecordDataController.m */,
-				5924734F16AD3C5100A8DD14 /* to_be_removed */,
 				5924733A16AD180400A8DD14 /* LRPMasterViewController.h */,
 				5924733B16AD180400A8DD14 /* LRPMasterViewController.m */,
-				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
-				59A7092B16A73E0500267021 /* LRPAppDelegate.m */,
 				59951B5916A7C50900C36331 /* LRPLoginViewController.h */,
 				59951B5A16A7C50900C36331 /* LRPLoginViewController.m */,
 				59A7094616A74AFC00267021 /* Core data */,
@@ -153,6 +230,8 @@
 				5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */,
 				5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */,
 				59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */,
+				594F8A9A16D21A91007AF3F1 /* LRPStartViewController.h */,
+				594F8A9B16D21A91007AF3F1 /* LRPStartViewController.m */,
 			);
 			path = Repassitory;
 			sourceTree = "<group>";
@@ -160,6 +239,7 @@
 		59A7092216A73E0500267021 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				594F8A9D16D2245F007AF3F1 /* resources */,
 				59A7092316A73E0500267021 /* Repassitory-Info.plist */,
 				59A7092416A73E0500267021 /* InfoPlist.strings */,
 				59A7092716A73E0500267021 /* main.m */,
@@ -175,15 +255,22 @@
 		59A7094616A74AFC00267021 /* Core data */ = {
 			isa = PBXGroup;
 			children = (
-				590EDBE316AD4770006E7C24 /* LRPRecord.h */,
-				590EDBE416AD4770006E7C24 /* LRPRecord.m */,
+				594F8A7D16D1F0FB007AF3F1 /* RNCryptor */,
+				594F8A7716D1F0E2007AF3F1 /* LRPEncryptionTransformer.h */,
+				594F8A7816D1F0E2007AF3F1 /* LRPEncryptionTransformer.m */,
+				594F8A7916D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.h */,
+				594F8A7A16D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.m */,
+				594F8A6C16D1EF5F007AF3F1 /* LRPRecord.h */,
+				594F8A6D16D1EF5F007AF3F1 /* LRPRecord.m */,
+				594F8A6E16D1EF5F007AF3F1 /* LRPUser.h */,
+				594F8A6F16D1EF5F007AF3F1 /* LRPUser.m */,
+				594F8A5916D1EE92007AF3F1 /* MainStore.xcdatamodeld */,
+				594F8A5716D1EDF1007AF3F1 /* User.h */,
+				594F8A5816D1EDF1007AF3F1 /* User.m */,
 				59951B5516A7BD5700C36331 /* CoreDataHelper.h */,
 				59951B5616A7BD5700C36331 /* CoreDataHelper.m */,
-				59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */,
 				59A7094A16A74C8400267021 /* Record.h */,
 				59A7094B16A74C8400267021 /* Record.m */,
-				59A7094716A74C8300267021 /* Users.h */,
-				59A7094816A74C8300267021 /* Users.m */,
 			);
 			name = "Core data";
 			sourceTree = "<group>";
@@ -246,6 +333,11 @@
 				59A7093216A73E0500267021 /* Default-568h@2x.png in Resources */,
 				59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */,
 				5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */,
+				594F8AA316D2245F007AF3F1 /* Background-568h@2x.png in Resources */,
+				594F8AA416D2245F007AF3F1 /* Background-iPad.png in Resources */,
+				594F8AA516D2245F007AF3F1 /* Background.png in Resources */,
+				594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */,
+				594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,20 +348,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				594F8A6716D1EF05007AF3F1 /* User.m in Sources */,
 				59A7092816A73E0500267021 /* main.m in Sources */,
 				59A7092C16A73E0500267021 /* LRPAppDelegate.m in Sources */,
-				59A7093516A73E0500267021 /* Repassitory.xcdatamodeld in Sources */,
-				59A7094916A74C8300267021 /* Users.m in Sources */,
 				59A7094C16A74C8400267021 /* Record.m in Sources */,
 				59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */,
 				59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */,
-				59CE449516A8B70B00AA967D /* LRPReocrdListViewController.m in Sources */,
 				5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */,
 				5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */,
 				5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */,
 				5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */,
 				5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */,
-				590EDBE516AD4770006E7C24 /* LRPRecord.m in Sources */,
+				594F8A5B16D1EE92007AF3F1 /* MainStore.xcdatamodeld in Sources */,
+				594F8A7016D1EF5F007AF3F1 /* LRPRecord.m in Sources */,
+				594F8A7116D1EF5F007AF3F1 /* LRPUser.m in Sources */,
+				594F8A7616D1EFF4007AF3F1 /* LRPAppState.m in Sources */,
+				594F8A7B16D1F0E2007AF3F1 /* LRPEncryptionTransformer.m in Sources */,
+				594F8A7C16D1F0E2007AF3F1 /* LRPStringEncryptionTransformer.m in Sources */,
+				594F8A8E16D1F0FB007AF3F1 /* RNCryptor.m in Sources */,
+				594F8A8F16D1F0FB007AF3F1 /* RNCryptorEngine.m in Sources */,
+				594F8A9016D1F0FB007AF3F1 /* RNDecryptor.m in Sources */,
+				594F8A9116D1F0FB007AF3F1 /* RNEncryptor.m in Sources */,
+				594F8A9216D1F0FB007AF3F1 /* RNOpenSSLCryptor.m in Sources */,
+				594F8A9316D1F0FB007AF3F1 /* RNOpenSSLDecryptor.m in Sources */,
+				594F8A9416D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m in Sources */,
+				594F8A9916D1F205007AF3F1 /* LRPNewUserViewController.m in Sources */,
+				594F8A9C16D21A91007AF3F1 /* LRPStartViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,13 +491,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		59A7093316A73E0500267021 /* Repassitory.xcdatamodeld */ = {
+		594F8A5916D1EE92007AF3F1 /* MainStore.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				59A7093416A73E0500267021 /* Repassitory.xcdatamodel */,
+				594F8A5A16D1EE92007AF3F1 /* MainStore.xcdatamodel */,
 			);
-			currentVersion = 59A7093416A73E0500267021 /* Repassitory.xcdatamodel */;
-			path = Repassitory.xcdatamodeld;
+			currentVersion = 594F8A5A16D1EE92007AF3F1 /* MainStore.xcdatamodel */;
+			path = MainStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

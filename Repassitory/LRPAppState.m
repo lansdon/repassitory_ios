@@ -91,4 +91,32 @@ static NSString* _key = nil;            // Static variable for user key
 }
 
 
++(void) showAppInfo {
+	
+	NSString* aboutMsg = [[NSString alloc] initWithFormat:
+						  @"Repassitory\n"
+						  "Version %@\n"
+						  "By Lansdon Page\n"
+						  "Copyright 2013\n"
+						  "\n"
+						  "Repassitory is a password database where you can store "
+						  "your passwords in one spot. You'll never lose those annoying, "
+						  "infrequently used passwords again!\n"
+						  ""
+						  "Security: Repassitory uses a powerful AES encryption algorithm "
+						  "in combination with Apple's Core Data storage technology. This means "
+						  "your information is stored on your device in a secure encrypted format "
+						  "that only YOU can get to!", [LRPAppState getVersion]];
+	
+	UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle:@"About Repassitory"
+						  message:aboutMsg
+						  delegate:nil
+						  cancelButtonTitle:@"OK"
+						  otherButtonTitles:nil];
+	[alert show];
+	
+}
+
+
 @end

@@ -58,10 +58,10 @@
 	self.navigationItem.rightBarButtonItems = rBtnList;
 
 //	UIBarButtonItem* exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"Exit" style:UIBarButtonItemStyleBordered target:self action:@selector(resignAndLogin:)];
-	UIBarButtonItem* aboutBtn = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAppInfo:)];
+//	UIBarButtonItem* aboutBtn = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAppInfo:)];
 	
-	NSArray* lBtnList = [[NSArray alloc] initWithObjects:aboutBtn, nil];
-	self.navigationItem.leftBarButtonItems = lBtnList;
+//	NSArray* lBtnList = [[NSArray alloc] initWithObjects:aboutBtn, nil];
+//	self.navigationItem.leftBarButtonItems = lBtnList;
 
 }
 
@@ -119,9 +119,9 @@
 		
 		// Load new root view from app delegate
 		LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
+		[self dismissViewControllerAnimated:true completion:nil];
 		[appDelegate loginSuccessfull];
 		
-		[self dismissViewControllerAnimated:true completion:nil];
 	}
 	else { // ERROR CREATING USER
 		
@@ -155,41 +155,19 @@
     //  Otherwise we pressed done on the password field, and want to attempt login
     } else {
         //  First put away the keyboard
-        [sender resignFirstResponder];
-        
-        [self loginUser];
-            
+		if([usernameField isFirstResponder]) {
+			[usernameField resignFirstResponder];
+		} else if([passwordField isFirstResponder]) {
+			[passwordField resignFirstResponder];
+		}
 
-//        [LRPAppState reset]; // INvalid login, make sure appstate is reset
-    }
+        [self loginUser];
+	}
 }
 
 
 - (IBAction) showAppInfo:(id)sender {
-	
-	NSString* aboutMsg = [[NSString alloc] initWithFormat:
-						@"Repassitory\n" 
-						"Version %@\n" 
-						"By Lansdon Page\n" 
-						"Copyright 2013\n" 
-						"\n" 
-						"Repassitory is a password database where you can store " 
-						"your passwords in one spot. You'll never lose those annoying, " 
-						"infrequently used passwords again!\n" 
-						"" 
-						"Security: Repassitory uses a powerful AES encryption algorithm " 
-						"in combination with Apple's Core Data storage technology. This means " 
-						"your information is stored on your device in a secure encrypted format " 
-						"that only YOU can get to!", [LRPAppState getVersion]];
-	
-	UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:@"About Repassitory"
-						  message:aboutMsg
-						  delegate:nil
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
-	[alert show];
-	
+	[LRPAppState showAppInfo];
 }
 
 - (IBAction) createNewUser:(id)sender {

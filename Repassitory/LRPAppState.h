@@ -31,4 +31,7 @@
 +(NSString*)getKey;
 
 +(NSString*) getVersion;
+
++(void) showAppInfo;
+
 @end

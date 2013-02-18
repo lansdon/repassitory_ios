@@ -25,6 +25,7 @@
     bool password2OK;
     bool passwordOK;
     bool securityAnswerOK;
+	bool securityQuestionOK;
 }
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) IBOutlet UIPickerView *picker;
@@ -36,6 +37,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *password2Feedback;
 @property (strong, nonatomic) IBOutlet UITextField *securityAnswerInput;
 @property (strong, nonatomic) IBOutlet UILabel *securityAnswerFeedback;
+//@property (strong, nonatomic) IBOutlet UITextField *securityQuestionInput;
+@property (strong, nonatomic) IBOutlet UILabel *securityQuestionFeedback;
 
 
 @property (strong, nonatomic) NSArray *securityQuestions;
