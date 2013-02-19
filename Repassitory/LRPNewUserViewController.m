@@ -109,15 +109,11 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (buttonIndex == 0)
-	{
-		// Yes, do something
+	if (buttonIndex == 1) {	// YES
 		[self saveUser:nil];
 	}
-	else if (buttonIndex == 1)
-	{
-		// No
-	}
+	//	if (buttonIndex == 0) {			// NO
+	//	}
 }
 
 // Confirmation Dialogue
@@ -126,8 +122,8 @@ numberOfRowsInComponent:(NSInteger)component
 	[confirm setTitle:title];
 	[confirm setMessage:msg];
 	[confirm setDelegate:self];
-	[confirm addButtonWithTitle:@"Yes"];
 	[confirm addButtonWithTitle:@"No"];
+	[confirm addButtonWithTitle:@"Yes"];
 	[confirm show];
 }
 

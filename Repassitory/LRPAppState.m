@@ -108,12 +108,14 @@ static NSString* _key = nil;            // Static variable for user key
 						  "your information is stored on your device in a secure encrypted format "
 						  "that only YOU can get to!", [LRPAppState getVersion]];
 	
-	UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:@"About Repassitory"
-						  message:aboutMsg
-						  delegate:nil
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithFrame:CGRectMake(0, 0, 400, 750)];
+	alert.frame = CGRectMake(0, 0, 300, 800);
+	[alert autoresizesSubviews];
+	[alert setFrame:CGRectMake(0, 0, 300, 300)];
+	[alert setTitle:@"About Repassitory"];
+	[alert setMessage:aboutMsg];
+	[alert setDelegate:self];
+	[alert addButtonWithTitle:@"OK"];
 	[alert show];
 	
 }

@@ -11,7 +11,6 @@
 #import "LRPDetailViewController.h"
 #import "LRPRecordDataController.h"
 #import "LRPRecord.h"
-#import "LRPAddRecordViewController.h"
 #import "LRPSplitViewController.h"
 #import "LRPAppState.h"
 
@@ -51,7 +50,7 @@
     self.dataController = [[LRPRecordDataController alloc] init];
     
     // opaque background exposes window image
-    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+    self.view.backgroundColor = [UIColor clearColor];
 
 }
 
@@ -152,6 +151,7 @@
 
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
+/*
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         
         LRPAddRecordViewController *addController = [segue sourceViewController];
@@ -161,6 +161,7 @@
         }
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
+ */
 }
 
 

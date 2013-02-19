@@ -26,23 +26,27 @@
 }
 
 @property (strong, nonatomic) LRPRecord* record;
-//@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
-//@property (weak, nonatomic) IBOutlet UILabel* usernameLabel;
-//@property (weak, nonatomic) IBOutlet UILabel* passwordLabel;
-//@property (weak, nonatomic) IBOutlet UILabel* urlLabel;
 @property (weak, nonatomic) IBOutlet UILabel* dateLabel;
-//@property (weak, nonatomic) IBOutlet UILabel* notesLabel;
-
 @property (retain, nonatomic) IBOutlet UITextField* titleTextField;
 @property (retain, nonatomic) IBOutlet UITextField* usernameTextField;
 @property (retain, nonatomic) IBOutlet UITextField* passwordTextField;
 @property (retain, nonatomic) IBOutlet UITextField* urlTextField;
 @property (retain, nonatomic) IBOutlet UITextField* notesTextField;
 
-@property (retain, nonatomic) IBOutlet UISegmentedControl* segmentedControl;
+@property (weak, nonatomic) IBOutlet UINavigationItem* navBar;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnDelete;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnEdit;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnNew;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnSave;
 
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
 -(IBAction) segmentedControlIndexChanged;
+-(IBAction) saveRecord:(id)sender;
+-(IBAction) deleteRecord:(id)sender;
+
+- (IBAction)textFieldDidExit:(UITextField *)textField;
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField;
+- (IBAction)textFieldDidEndEditing:(UITextField *)textField;
 
 @end

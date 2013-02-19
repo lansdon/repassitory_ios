@@ -27,7 +27,6 @@
 
 
 @implementation LRPDetailViewController
-@synthesize segmentedControl;
 @synthesize titleTextField, usernameTextField, passwordTextField, urlTextField, notesTextField, dateLabel;
 @synthesize record;
 
@@ -52,8 +51,10 @@
     // Current User Label
     // Test for user logged in
     if ( [LRPAppState checkForUser] ) {
-        NSString* temp = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
-		[[self navigationController] setTitle:temp];
+        NSString* greeting = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
+//		[[self navigationController] setTitle:temp];
+//		self.navigationItem.topItem.title = @"title";
+		self.navigationItem.title = greeting;
 		//self.currentUserLabel.text = temp;
     }
 
@@ -133,7 +134,7 @@
 
 		case BTN_DELETE:			
 			// Todo -- Delete Record
-			[self deleteRecord];
+			[self deleteRecord: nil];
 			[self setState:STATE_BLANK];
 			break;
 		case BTN_EDIT:
@@ -143,7 +144,7 @@
 			[self setState:STATE_CREATE];
 			break;
 		case BTN_SAVE:
-			[self saveRecord];
+			[self saveRecord: nil];
 			[self setState:STATE_DISPLAY];
 			break;
 			
@@ -212,38 +213,55 @@
 -(void) updateButtonStates {
 	switch (currentState) {
 		case STATE_BLANK:
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_DELETE];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_EDIT];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_NEW];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_SAVE];
+			[self btnSetEnabled:NO forIndex:BTN_DELETE];
+			[self btnSetEnabled:NO forIndex:BTN_EDIT];
+			[self btnSetEnabled:YES forIndex:BTN_NEW];
+			[self btnSetEnabled:NO forIndex:BTN_SAVE];
 			break;
 			
 		case STATE_CREATE:
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_DELETE];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_EDIT];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_NEW];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_SAVE];
+			[self btnSetEnabled:NO forIndex:BTN_DELETE];
+			[self btnSetEnabled:NO forIndex:BTN_EDIT];
+			[self btnSetEnabled:YES forIndex:BTN_NEW];
+			[self btnSetEnabled:YES forIndex:BTN_SAVE];
 			break;
 			
 		case STATE_DISPLAY:
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_DELETE];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_EDIT];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_NEW];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_SAVE];
+			[self btnSetEnabled:YES forIndex:BTN_DELETE];
+			[self btnSetEnabled:YES forIndex:BTN_EDIT];
+			[self btnSetEnabled:YES forIndex:BTN_NEW];
+			[self btnSetEnabled:NO forIndex:BTN_SAVE];
 			break;
 			
 		case STATE_EDIT:
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_DELETE];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_EDIT];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_NEW];
-			[segmentedControl setEnabled:YES forSegmentAtIndex:BTN_SAVE];
+			[self btnSetEnabled:YES forIndex:BTN_DELETE];
+			[self btnSetEnabled:NO forIndex:BTN_EDIT];
+			[self btnSetEnabled:YES forIndex:BTN_NEW];
+			[self btnSetEnabled:YES forIndex:BTN_SAVE];
 			break;
 			
 		default:
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_DELETE];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_EDIT];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_NEW];
-			[segmentedControl setEnabled:NO forSegmentAtIndex:BTN_SAVE];
+			[self btnSetEnabled:NO forIndex:BTN_DELETE];
+			[self btnSetEnabled:NO forIndex:BTN_EDIT];
+			[self btnSetEnabled:NO forIndex:BTN_NEW];
+			[self btnSetEnabled:NO forIndex:BTN_SAVE];
+			break;
+	}
+}
+-(void) btnSetEnabled:(bool)bEnabled forIndex:(int)index {
+//	[segmentedControl setEnabled:bEnabled forSegmentAtIndex:index];
+	switch (index) {
+		case BTN_DELETE:
+			[self.btnDelete setEnabled:bEnabled];
+			break;	
+		case BTN_EDIT:
+			[self.btnEdit setEnabled:bEnabled];
+		break;
+		case BTN_NEW:
+			[self.btnNew setEnabled:bEnabled];
+			break;
+		case BTN_SAVE:
+			[self.btnSave setEnabled:bEnabled];
 			break;
 	}
 }
@@ -265,20 +283,161 @@
 }
 
 #pragma mark - Database / Records
--(void) saveRecord {
-	if(!record) record = [LRPRecord alloc];
-	self.record = [self.record initWithTitle:titleTextField.text username:usernameTextField.text password:passwordTextField.text url:urlTextField.text notes:notesTextField.text];
-	[self.splitVC.masterVC.dataController addRecord:record];
-//	[[self tableView] reloadData];
-	[self.splitVC.masterVC.tableView reloadData];
+-(IBAction) saveRecord:(id)sender {
+	[self doConfirmDialogueWithTitle:@"Save Record" message:@"Are you sure you want to save this record?"];
 }
 
--(void) deleteRecord {
-	[self.splitVC.masterVC.dataController deleteRecord:record];
-	[[self tableView] reloadData];
+-(void)saveRecordConfirmed {
+	// Store Record in Core Data using input fields
+	if(!record) record = [LRPRecord alloc];
+	self.record = [self.record initWithTitle:titleTextField.text
+									username:usernameTextField.text
+									password:passwordTextField.text
+									url:urlTextField.text
+									notes:notesTextField.text];
+	[self.splitVC.masterVC.dataController addRecord:record];
+
+	// Update Master View
 	[self.splitVC.masterVC.tableView reloadData];
 	
+	// Update button states
+	[self setState:STATE_DISPLAY];
 }
+
+-(IBAction) deleteRecord:(id)sender {
+	[self doConfirmDialogueWithTitle:@"Delete Record" message:@"Are you sure you want to delete this record?"];
+}
+
+-(void) deleteRecordConfirmed {
+	// Delete from Core Data + refresh master list
+	[self.splitVC.masterVC.dataController deleteRecord:record];
+	[self.splitVC.masterVC.tableView reloadData];
+	
+	// Clear from local memory then refresh details
+	[self.record clear];
+	[[self tableView] reloadData];
+	
+	// Update State/buttons
+	[self setState:STATE_BLANK];
+}
+
+-(IBAction) editRecord:(id)sender {
+	[self setState:STATE_EDIT];
+}
+
+-(IBAction) newRecord:(id)sender {
+	[self setState:STATE_CREATE];
+	[self.titleTextField becomeFirstResponder];
+}
+
+
+
+
+#pragma mark - Reposition Text Fields (when keyboard is blocking them)
+- (IBAction)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: YES];
+}
+
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)textField
+{
+	if(textField.tag == 5) {
+		[textField resignFirstResponder];
+	}
+	
+	
+    [self animateTextField: textField up: NO];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        const int movementDistance = 120; // tweak as needed
+        const float movementDuration = 0.3f; // tweak as needed
+        
+        int movement = (up ? -movementDistance : movementDistance);
+        
+        [UIView beginAnimations: @"anim" context: nil];
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        [UIView setAnimationDuration: movementDuration];
+        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+        [UIView commitAnimations];
+    }
+}
+
+
+- (IBAction)textFieldDidExit:(UITextField *)textField
+{
+	// INPUT COMPLETED - Confirm User Save and then Login
+//    if(usernameOK && passwordOK && password2OK && securityAnswerOK) {
+//		[textField resignFirstResponder];
+//		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
+//	}
+	// INPUT INCOMPLETE - Set next input field to first responder
+//	else {
+		switch (textField.tag) {
+			case 0:
+				[textField resignFirstResponder];
+				[self.usernameTextField becomeFirstResponder];
+				break;
+			case 1:
+				[textField resignFirstResponder];
+				[self.passwordTextField becomeFirstResponder];
+				break;
+			case 2:
+				[textField resignFirstResponder];
+				[self.urlTextField becomeFirstResponder];
+				break;
+			case 3:
+				[textField resignFirstResponder];
+				[self.notesTextField becomeFirstResponder];
+				break;
+			case 4:
+				[textField resignFirstResponder];
+//				[self.usernameInput becomeFirstResponder];
+				break;
+			default:
+				// set #1 first responder?
+				break;
+		}
+//	}
+	
+    [self animateTextField: textField up: NO];
+}
+
+#pragma mark - Alert View Helpers/Response
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	// SAVE RECORD RESPONSE
+	if([alertView.title isEqualToString: @"Save Record"]) {
+		if(buttonIndex == 1) { // YES
+			[self saveRecordConfirmed];
+		} else if (buttonIndex == 0) { // NO
+			
+		}		
+	}
+	// DELETE RECORD RESPONSE
+	if([alertView.title isEqualToString: @"Delete Record"]) {
+		if(buttonIndex == 1) { // YES
+			[self deleteRecordConfirmed];
+		} else if (buttonIndex == 0) { // NO
+			
+		}
+	}
+}
+
+// Confirmation Dialogue
+-(void)doConfirmDialogueWithTitle:(NSString*)title message:(NSString*)msg {
+	UIAlertView *confirm = [[UIAlertView alloc] init];
+	[confirm setTitle:title];
+	[confirm setMessage:msg];
+	[confirm setDelegate:self];
+	[confirm addButtonWithTitle:@"No"];
+	[confirm addButtonWithTitle:@"Yes"];
+	[confirm show];
+}
+
 
 
 @end

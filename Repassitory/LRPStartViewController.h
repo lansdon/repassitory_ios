@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LRPStartViewController : UIViewController
+@interface LRPStartViewController : UIViewController <UIAlertViewDelegate>
+
+
+- (void)willPresentAlertView:(UIAlertView *)alertView;
+
 
 @end
