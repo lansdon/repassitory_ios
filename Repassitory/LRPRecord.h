@@ -24,4 +24,11 @@
 
 -(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSString*)url notes:(NSString*)notes;
 
+// Converts stored date format into displayable string
+-(NSString*)getUpdateAsString;
+//-(NSString*)getSearchableUsername;
+//-(NSString*)getSearchablePassword;
+
+-(void) clear;
+
 @end

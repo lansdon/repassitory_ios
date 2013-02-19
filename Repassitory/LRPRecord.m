@@ -29,6 +29,22 @@
 }
 
 
+-(NSString*)getUpdateAsString {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateStyle:NSDateFormatterMediumStyle];
+	return [formatter stringFromDate:self.updated];
+}
+
+-(void) clear {
+	_title = @"";
+	_username = @"";
+	_password = @"";
+	_url = @"";
+	_updated = [[NSDate alloc] init];
+	_notes = @"";
+	_user_id = [[LRPAppState currentUser] user_id];	
+}
+
 
 
 @end

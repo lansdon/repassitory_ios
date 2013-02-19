@@ -154,21 +154,6 @@
 
 // Check if username is taken
 + (bool)usernameExistsByUser:(LRPUser*)testUser {
-
-/*
-    // Use users key
-    [LRPAppState setKey:testUser.password];
-    
-	// Execute the count request
-	NSArray *fetchResults = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
-    
-    for(int i=0; i<fetchResults.count; ++i) {
-        if([[[fetchResults[i] username] lowercaseString] isEqualToString:[testUser.username lowercaseString]] &&
-            [[[fetchResults[i] password] lowercaseString] isEqualToString:[testUser.password lowercaseString]]) {
-            return true;
-        }
-    }
- */
     return [CoreDataHelper usernameExistsByString:testUser.username];
 }
 

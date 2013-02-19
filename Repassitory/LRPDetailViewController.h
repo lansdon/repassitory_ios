@@ -12,22 +12,37 @@
 @class LRPSplitViewController;
 
 
-@interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate>
+@interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate> {
+	
+	UILabel* segmentedLabel;
+	UISegmentedControl* segmentedControl;
 
-//@property (strong, nonatomic) id detailItem;
-
-//@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+	// MUST match seg control layout!!
+	enum BTN_TYPE { BTN_DELETE, BTN_EDIT, BTN_NEW, BTN_SAVE };
+	
+	// current mode of detail screen
+	enum STATE { STATE_BLANK, STATE_DISPLAY, STATE_EDIT, STATE_CREATE };
+	int currentState;
+}
 
 @property (strong, nonatomic) LRPRecord* record;
-@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel* usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel* passwordLabel;
-@property (weak, nonatomic) IBOutlet UILabel* urlLabel;
+//@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
+//@property (weak, nonatomic) IBOutlet UILabel* usernameLabel;
+//@property (weak, nonatomic) IBOutlet UILabel* passwordLabel;
+//@property (weak, nonatomic) IBOutlet UILabel* urlLabel;
 @property (weak, nonatomic) IBOutlet UILabel* dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel* notesLabel;
-@property (weak, nonatomic) IBOutlet UILabel* currentUserLabel;
+//@property (weak, nonatomic) IBOutlet UILabel* notesLabel;
 
-//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (retain, nonatomic) IBOutlet UITextField* titleTextField;
+@property (retain, nonatomic) IBOutlet UITextField* usernameTextField;
+@property (retain, nonatomic) IBOutlet UITextField* passwordTextField;
+@property (retain, nonatomic) IBOutlet UITextField* urlTextField;
+@property (retain, nonatomic) IBOutlet UITextField* notesTextField;
+
+@property (retain, nonatomic) IBOutlet UISegmentedControl* segmentedControl;
+
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
+
+-(IBAction) segmentedControlIndexChanged;
 
 @end

@@ -32,7 +32,7 @@
 //    _user = [[LRPUser alloc] init];
     
     // opaque background exposes window image
-    self.view.backgroundColor = [UIColor underPageBackgroundColor];
+    self.view.backgroundColor = [UIColor clearColor];
 
 }
 

@@ -89,6 +89,14 @@
     [self loadUserRecordsFromContext];
 }
 
+- (void) deleteRecord:(LRPRecord*)record {
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(title == %@  && username == %@ && password == %@ && url == %@ && notes == %@ && updated == %@ && user_id == %@)", record.title, record.username, record.password, record.url, record.notes, record.updated, record.user_id];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(title == %@ && url == %@ && notes == %@ && updated == %@ && user_id == %@)", record.title, record.url, record.notes, record.updated, record.user_id];
+	[CoreDataHelper deleteAllObjectsForEntity:@"Record" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]];
+	[CoreDataHelper saveContext];
+	
+	[self loadUserRecordsFromContext];
+}
 
 
 

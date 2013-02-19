@@ -25,6 +25,8 @@
 
 - (void)addRecord:(LRPRecord*)record;
 
+- (void) deleteRecord:(LRPRecord*)record;
+
 - (BOOL)loadUserRecordsFromContext;
 
 @end

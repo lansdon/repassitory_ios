@@ -23,4 +23,5 @@
 
 - (id)initWithUser:(User*)sourceUser;
 
+
 @end
