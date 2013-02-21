@@ -93,17 +93,29 @@
 	CGFloat alertWidth = (screenWidth/4)*2;
 	CGFloat alertHeight = (screenHeight/4)*2;
 	
-	
-	alertView.frame = CGRectMake(alertOriginX, alertOriginY, alertWidth, alertHeight);
-	[alertView autoresizesSubviews];
+	if(UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {	
+		alertView.frame = CGRectMake(alertOriginX, alertOriginY, alertWidth, alertHeight);
+	} else {
+		alertView.frame = CGRectMake(alertOriginY, alertOriginX, alertHeight, alertWidth*1.1);
+	}
+//	[alertView autoresizesSubviews];
     for ( UIView *views in [alertView subviews]) {
-//        NSLog(@"%@",views);				
-        if (views.tag == 12345) {
-			[views setFrame:CGRectMake(alertWidth*.05, alertHeight*.12, alertWidth*.90, alertHeight*.75)];
+//        NSLog(@"%@",views);
+		if(UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+			if (views.tag == 12345) {
+				[views setFrame:CGRectMake(alertWidth*.05, alertHeight*.12, alertWidth*.90, alertHeight*.75)];
+			}
+			if (views.tag == 1) {
+				[views setFrame:CGRectMake(alertWidth*.05, alertHeight*.88, alertWidth*.90, alertHeight*.1)];
+			}			
+		} else {
+			if (views.tag == 12345) {
+				[views setFrame:CGRectMake(alertHeight*.05, alertWidth*.15, alertHeight*.90, alertWidth*.75)];
+			}
+			if (views.tag == 1) {
+				[views setFrame:CGRectMake(alertHeight*.05, alertWidth*.95, alertHeight*.91, alertWidth*.1)];
+			}
 		}
-		if (views.tag == 1) {
-			[views setFrame:CGRectMake(alertWidth*.05, alertHeight*.88, alertWidth*.90, alertHeight*.1)];
-        }
     }
 }
 

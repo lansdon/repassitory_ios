@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="Yrh-6T-8Af">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="FK5-Ll-AWk">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -86,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPh-FK-3GH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="1892"/>
+            <point key="canvasLocation" x="1087" y="1892"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KT5-B9-5IK">
@@ -105,10 +105,10 @@
             </objects>
             <point key="canvasLocation" x="-724" y="-580"/>
         </scene>
-        <!--Detail View Controller - Stuff-->
+        <!--Detail View Controller - Details-->
         <scene sceneID="bOn-6A-Lk9">
             <objects>
-                <tableViewController id="C9Z-Mz-sva" customClass="LRPDetailViewController" sceneMemberID="viewController">
+                <tableViewController title="Details" id="C9Z-Mz-sva" customClass="LRPDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ShG-k9-2DA">
                         <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -577,7 +577,7 @@
                                                     </constraints>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="NTv-TQ-mWQ" eventType="editingDidBegin" id="Dug-9x-haP"/>
                                                         <action selector="textFieldDidEndEditing:" destination="NTv-TQ-mWQ" eventType="editingDidEnd" id="KFt-xu-8WG"/>
@@ -736,90 +736,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFF-kS-Awz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1148" y="1044"/>
-        </scene>
-        <!--Start View Controller - Welcome to Repassitory-->
-        <scene sceneID="KdL-69-Hb8">
-            <objects>
-                <viewController id="JfX-cq-POj" customClass="LRPStartViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4Tq-KM-whI">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-R7-AhC">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="53v-aa-bUl"/>
-                                    <constraint firstAttribute="width" constant="250" id="LyI-ix-pGY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="30"/>
-                                <state key="normal" title="NEW USER">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="NTv-TQ-mWQ" kind="push" identifier="startToNewUser" id="TNW-Lf-qfi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kU-yA-gtD">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="Zj5-QQ-fXs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="30"/>
-                                <state key="normal" title="LOGIN">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="bZU-8m-ukd" kind="push" identifier="startToLogin" id="oEp-kG-XhC"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Repassitory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKY-KL-xbA">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="yJy-e2-UYs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="60"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
-                                <size key="shadowOffset" width="-1" height="-1"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your personal password database" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZ2-ZH-Q4j">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="t2O-ud-PXS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="31"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
-                                <size key="shadowOffset" width="-1" height="-1"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="dKY-KL-xbA" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="DtS-rF-kLo"/>
-                            <constraint firstItem="8kU-yA-gtD" firstAttribute="top" secondItem="Taq-R7-AhC" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="E4b-Ig-fDH"/>
-                            <constraint firstItem="8kU-yA-gtD" firstAttribute="leading" secondItem="Taq-R7-AhC" secondAttribute="leading" type="default" id="F7L-Kw-jRT"/>
-                            <constraint firstItem="Taq-R7-AhC" firstAttribute="top" secondItem="yZ2-ZH-Q4j" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Kmw-vj-okt"/>
-                            <constraint firstItem="Taq-R7-AhC" firstAttribute="top" secondItem="4Tq-KM-whI" secondAttribute="top" constant="364" id="LIA-C8-Ztr"/>
-                            <constraint firstItem="yZ2-ZH-Q4j" firstAttribute="leading" secondItem="4Tq-KM-whI" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Q35-XC-Vcl"/>
-                            <constraint firstItem="8kU-yA-gtD" firstAttribute="trailing" secondItem="Taq-R7-AhC" secondAttribute="trailing" type="default" id="ZH3-ur-wMb"/>
-                            <constraint firstAttribute="trailing" secondItem="yZ2-ZH-Q4j" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="d8u-ic-UGu"/>
-                            <constraint firstItem="dKY-KL-xbA" firstAttribute="leading" secondItem="4Tq-KM-whI" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="dyA-n2-d2a"/>
-                            <constraint firstItem="yZ2-ZH-Q4j" firstAttribute="centerX" secondItem="Taq-R7-AhC" secondAttribute="centerX" type="default" id="h8e-of-Bna"/>
-                            <constraint firstItem="yZ2-ZH-Q4j" firstAttribute="top" secondItem="dKY-KL-xbA" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="xUD-84-jhe"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Welcome to Repassitory" id="xiQ-xQ-nhb"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Mq-Cl-Md4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-976" y="1346"/>
+            <point key="canvasLocation" x="2122" y="1044"/>
         </scene>
         <!--Split View Controller - Repassitory-->
         <scene sceneID="d0I-MF-VtG">
@@ -903,58 +820,268 @@
             </objects>
             <point key="canvasLocation" x="-786" y="344"/>
         </scene>
-        <!--Navigation Controller - loginNavController-->
-        <scene sceneID="2UP-iK-guG">
+        <!--Start View Controller - Start Screen-->
+        <scene sceneID="JQc-ke-Cof">
             <objects>
-                <navigationController storyboardIdentifier="loginNavController" title="loginNavController" id="jSK-GW-KWo" sceneMemberID="viewController">
+                <tableViewController title="Start Screen" id="ITf-QD-S5r" customClass="LRPStartViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ho1-ZT-B3t">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="Fyf-xL-phT">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="234" id="YWG-7m-v4l">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="234"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="233"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="74" id="Y19-tK-o1A">
+                                        <rect key="frame" x="0.0" y="234" width="768" height="74"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="REPASSITORY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSJ-b0-Aig">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="636" id="4mm-Ck-WyB"/>
+                                                        <constraint firstAttribute="height" constant="70" id="Ldh-6Q-z7b"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="93"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
+                                                    <size key="shadowOffset" width="-3" height="-2"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="vSJ-b0-Aig" firstAttribute="centerX" secondItem="Y19-tK-o1A" secondAttribute="centerX" type="default" id="KZ0-Cc-jEF"/>
+                                            <constraint firstItem="vSJ-b0-Aig" firstAttribute="centerY" secondItem="Y19-tK-o1A" secondAttribute="centerY" type="default" id="ZtG-fL-kbD"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="87" id="dhm-h6-xcz">
+                                        <rect key="frame" x="0.0" y="308" width="768" height="87"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="86"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="YOUR PERSONAL PASSWORD REPOSITORY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaP-7u-qEo">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="Ibx-z3-akX"/>
+                                                        <constraint firstAttribute="width" constant="664" id="ucN-af-1ya"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="32"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
+                                                    <size key="shadowOffset" width="-2" height="-2"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="EaP-7u-qEo" firstAttribute="top" secondItem="dhm-h6-xcz" secondAttribute="top" constant="17" id="ACp-E7-I6s"/>
+                                            <constraint firstItem="EaP-7u-qEo" firstAttribute="centerX" secondItem="dhm-h6-xcz" secondAttribute="centerX" type="default" id="m1c-wz-2gQ"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="70" id="bOv-FP-kF2">
+                                        <rect key="frame" x="0.0" y="395" width="768" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-EV-GpD">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="55" id="CDv-GO-z49"/>
+                                                        <constraint firstAttribute="width" constant="242" id="YJF-ME-Ro8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="41"/>
+                                                    <state key="normal" title="NEW USER" backgroundImage="Default@2x.png">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="NTv-TQ-mWQ" kind="push" identifier="startToNewUser" id="c7h-kb-v0j"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="centerX" secondItem="bOv-FP-kF2" secondAttribute="centerX" type="default" id="Y2Q-5V-nf8"/>
+                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="top" secondItem="bOv-FP-kF2" secondAttribute="top" constant="7" id="mp8-hK-so2"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="68" id="c33-7K-NNR">
+                                        <rect key="frame" x="0.0" y="465" width="768" height="68"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="67"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXo-xP-X6c">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="244" id="McY-C1-BnO"/>
+                                                        <constraint firstAttribute="height" constant="55" id="xif-Xl-7ZM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="41"/>
+                                                    <state key="normal" title="LOGIN" backgroundImage="Default@2x.png">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="bZU-8m-ukd" kind="push" identifier="startToLogin" id="Yta-fh-frE"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="xXo-xP-X6c" firstAttribute="top" secondItem="c33-7K-NNR" secondAttribute="top" constant="6" id="5NP-tG-sqa"/>
+                                            <constraint firstItem="xXo-xP-X6c" firstAttribute="centerX" secondItem="c33-7K-NNR" secondAttribute="centerX" type="default" id="6rn-1o-OEu"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="ITf-QD-S5r" id="Qow-QV-BSd"/>
+                            <outlet property="delegate" destination="ITf-QD-S5r" id="am8-Su-9YU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Welcome to Repassitory" id="8is-tm-0JQ"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="saH-q9-Vsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-94" y="1333"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eZl-VJ-ZiP">
+            <objects>
+                <navigationController storyboardIdentifier="loginNavController" id="FK5-Ll-AWk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="ogv-OM-StX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="KPz-ze-LJu">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="JfX-cq-POj" kind="relationship" relationship="rootViewController" id="pdA-YW-XUw"/>
+                        <segue destination="ITf-QD-S5r" kind="relationship" relationship="rootViewController" id="anz-bI-DV8"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yKa-Mv-4je" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="segmentedDetailControl" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" momentary="YES" id="RWt-el-Xpx">
-                    <rect key="frame" x="0.0" y="0.0" width="703" height="45"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <segments>
-                        <segment title="DELETE"/>
-                        <segment title="EDIT"/>
-                        <segment title="NEW"/>
-                        <segment title="SAVE"/>
-                    </segments>
-                    <connections>
-                        <action selector="segmentedControlIndexChanged" destination="C9Z-Mz-sva" eventType="valueChanged" id="WM7-cv-rip"/>
-                    </connections>
-                </segmentedControl>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="segmentedDetailControl" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" momentary="YES" id="GOn-Cs-Kjc">
-                    <rect key="frame" x="0.0" y="0.0" width="703" height="45"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <segments>
-                        <segment title="DELETE"/>
-                        <segment title="EDIT"/>
-                        <segment title="NEW"/>
-                        <segment title="SAVE"/>
-                    </segments>
-                    <connections>
-                        <action selector="segmentedControlIndexChanged" destination="C9Z-Mz-sva" eventType="valueChanged" id="4az-VL-OM8"/>
-                    </connections>
-                </segmentedControl>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="82j-ja-zTy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1962" y="1334"/>
+            <point key="canvasLocation" x="-1024" y="1333"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Default@2x.png" width="640" height="960"/>
+    </resources>
+    <classes>
+        <class className="LRPDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteRecord:"/>
+                <relationship kind="action" name="saveRecord:"/>
+                <relationship kind="action" name="segmentedControlIndexChanged"/>
+                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="btnDelete" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnEdit" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnNew" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnSave" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="notesTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="urlTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createNewUser:"/>
+                <relationship kind="action" name="resignAndLogin:"/>
+                <relationship kind="action" name="showAppInfo:"/>
+                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPMasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
+        </class>
+        <class className="LRPNewUserViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPNewUserViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="saveUser:"/>
+                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
+                <relationship kind="action" name="validatePassword2:"/>
+                <relationship kind="action" name="validatePassword:"/>
+                <relationship kind="action" name="validateSecurityAnswer:"/>
+                <relationship kind="action" name="validateUsername:"/>
+                <relationship kind="outlet" name="password2Feedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="password2Input" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="passwordInput" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="securityAnswerFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="securityAnswerInput" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="securityQuestionFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="usernameFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="usernameInput" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPSplitViewController" superclassName="UISplitViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPSplitViewController.h"/>
+        </class>
+        <class className="LRPStartViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPStartViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadLogin:"/>
+                <relationship kind="action" name="loadNewUser:"/>
+                <relationship kind="action" name="showAppInfo:"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Esz-xS-sk3"/>
+        <segue reference="c7h-kb-v0j"/>
     </inferredMetricsTieBreakers>
 </document>

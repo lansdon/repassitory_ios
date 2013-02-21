@@ -98,22 +98,17 @@
 
 - (void) loginUser {
 	
-	LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];
-	
+	LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];	
 	[LRPAppState setKey:[passwordField text]];
 	
-	NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
-	
-	//        User* userLoggingIn = [[CoreDataHelper searchObjectsForEntity:@"User" withPredicate:pred andSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]] objectAtIndex:0];
-	
+//	NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
+		
 	User* userLoggingIn = [CoreDataHelper getUser:loginUser];
 	if((![userLoggingIn.username isEqualToString:@""] && ![userLoggingIn.password isEqualToString:@""]) &&
 	   (userLoggingIn != nil)) {
-		//        if ([CoreDataHelper countForEntity:@"User" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]] > 0) {
 		
-		//  We found a matching login user!  Force the segue transition to the next view
+		//  We found a matching login user!
 		loginUser = [[LRPUser alloc] initWithUser:userLoggingIn];
-		
 		[LRPAppState setCurrentUser:loginUser];
 		
 		// Load new root view from app delegate
@@ -131,12 +126,9 @@
 						  cancelButtonTitle:@"OK"
 						  otherButtonTitles:nil];
 		[alert show];
-	//            [usernameField setText:@""];
 		[passwordField setText:@""];
-		[passwordField becomeFirstResponder];
-	
-		NSLog(@"Error - Login attempt failed for %@", [usernameField text]);
-	
+		[passwordField becomeFirstResponder];	
+		NSLog(@"Error - Login attempt failed for %@", [usernameField text]);	
 	}
 }
 
@@ -159,7 +151,6 @@
 		} else if([passwordField isFirstResponder]) {
 			[passwordField resignFirstResponder];
 		}
-
         [self loginUser];
 	}
 }
