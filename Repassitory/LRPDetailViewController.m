@@ -55,8 +55,7 @@
     }
     
     // Update the user interface for the detail item.
-    LRPRecord* theRecord = self.record;
-    if (theRecord) {
+    if (![self.record.title isEqualToString:@""]) {
 		[self setState:STATE_DISPLAY];
     } else {
 		[self setState:STATE_BLANK];
@@ -111,6 +110,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	if(!self.record) self.record = [LRPRecord alloc];
+	[self.record clear];
+	
     [self configureView];
 }
 
@@ -266,7 +268,8 @@
 	for(int i=0; i<[indexPaths count]; ++i) {
 		UITableViewCell* cell = indexPaths[i];
 		if(row == i) {
-			[cell setBackgroundColor:[UIColor redColor]];
+			[cell setBackgroundColor:[UIColor blueColor]];
+//			[cell setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"blk_btn_dissolve"]]];
 			[self setFirstResponderByTableRow:row];
 		} else {
 			[cell setBackgroundColor:[UIColor clearColor]];
@@ -357,7 +360,7 @@
 
 
 
-
+/*
 #pragma mark - Color comparison
 BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 	float tolerance = 0.05; // 5%
@@ -384,13 +387,16 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 	
 	return TRUE;
 }
+ */
 
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
 	[self setActiveCellByRow:textField.tag];
 	
-    [self animateTextField: textField up: NO];
+//    [self animateTextField: textField up: YES];
+	
+//	[self animateScreenLocationForView:(UITextView*)textField.superview];
 }
 
 
@@ -430,13 +436,32 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 	}
  */
 	//	}
-    [self animateTextField: textField up: YES];
+//    [self animateTextField: textField up: NO];
+}
+
+// Center screen on give view
+- (void) animateScreenLocationForView:(UITextView*)tv {
+	// NIL will reset screen to original settings
+	if(tv == nil) {
+		self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+	} else {
+		CGPoint cellOrigin = [tv convertPoint:tv.frame.origin  toView:nil];
+		CGPoint superOrigin = [tv.superview convertPoint:tv.frame.origin toView:nil];
+		int windowHeight = self.view.frame.size.height;
+		
+		int windowWidth = self.view.frame.size.width;
+		int displayHeight = (int)(0.3f * windowHeight);
+		self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height); // start at origin
+        self.view.frame = CGRectOffset(self.view.frame, 0, displayHeight-cellOrigin.y);
+	}
+	
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
-    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        const int movementDistance = 120; // tweak as needed
+	if(UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+//    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        const int movementDistance = 40; // tweak as needed
         const float movementDuration = 0.3f; // tweak as needed
         
         int movement = (up ? -movementDistance : movementDistance);
@@ -461,29 +486,40 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 //	else {
 		switch (textField.tag) {
 
-			case 0:
+			case 0: 
 				[textField resignFirstResponder];
 				[self.usernameTextField becomeFirstResponder];
 				[self setActiveCellByRow:1];
+				[self animateTextField: textField up: YES];
 				break;
-			case 1:
+			case 1: 
 				[textField resignFirstResponder];
 				[self.passwordTextField becomeFirstResponder];
 				[self setActiveCellByRow:2];
+				[self animateTextField: textField up: YES];
 				break;
-			case 2:
+			case 2: 
 				[textField resignFirstResponder];
 				[self.urlTextField becomeFirstResponder];
 				[self setActiveCellByRow:3];
+				[self animateTextField: textField up: YES];
 				break;
-			case 3:
+			case 3: 
 				[textField resignFirstResponder];
 				[self.notesTextField becomeFirstResponder];
 				[self setActiveCellByRow:4];
+				[self animateTextField: textField up: YES];
 				break;
 
+			break;
+				
 			case 4:
 				[textField resignFirstResponder];
+				[UIView beginAnimations: @"anim" context: nil];
+				[UIView setAnimationBeginsFromCurrentState: YES];
+				[UIView setAnimationDuration: 0.3];
+				self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+				[UIView commitAnimations];
 				[self saveRecord:nil];
 				[self setActiveCellByRow:-1];
 				break;
@@ -493,7 +529,7 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 		}
 //	}
 	
-    [self animateTextField: textField up: NO];
+//    [self animateTextField: textField up: YES];
 }
 
 #pragma mark - Alert View Helpers/Response

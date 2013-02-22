@@ -32,17 +32,17 @@
 @property (assign, nonatomic) BOOL editingExistingRecord;
 
 @property (weak, nonatomic) IBOutlet UILabel* dateLabel;
-@property (retain, nonatomic) IBOutlet UITextField* titleTextField;
-@property (retain, nonatomic) IBOutlet UITextField* usernameTextField;
-@property (retain, nonatomic) IBOutlet UITextField* passwordTextField;
-@property (retain, nonatomic) IBOutlet UITextField* urlTextField;
-@property (retain, nonatomic) IBOutlet UITextField* notesTextField;
+@property (weak, nonatomic) IBOutlet UITextField* titleTextField;
+@property (weak, nonatomic) IBOutlet UITextField* usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField* passwordTextField;
+@property (weak, nonatomic) IBOutlet UITextField* urlTextField;
+@property (weak, nonatomic) IBOutlet UITextField* notesTextField;
 
 @property (weak, nonatomic) IBOutlet UINavigationItem* navBar;
-@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnDelete;
-@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnEdit;
-@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnNew;
-@property (retain, nonatomic) IBOutlet UIBarButtonItem* btnSave;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* btnDelete;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* btnEdit;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* btnNew;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* btnSave;
 
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 

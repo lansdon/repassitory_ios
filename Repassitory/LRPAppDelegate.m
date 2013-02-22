@@ -135,6 +135,9 @@
 	
 	// Reset the detail view so records aren't partially visible when reloading app
     [_splitVC.detailVC setRecord:nil];
+
+	[self.window setRootViewController:nil];
+
 }
 
 - (void)applicationLoad {

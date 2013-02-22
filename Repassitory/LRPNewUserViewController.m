@@ -19,7 +19,7 @@
 @end
 
 @implementation LRPNewUserViewController
-@synthesize securityQuestions, picker;
+//@synthesize securityQuestions, picker;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+/*
     self.securityQuestions = [[NSArray alloc]
                               initWithObjects:
 							  @"<Choose a question>",
@@ -43,7 +43,7 @@
                               @"How many fingers am I holding up?",
                               @"What's your favorite number?",
                               @"How many digits of PI can you recite?", nil];
-    
+*/    
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
@@ -53,10 +53,10 @@
     usernameOK = NO;
     passwordOK = NO;
     password2OK = NO;
-	securityQuestionOK = NO;
-	securityAnswerOK = NO;
+//	securityQuestionOK = NO;
+//	securityAnswerOK = NO;
 
-	securityQuestionIndex = 0;
+//	securityQuestionIndex = 0;
 
 	
 	[self validatePassword2:nil];
@@ -73,7 +73,7 @@
 	[self dismissViewControllerAnimated:false completion:nil];
 }
 
-
+/*
 #pragma mark PickerView DataSource
 
 - (NSInteger)numberOfComponentsInPickerView:
@@ -92,18 +92,20 @@ numberOfRowsInComponent:(NSInteger)component
 {
     return [securityQuestions objectAtIndex:row];
 }
-
+*/
 
 #pragma mark PickerView Delegate
 
 
-
+/*
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component
 {
 	securityQuestionIndex = row;
 	[self validateSecurityQuestion];
 }
+
+*/
 
 
 #pragma mark - Alert View
@@ -131,8 +133,8 @@ numberOfRowsInComponent:(NSInteger)component
 // Save button pressed
 -(IBAction)saveUser:(id)sender {
     LRPUser* newUser = [[LRPUser alloc] initWithName:[self.usernameInput text] password:[self.passwordInput text]];
-    [newUser setSecurity_question:[NSNumber numberWithInteger:securityQuestionIndex]];
-	[newUser setSecurity_answer:[self.securityAnswerInput text]];
+//    [newUser setSecurity_question:[NSNumber numberWithInteger:securityQuestionIndex]];
+//	[newUser setSecurity_answer:[self.securityAnswerInput text]];
 	
      if([CoreDataHelper createNewUserFromObject:newUser]) {
          // login after creation
@@ -201,6 +203,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 
 #pragma mark - Validation
+/*
 -(bool)validateSecurityQuestion {
 	if(securityQuestionIndex > 0) {
         self.securityQuestionFeedback.text = @"OK!";
@@ -209,9 +212,10 @@ numberOfRowsInComponent:(NSInteger)component
 	} else {
         self.securityQuestionFeedback.text = @"(*Required)";
         self.securityQuestionFeedback.textColor = [UIColor redColor];
-        securityQuestionOK = NO;		
+        securityQuestionOK = NO;
 	}
 }
+*/
 
 // Username incrimental validation (confirm username isn't used)
 -(IBAction)validateUsername:(id)sender {
@@ -298,7 +302,7 @@ numberOfRowsInComponent:(NSInteger)component
     }
     [self updateSaveButton];
 }
-
+/*
 // Check Security Answer
 -(IBAction)validateSecurityAnswer:(id)sender {
     if([self.securityAnswerInput.text isEqualToString:@""]) {                                  // 1. No Input
@@ -312,16 +316,16 @@ numberOfRowsInComponent:(NSInteger)component
     }
     [self updateSaveButton];
 }
-
+*/
 
 #pragma mark - Update
 -(void)updateSaveButton {
-    if(usernameOK && passwordOK && password2OK && securityAnswerOK && securityQuestionOK) {
-        self.saveButton.alpha = 1.0;
-        self.saveButton.enabled = YES;
+    if(usernameOK && passwordOK && password2OK) { // && securityAnswerOK && securityQuestionOK) {
+//        [self.saveButton rightBarButtonItem].alpha = 1.0;
+//        self.saveButton.enabled = YES;
     } else {
-        self.saveButton.alpha = 0.4;
-        self.saveButton.enabled = NO;
+//        self.saveButton.alpha = 0.4;
+//        self.saveButton.enabled = NO;
     }
 }
 
@@ -366,7 +370,7 @@ numberOfRowsInComponent:(NSInteger)component
 - (IBAction)textFieldDidExit:(UITextField *)textField
 {
 	// INPUT COMPLETED - Confirm User Save and then Login
-    if(usernameOK && passwordOK && password2OK && securityAnswerOK) {
+    if(usernameOK && passwordOK && password2OK) {
 		[textField resignFirstResponder];
 		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
 	}
@@ -388,7 +392,8 @@ numberOfRowsInComponent:(NSInteger)component
 			// Password Confirm Input
 			case 3:
 				[textField resignFirstResponder];
-				[self.securityAnswerInput becomeFirstResponder];
+				[self.usernameInput becomeFirstResponder];
+//				[self.securityAnswerInput becomeFirstResponder];
 //				[self animateTextField: textField up: YES];
 				break;
 			// Security Answer Input
@@ -403,7 +408,7 @@ numberOfRowsInComponent:(NSInteger)component
 				break;				
 		}
 	}
-	
+//	[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]] setHidden:YES];
 }
 
 
