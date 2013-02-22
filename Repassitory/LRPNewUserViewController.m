@@ -74,7 +74,6 @@
 }
 
 
-#pragma mark -
 #pragma mark PickerView DataSource
 
 - (NSInteger)numberOfComponentsInPickerView:
@@ -95,7 +94,6 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 
-#pragma mark -
 #pragma mark PickerView Delegate
 
 
@@ -107,6 +105,8 @@ numberOfRowsInComponent:(NSInteger)component
 	[self validateSecurityQuestion];
 }
 
+
+#pragma mark - Alert View
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex == 1) {	// YES
@@ -127,6 +127,7 @@ numberOfRowsInComponent:(NSInteger)component
 	[confirm show];
 }
 
+#pragma mark - User functions
 // Save button pressed
 -(IBAction)saveUser:(id)sender {
     LRPUser* newUser = [[LRPUser alloc] initWithName:[self.usernameInput text] password:[self.passwordInput text]];
@@ -199,6 +200,7 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 
+#pragma mark - Validation
 -(bool)validateSecurityQuestion {
 	if(securityQuestionIndex > 0) {
         self.securityQuestionFeedback.text = @"OK!";
@@ -311,6 +313,8 @@ numberOfRowsInComponent:(NSInteger)component
     [self updateSaveButton];
 }
 
+
+#pragma mark - Update
 -(void)updateSaveButton {
     if(usernameOK && passwordOK && password2OK && securityAnswerOK && securityQuestionOK) {
         self.saveButton.alpha = 1.0;
@@ -326,7 +330,9 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: YES];
+//	self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+	
+//    [self animateTextField: textField up: YES];
 }
 
 
@@ -337,7 +343,7 @@ numberOfRowsInComponent:(NSInteger)component
 	}
 	
 	
-    [self animateTextField: textField up: NO];
+//    [self animateTextField: textField up: NO];
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
@@ -367,29 +373,37 @@ numberOfRowsInComponent:(NSInteger)component
 	// INPUT INCOMPLETE - Set next input field to first responder
 	else {
 		switch (textField.tag) {
+			// Username Input
 			case 1:
 				[textField resignFirstResponder];
 				[self.passwordInput becomeFirstResponder];
+				[self animateTextField: textField up: YES];
 				break;
+			// Password input
 			case 2:
 				[textField resignFirstResponder];
 				[self.password2Input becomeFirstResponder];
+//				[self animateTextField: textField up: YES];
 				break;
+			// Password Confirm Input
 			case 3:
 				[textField resignFirstResponder];
 				[self.securityAnswerInput becomeFirstResponder];
+//				[self animateTextField: textField up: YES];
 				break;
+			// Security Answer Input
 			case 4:
 				[textField resignFirstResponder];
 				[self.usernameInput becomeFirstResponder];
+//				[self animateTextField: textField up: YES];
 				break;
 			default:
+				self.view.frame = CGRectOffset(self.view.frame, 0, 0);
 				// set #1 first responder?
 				break;				
 		}
 	}
 	
-    [self animateTextField: textField up: NO];
 }
 
 

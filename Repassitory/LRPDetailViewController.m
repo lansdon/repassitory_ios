@@ -18,9 +18,9 @@
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-- (void)configureView;
--(void) saveRecord;
--(void) deleteRecord;
+//- (void)configureView;
+//-(void) saveRecord;
+//-(void) deleteRecord;
 
 @end
 
@@ -49,16 +49,10 @@
 - (void)configureView
 {
     // Current User Label
-    // Test for user logged in
     if ( [LRPAppState checkForUser] ) {
         NSString* greeting = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
-//		[[self navigationController] setTitle:temp];
-//		self.navigationItem.topItem.title = @"title";
 		self.navigationItem.title = greeting;
-		//self.currentUserLabel.text = temp;
     }
-
-    
     
     // Update the user interface for the detail item.
     LRPRecord* theRecord = self.record;
@@ -73,6 +67,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	if(!record) record = [LRPRecord alloc];
+	self.editingExistingRecord = NO;
+	
     [self configureView];
 
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
@@ -81,8 +78,8 @@
     self.splitVC.detailVC = self;
     
     // Test for user logged in
-    if ( [LRPAppState checkForUser] ) {
-    }
+//    if ( [LRPAppState checkForUser] ) {
+//    }
     
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
@@ -127,88 +124,11 @@
     }
 }
 
-#pragma mark - Segmented Control (Buttons)
 
--(IBAction) segmentedControlIndexChanged {
-	switch (self->segmentedControl.selectedSegmentIndex) {
 
-		case BTN_DELETE:			
-			// Todo -- Delete Record
-			[self deleteRecord: nil];
-			[self setState:STATE_BLANK];
-			break;
-		case BTN_EDIT:
-			[self setState:STATE_EDIT];
-			break;
-		case BTN_NEW:
-			[self setState:STATE_CREATE];
-			break;
-		case BTN_SAVE:
-			[self saveRecord: nil];
-			[self setState:STATE_DISPLAY];
-			break;
-			
-		default:
-			break;
-	}
-//	self->segmentedControl.selectedSegmentIndex = -1;
-}
 
--(void) setState:(int)newState {
-	currentState = newState;
-	[self updatePageComponents];
-}
 
--(void) updatePageComponents {
-	switch (currentState) {
-		case STATE_BLANK:
-			[self disableInputFields];
-			titleTextField.text = @"(Select/create a record)";
-			self.usernameTextField.text = @"";
-			self.passwordTextField.text = @"";
-			self.urlTextField.text = @"";
-			self.dateLabel.text = @"";
-			self.notesTextField.text = @"";
-			
-			break;
-			
-		case STATE_CREATE:
-			[self.record clear];
-			[self enableInputFields];
-			titleTextField.text = @"";
-			usernameTextField.text = @"";
-			passwordTextField.text = @"";
-			urlTextField.text = @"";
-			dateLabel.text = @"";
-			notesTextField.text = @"";
-			break;
-			
-		case STATE_DISPLAY:
-			// Load current record to screen
-			titleTextField.text = self.record.title;
-			usernameTextField.text = self.record.username;
-			passwordTextField.text = self.record.password;
-			urlTextField.text = self.record.url;
-			dateLabel.text = [self.record getUpdateAsString];
-			notesTextField.text = self.record.notes;
-			[self.tableView reloadData];
-			
-			[self disableInputFields];
-			break;
-			
-		case STATE_EDIT:
-			[self enableInputFields];
-			break;
-			
-		default:
-			
-			break;
-	}
-	[self.tableView reloadData];
-	
-	[self updateButtonStates];
-}
-
+#pragma mark - Toolbar (Buttons)
 
 -(void) updateButtonStates {
 	switch (currentState) {
@@ -249,24 +169,80 @@
 	}
 }
 -(void) btnSetEnabled:(bool)bEnabled forIndex:(int)index {
-//	[segmentedControl setEnabled:bEnabled forSegmentAtIndex:index];
+	//	[segmentedControl setEnabled:bEnabled forSegmentAtIndex:index];
 	switch (index) {
-		case BTN_DELETE:
-			[self.btnDelete setEnabled:bEnabled];
-			break;	
-		case BTN_EDIT:
-			[self.btnEdit setEnabled:bEnabled];
-		break;
-		case BTN_NEW:
-			[self.btnNew setEnabled:bEnabled];
-			break;
-		case BTN_SAVE:
-			[self.btnSave setEnabled:bEnabled];
-			break;
+		case BTN_DELETE: [self.btnDelete setEnabled:bEnabled]; break;
+		case BTN_EDIT: [self.btnEdit setEnabled:bEnabled]; break;
+		case BTN_NEW: [self.btnNew setEnabled:bEnabled]; break;
+		case BTN_SAVE:[self.btnSave setEnabled:bEnabled]; break;
 	}
 }
 
+#pragma mark - States
+
+-(void) setState:(int)newState {
+	currentState = newState;
+	[self updatePageComponents];
+}
+
+-(void) updatePageComponents {
+	switch (currentState) {
+		case STATE_BLANK:
+			[self setEditingExistingRecord:NO];
+			[self disableInputFields];
+			titleTextField.text = @"(Select/create a record)";
+			self.usernameTextField.text = @"";
+			self.passwordTextField.text = @"";
+			self.urlTextField.text = @"";
+			self.dateLabel.text = @"";
+			self.notesTextField.text = @"";
+			
+			break;
+			
+		case STATE_CREATE:
+			[self setEditingExistingRecord:NO];
+			[self.record clear];
+			titleTextField.text = @"";
+			usernameTextField.text = @"";
+			passwordTextField.text = @"";
+			urlTextField.text = @"";
+			dateLabel.text = @"";
+			notesTextField.text = @"";
+			[self enableInputFields];
+			break;
+			
+		case STATE_DISPLAY:
+			[self setEditingExistingRecord:NO];
+			// Load current record to screen
+			titleTextField.text = self.record.title;
+			usernameTextField.text = self.record.username;
+			passwordTextField.text = self.record.password;
+			urlTextField.text = self.record.url;
+			dateLabel.text = [self.record getUpdateAsString];
+			notesTextField.text = self.record.notes;
+//			[self.tableView reloadData];
+			[self.tableView reloadData];
+			
+			[self disableInputFields];
+			break;
+			
+		case STATE_EDIT:
+			[self setEditingExistingRecord:YES];
+			[self enableInputFields];
+			break;
+			
+		default:
+			
+			break;
+	}
+
+	[self updateButtonStates];
+	[self.tableView reloadData];
+	
+}
+
 -(void) disableInputFields {
+	[self setActiveCellByRow:-1];  // clear them all
 	[titleTextField setEnabled:NO];
 	[usernameTextField setEnabled:NO];
 	[passwordTextField setEnabled:NO];
@@ -275,6 +251,7 @@
 }
 
 -(void) enableInputFields {
+	[self setActiveCellByRow:0];		// start with first cell
 	[titleTextField setEnabled:YES];
 	[usernameTextField setEnabled:YES];
 	[passwordTextField setEnabled:YES];
@@ -282,12 +259,47 @@
 	[notesTextField setEnabled:YES];
 }
 
+// Indicate whichi cells are active
+-(void)setActiveCellByRow:(int)row {
+//	UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+	NSArray* indexPaths = [self.tableView visibleCells];
+	for(int i=0; i<[indexPaths count]; ++i) {
+		UITableViewCell* cell = indexPaths[i];
+		if(row == i) {
+			[cell setBackgroundColor:[UIColor redColor]];
+			[self setFirstResponderByTableRow:row];
+		} else {
+			[cell setBackgroundColor:[UIColor clearColor]];
+		}
+	}
+//	firstCell.selectionStyle = UITableViewCellSelectionStyleBlue;
+//	[firstCell setSelected:YES animated:YES];
+	
+}
+
+-(void)setFirstResponderByTableRow:(int)row {
+	switch(row) {
+		case 0: [self.titleTextField becomeFirstResponder]; break;
+		case 1: [self.usernameTextField becomeFirstResponder]; break;
+		case 2: [self.passwordTextField becomeFirstResponder]; break;
+		case 3: [self.urlTextField becomeFirstResponder]; break;
+		case 4: [self.notesTextField becomeFirstResponder]; break;
+	}
+}
+
+
 #pragma mark - Database / Records
 -(IBAction) saveRecord:(id)sender {
 	[self doConfirmDialogueWithTitle:@"Save Record" message:@"Are you sure you want to save this record?"];
 }
 
 -(void)saveRecordConfirmed {
+	// Need to remove old record?
+	if(self.editingExistingRecord) {
+		[self.splitVC.masterVC.dataController deleteRecord:record];
+		[self.record clear];
+	}
+	
 	// Store Record in Core Data using input fields
 	if(!record) record = [LRPRecord alloc];
 	self.record = [self.record initWithTitle:titleTextField.text
@@ -295,6 +307,8 @@
 									password:passwordTextField.text
 									url:urlTextField.text
 									notes:notesTextField.text];
+	
+	
 	[self.splitVC.masterVC.dataController addRecord:record];
 
 	// Update Master View
@@ -302,6 +316,13 @@
 	
 	// Update button states
 	[self setState:STATE_DISPLAY];
+	
+	// Display Green Checkmark
+//	[self.splitVC.masterVC displayCheckmark:record];
+	
+	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+	[masterButton.target performSelector:masterButton.action];
+	[self.splitVC.masterVC displayCheckmark:record];
 }
 
 -(IBAction) deleteRecord:(id)sender {
@@ -323,31 +344,93 @@
 
 -(IBAction) editRecord:(id)sender {
 	[self setState:STATE_EDIT];
+	[self.titleTextField becomeFirstResponder];
+	[self setActiveCellByRow:0];
+
 }
 
 -(IBAction) newRecord:(id)sender {
 	[self setState:STATE_CREATE];
 	[self.titleTextField becomeFirstResponder];
+	[self setActiveCellByRow:0];
 }
 
 
 
+
+#pragma mark - Color comparison
+BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
+	float tolerance = 0.05; // 5%
+	
+	CGColorRef leftColor = [left CGColor];
+	CGColorRef rightColor = [right CGColor];
+	
+	if (CGColorGetColorSpace(leftColor) != CGColorGetColorSpace(rightColor)) {
+		return FALSE;
+	}
+	
+	int componentCount = CGColorGetNumberOfComponents(leftColor);
+	
+	const float *leftComponents = CGColorGetComponents(leftColor);
+	const float *rightComponents = CGColorGetComponents(rightColor);
+	
+	for (int i = 0; i < componentCount; i++) {
+		float difference = leftComponents[i] / rightComponents[i];
+		
+		if (fabs(difference - 1) > tolerance) {
+			return FALSE;
+		}
+	}
+	
+	return TRUE;
+}
 
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: YES];
+	[self setActiveCellByRow:textField.tag];
+	
+    [self animateTextField: textField up: NO];
 }
+
 
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-	if(textField.tag == 5) {
-		[textField resignFirstResponder];
+/*
+	switch (textField.tag) {
+		case 0:
+			[textField resignFirstResponder];
+			[self.usernameTextField becomeFirstResponder];
+			[self setActiveCellByRow:1];
+			break;
+		case 1:
+			[textField resignFirstResponder];
+			[self.passwordTextField becomeFirstResponder];
+			[self setActiveCellByRow:2];
+			break;
+		case 2:
+			[textField resignFirstResponder];
+			[self.urlTextField becomeFirstResponder];
+			[self setActiveCellByRow:3];
+			break;
+		case 3:
+			[textField resignFirstResponder];
+			[self.notesTextField becomeFirstResponder];
+			[self setActiveCellByRow:4];
+			break;
+		case 4:
+			[textField resignFirstResponder];
+			[self saveRecord:nil];
+			[self setActiveCellByRow:-1];
+			break;
+		default:
+			// set #1 first responder?
+			break;
 	}
-	
-	
-    [self animateTextField: textField up: NO];
+ */
+	//	}
+    [self animateTextField: textField up: YES];
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
@@ -377,25 +460,32 @@
 	// INPUT INCOMPLETE - Set next input field to first responder
 //	else {
 		switch (textField.tag) {
+
 			case 0:
 				[textField resignFirstResponder];
 				[self.usernameTextField becomeFirstResponder];
+				[self setActiveCellByRow:1];
 				break;
 			case 1:
 				[textField resignFirstResponder];
 				[self.passwordTextField becomeFirstResponder];
+				[self setActiveCellByRow:2];
 				break;
 			case 2:
 				[textField resignFirstResponder];
 				[self.urlTextField becomeFirstResponder];
+				[self setActiveCellByRow:3];
 				break;
 			case 3:
 				[textField resignFirstResponder];
 				[self.notesTextField becomeFirstResponder];
+				[self setActiveCellByRow:4];
 				break;
+
 			case 4:
 				[textField resignFirstResponder];
-//				[self.usernameInput becomeFirstResponder];
+				[self saveRecord:nil];
+				[self setActiveCellByRow:-1];
 				break;
 			default:
 				// set #1 first responder?
@@ -414,7 +504,7 @@
 		if(buttonIndex == 1) { // YES
 			[self saveRecordConfirmed];
 		} else if (buttonIndex == 0) { // NO
-			
+			[self setActiveCellByRow:0];
 		}		
 	}
 	// DELETE RECORD RESPONSE
@@ -426,6 +516,8 @@
 		}
 	}
 }
+
+
 
 // Confirmation Dialogue
 -(void)doConfirmDialogueWithTitle:(NSString*)title message:(NSString*)msg {

@@ -11,6 +11,7 @@
 @class LRPRecordDataController;
 @class LRPDetailViewController;
 @class LRPSplitViewController;
+@class LRPRecord;
 
 @interface LRPMasterViewController : UITableViewController
 
@@ -23,5 +24,6 @@
 
 - (void) loadUserRecords;
 
+- (void) displayCheckmark: (LRPRecord*)detailRecord;
 
 @end

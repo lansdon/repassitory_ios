@@ -185,13 +185,37 @@
     if(![self.dataController loadUserRecordsFromContext]) {
         // error loading user records
     }
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 #pragma mark - User Functions
 - (void) loadUserRecords {
-    [_dataController loadUserRecordsFromContext];    
-    [self.tableView reloadData];
+    [_dataController loadUserRecordsFromContext];
+    [self reloadData];
+
 }
+
+- (void) reloadData {
+	[self.tableView reloadData];
+	[self clearCheckmarks];
+}
+
+// Clear checkmarks
+- (void) clearCheckmarks {
+	for(int i=0; i < [self.dataController countOfList]; ++i) {
+		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+}
+
+- (void) displayCheckmark: (LRPRecord*)detailRecord {
+	NSIndexPath* indexOfNewRecord = [self.dataController getIndexForMatchingRecord:detailRecord];
+	if(indexOfNewRecord) {
+		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexOfNewRecord];
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		[cell setSelected:YES];
+	}
+}
+
 
 @end

@@ -25,7 +25,12 @@
 	int currentState;
 }
 
+// This is the existing record being displayed
 @property (strong, nonatomic) LRPRecord* record;
+
+// Editing/saving an existing record involves remove old record
+@property (assign, nonatomic) BOOL editingExistingRecord;
+
 @property (weak, nonatomic) IBOutlet UILabel* dateLabel;
 @property (retain, nonatomic) IBOutlet UITextField* titleTextField;
 @property (retain, nonatomic) IBOutlet UITextField* usernameTextField;
@@ -41,7 +46,6 @@
 
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
--(IBAction) segmentedControlIndexChanged;
 -(IBAction) saveRecord:(id)sender;
 -(IBAction) deleteRecord:(id)sender;
 

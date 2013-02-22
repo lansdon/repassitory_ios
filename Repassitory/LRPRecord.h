@@ -11,8 +11,8 @@
 @interface LRPRecord : NSObject
 
 
-@property (copy, nonatomic) NSString* title;
-@property (copy, nonatomic) NSString* username;
+@property (strong, nonatomic) NSString* title;
+@property (strong, nonatomic) NSString* username;
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) NSDate* updated;

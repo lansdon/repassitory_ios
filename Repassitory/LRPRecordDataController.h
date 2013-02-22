@@ -29,4 +29,7 @@
 
 - (BOOL)loadUserRecordsFromContext;
 
+- (NSIndexPath*) getIndexForMatchingRecord: (LRPRecord*) inRecord;
+
+
 @end

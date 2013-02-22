@@ -146,6 +146,8 @@
                                                     <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="50"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
+                                                        <action selector="textFieldDidBeginEditing:" destination="C9Z-Mz-sva" eventType="editingDidBegin" id="ZnX-Ao-MtZ"/>
+                                                        <action selector="textFieldDidEndEditing:" destination="C9Z-Mz-sva" eventType="editingDidEnd" id="JQb-hM-867"/>
                                                         <action selector="textFieldDidExit:" destination="C9Z-Mz-sva" eventType="editingDidEndOnExit" id="u4J-L0-5gw"/>
                                                     </connections>
                                                 </textField>
@@ -197,6 +199,8 @@
                                                     <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
+                                                        <action selector="textFieldDidBeginEditing:" destination="C9Z-Mz-sva" eventType="editingDidBegin" id="Ap5-ev-L2B"/>
+                                                        <action selector="textFieldDidEndEditing:" destination="C9Z-Mz-sva" eventType="editingDidEnd" id="uhS-Vp-XLF"/>
                                                         <action selector="textFieldDidExit:" destination="C9Z-Mz-sva" eventType="editingDidEndOnExit" id="uIi-lF-xJn"/>
                                                     </connections>
                                                 </textField>
@@ -253,6 +257,8 @@
                                                     <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
+                                                        <action selector="textFieldDidBeginEditing:" destination="C9Z-Mz-sva" eventType="editingDidBegin" id="u3A-rr-uOS"/>
+                                                        <action selector="textFieldDidEndEditing:" destination="C9Z-Mz-sva" eventType="editingDidEnd" id="Gbl-Y1-XCx"/>
                                                         <action selector="textFieldDidExit:" destination="C9Z-Mz-sva" eventType="editingDidEndOnExit" id="71B-60-2jR"/>
                                                     </connections>
                                                 </textField>
@@ -309,6 +315,8 @@
                                                     <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
+                                                        <action selector="textFieldDidBeginEditing:" destination="C9Z-Mz-sva" eventType="editingDidBegin" id="m9v-Yb-Wfa"/>
+                                                        <action selector="textFieldDidEndEditing:" destination="C9Z-Mz-sva" eventType="editingDidEnd" id="Edb-Gv-nTg"/>
                                                         <action selector="textFieldDidExit:" destination="C9Z-Mz-sva" eventType="editingDidEndOnExit" id="6vr-xC-mbF"/>
                                                     </connections>
                                                 </textField>
@@ -365,6 +373,8 @@
                                                     <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
+                                                        <action selector="textFieldDidBeginEditing:" destination="C9Z-Mz-sva" eventType="editingDidBegin" id="uJW-yE-DFO"/>
+                                                        <action selector="textFieldDidEndEditing:" destination="C9Z-Mz-sva" eventType="editingDidEnd" id="wPX-pH-tiX"/>
                                                         <action selector="textFieldDidExit:" destination="C9Z-Mz-sva" eventType="editingDidEndOnExit" id="LOy-D5-vCe"/>
                                                     </connections>
                                                 </textField>
@@ -671,6 +681,7 @@
                                                         <action selector="textFieldDidEndEditing:" destination="NTv-TQ-mWQ" eventType="editingDidEnd" id="BmU-3R-s52"/>
                                                         <action selector="textFieldDidExit:" destination="NTv-TQ-mWQ" eventType="editingDidEndOnExit" id="3ct-aG-kpe"/>
                                                         <action selector="validateSecurityAnswer:" destination="NTv-TQ-mWQ" eventType="editingChanged" id="5U3-r0-AO8"/>
+                                                        <outlet property="delegate" destination="NTv-TQ-mWQ" id="iwh-dh-7kA"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Security Answer" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="149" translatesAutoresizingMaskIntoConstraints="NO" id="yhU-t2-YNu">
@@ -729,6 +740,7 @@
                         <outlet property="passwordInput" destination="p1m-a5-6mh" id="XVO-Mf-HkT"/>
                         <outlet property="picker" destination="U4T-EH-IuQ" id="PGb-nT-Qje"/>
                         <outlet property="securityAnswerFeedback" destination="Tal-cw-jGf" id="dAZ-9r-ME6"/>
+                        <outlet property="securityAnswerInput" destination="Ztx-7E-QVw" id="2Sy-DZ-eqK"/>
                         <outlet property="securityQuestionFeedback" destination="Gb6-8L-y6y" id="CLc-L3-dHQ"/>
                         <outlet property="usernameFeedback" destination="KYr-E4-oaW" id="gNA-Sd-Ce6"/>
                         <outlet property="usernameInput" destination="zyK-BD-7Xw" id="PqV-qG-kDi"/>
@@ -901,11 +913,11 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-EV-GpD">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="55" id="CDv-GO-z49"/>
-                                                        <constraint firstAttribute="width" constant="242" id="YJF-ME-Ro8"/>
+                                                        <constraint firstAttribute="width" constant="309" id="97f-W2-WxI"/>
+                                                        <constraint firstAttribute="height" constant="56" id="O29-qF-82D"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="41"/>
-                                                    <state key="normal" title="NEW USER" backgroundImage="Default@2x.png">
+                                                    <state key="normal" title="NEW USER" backgroundImage="blk_btn_red_glow.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -920,8 +932,8 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="centerX" secondItem="bOv-FP-kF2" secondAttribute="centerX" type="default" id="Y2Q-5V-nf8"/>
-                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="top" secondItem="bOv-FP-kF2" secondAttribute="top" constant="7" id="mp8-hK-so2"/>
+                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="centerX" secondItem="bOv-FP-kF2" secondAttribute="centerX" type="default" id="0Tn-0p-Q84"/>
+                                            <constraint firstItem="ivx-EV-GpD" firstAttribute="centerY" secondItem="bOv-FP-kF2" secondAttribute="centerY" type="default" id="xVO-TF-UJb"/>
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="68" id="c33-7K-NNR">
@@ -933,11 +945,11 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXo-xP-X6c">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="244" id="McY-C1-BnO"/>
+                                                        <constraint firstAttribute="width" constant="309" id="o0a-KT-vVI"/>
                                                         <constraint firstAttribute="height" constant="55" id="xif-Xl-7ZM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="41"/>
-                                                    <state key="normal" title="LOGIN" backgroundImage="Default@2x.png">
+                                                    <state key="normal" title="LOGIN" backgroundImage="blk_btn_red_glow.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -953,7 +965,7 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="xXo-xP-X6c" firstAttribute="top" secondItem="c33-7K-NNR" secondAttribute="top" constant="6" id="5NP-tG-sqa"/>
-                                            <constraint firstItem="xXo-xP-X6c" firstAttribute="centerX" secondItem="c33-7K-NNR" secondAttribute="centerX" type="default" id="6rn-1o-OEu"/>
+                                            <constraint firstItem="xXo-xP-X6c" firstAttribute="centerX" secondItem="c33-7K-NNR" secondAttribute="centerX" type="default" id="OGG-ID-yuQ"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -991,91 +1003,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default@2x.png" width="640" height="960"/>
+        <image name="blk_btn_red_glow.png" width="500" height="120"/>
     </resources>
-    <classes>
-        <class className="LRPDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteRecord:"/>
-                <relationship kind="action" name="saveRecord:"/>
-                <relationship kind="action" name="segmentedControlIndexChanged"/>
-                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
-                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
-                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="btnDelete" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnEdit" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnNew" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnSave" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
-                <relationship kind="outlet" name="notesTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="urlTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="LRPLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPLoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="createNewUser:"/>
-                <relationship kind="action" name="resignAndLogin:"/>
-                <relationship kind="action" name="showAppInfo:"/>
-                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
-                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="LRPMasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPMasterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
-            </relationships>
-        </class>
-        <class className="LRPNewUserViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPNewUserViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="saveUser:"/>
-                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
-                <relationship kind="action" name="validatePassword2:"/>
-                <relationship kind="action" name="validatePassword:"/>
-                <relationship kind="action" name="validateSecurityAnswer:"/>
-                <relationship kind="action" name="validateUsername:"/>
-                <relationship kind="outlet" name="password2Feedback" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="password2Input" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordFeedback" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="passwordInput" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="securityAnswerFeedback" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="securityAnswerInput" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="securityQuestionFeedback" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameFeedback" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameInput" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="LRPSplitViewController" superclassName="UISplitViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPSplitViewController.h"/>
-        </class>
-        <class className="LRPStartViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPStartViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="loadLogin:"/>
-                <relationship kind="action" name="loadNewUser:"/>
-                <relationship kind="action" name="showAppInfo:"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

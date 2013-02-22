@@ -103,12 +103,11 @@
 - (BOOL)loadUserRecordsFromContext {
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"user_id == %d", [[LRPAppState currentUser].user_id intValue]];
 
+	// Find records that belong to user
     NSMutableArray* tempList = [CoreDataHelper searchObjectsForEntity:@"Record" withPredicate:pred andSortKey:@"title" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
     
     // Clear existing records if we have valid input
-//    if(tempList.count) {
-        [_masterRecordList removeAllObjects];
-//    }
+	[_masterRecordList removeAllObjects];
     
     // Loop through array and convert to LRPUser objects
     NSEnumerator *e = [tempList objectEnumerator];
@@ -129,6 +128,23 @@
 //    [self setMasterRecordList:[CoreDataHelper getObjectsForEntity:@"Record" withSortKey:@"title" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]]];
     return true;
 }
+
+
+
+- (NSIndexPath*) getIndexForMatchingRecord: (LRPRecord*) inRecord {
+	for(int i=0; i< _masterRecordList.count; ++i) {
+		if([[_masterRecordList[i] title]	isEqualToString:inRecord.title] &&
+		   [[_masterRecordList[i] username] isEqualToString:inRecord.username] &&
+		   [[_masterRecordList[i] password] isEqualToString:inRecord.password] &&
+//		   [[_masterRecordList[i] url] isEqualToString:inRecord.url] &&
+		   [[_masterRecordList[i] notes]	isEqualToString:inRecord.notes] &&
+		   [_masterRecordList[i] user_id] == inRecord.user_id ) {
+			return [NSIndexPath indexPathForRow:i inSection:0];
+		}
+	}
+	return nil; // error
+}
+
 
 
 @end

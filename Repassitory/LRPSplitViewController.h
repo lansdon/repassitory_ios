@@ -19,7 +19,6 @@
 @property (strong, nonatomic) LRPLoginViewController *loginVC;
 @property (strong, nonatomic) LRPDetailViewController *detailVC;
 @property (strong, nonatomic) LRPMasterViewController *masterVC;
-@property (strong, nonatomic) LRPAddRecordViewController *addVC;
 
 
 @end
