@@ -19,11 +19,13 @@
 @property (strong, nonatomic) LRPDetailViewController *detailViewController;
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
-- (IBAction)done:(UIStoryboardSegue *)segue;
-- (IBAction)cancel:(UIStoryboardSegue *)segue;
+//- (IBAction)done:(UIStoryboardSegue *)segue;
+//- (IBAction)cancel:(UIStoryboardSegue *)segue;
 
 - (void) loadUserRecords;
 
 - (void) displayCheckmark: (LRPRecord*)detailRecord;
+
+- (void) tableViewBeginUpdates;
 
 @end

@@ -572,7 +572,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Confirm Password" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="163" translatesAutoresizingMaskIntoConstraints="NO" id="hci-or-cYy">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Confirm Password" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="hci-or-cYy">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="r1U-Bx-TBN"/>
                                                     </constraints>
@@ -698,7 +698,7 @@
                         </prototypes>
                         <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="si4-US-ctD" id="MmG-Dr-wYI"/>
+                            <outlet property="dataSource" destination="si4-US-ctD" id="83W-Mf-m3p"/>
                             <outlet property="delegate" destination="si4-US-ctD" id="d4O-Ds-ItG"/>
                         </connections>
                     </tableView>

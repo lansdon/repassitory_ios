@@ -12,16 +12,23 @@
 
 @class LRPUser;
 @class LRPRecord;
+@class LRPMasterViewController;
 
-@interface LRPRecordDataController : NSObject
 
-@property (nonatomic, copy) NSMutableArray* masterRecordList;
+@interface LRPRecordDataController : NSObject <NSFetchedResultsControllerDelegate>
 
-//- (id)initWithUser:(LRPUser*)currentUser;
+@property (weak, nonatomic) LRPMasterViewController* masterVC;
 
-- (NSUInteger)countOfList;
+//@property (nonatomic, copy) NSMutableArray* masterRecordList;
+@property (retain, nonatomic) NSFetchedResultsController* fetchedResultsController;
 
-- (LRPRecord*)recordAtIndex:(NSUInteger)index;
+- (id)initWithMasterVC:(LRPMasterViewController*)masterVC;
+
+- (NSUInteger)countOfListInSection:(NSInteger)section;
+//- (NSUInteger)countOfList;
+
+- (LRPRecord*)recordAtIndexPath:(NSIndexPath*)indexPath;
+//- (LRPRecord*)recordAtIndex:(NSUInteger)index;
 
 - (void)addRecord:(LRPRecord*)record;
 
@@ -31,5 +38,6 @@
 
 - (NSIndexPath*) getIndexForMatchingRecord: (LRPRecord*) inRecord;
 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -35,6 +35,10 @@
 
 }
 
+
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,18 +51,49 @@
     self.detailViewController = (LRPDetailViewController *)
         [[self.splitViewController.viewControllers lastObject] topViewController];
 
-    self.dataController = [[LRPRecordDataController alloc] init];
+    self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
     
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    // register self with SplitVC
+    self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    self.splitVC.masterVC = self;
+	
+    // Check for valid Data Controller
+    if (!_dataController) {
+        self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
+    }
+    if(![self.dataController loadUserRecordsFromContext]) {
+        // error loading user records
+    }
+    [self reloadData];
+}
+
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        LRPRecord* selectedRecord = [self.dataController recordAtIndexPath:indexPath];
+        [[segue destinationViewController] setRecord:selectedRecord];
+    }
+}
+
 
 /*
 - (void)insertNewObject:(id)sender
@@ -74,6 +109,10 @@
 
 #pragma mark - Table View
 
+- (void) tableViewBeginUpdates {
+	[self.tableView beginUpdates];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -81,17 +120,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataController countOfList];
+    return [self.dataController countOfListInSection:section];
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecordCell"];
+    static NSString *CellIdentifier = @"RecordCell";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	
+	[self.dataController configureCell:cell atIndexPath:indexPath];
     
-    LRPRecord* recordAtIndex = [self.dataController recordAtIndex:indexPath.row];
-    
-    [[cell textLabel] setText:recordAtIndex.title];
+//    LRPRecord* recordAtIndex = [self.dataController recordAtIndex:indexPath.row];
+//    [[cell textLabel] setText:recordAtIndex.title];
 //    [[cell detailTextLabel] setText:recordAtIndex.username];
+	
     
     return cell;
 }
@@ -131,27 +176,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-         LRPRecord* currentRecord = [self.dataController recordAtIndex:indexPath.row];
+         LRPRecord* currentRecord = [self.dataController recordAtIndexPath:indexPath];
 //        [self.splitVC.detailVC setRecord:currentRecord];
         [self.detailViewController setRecord:currentRecord];
     
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        LRPRecord* selectedRecord = [self.dataController recordAtIndex:indexPath.row];
-        [[segue destinationViewController] setRecord:selectedRecord];
-    }
-}
 
 
-
+/*
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
-/*
+
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         
         LRPAddRecordViewController *addController = [segue sourceViewController];
@@ -161,7 +198,7 @@
         }
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
- */
+
 }
 
 
@@ -171,22 +208,7 @@
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{    
-    // register self with SplitVC
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.splitVC.masterVC = self;
-
-    // Check for valid Data Controller
-    if (!_dataController) {
-        self.dataController = [[LRPRecordDataController alloc] init];
-    }
-    if(![self.dataController loadUserRecordsFromContext]) {
-        // error loading user records
-    }
-    [self reloadData];
-}
+ */
 
 #pragma mark - User Functions
 - (void) loadUserRecords {
@@ -202,7 +224,8 @@
 
 // Clear checkmarks
 - (void) clearCheckmarks {
-	for(int i=0; i < [self.dataController countOfList]; ++i) {
+	int listCount = [self.dataController countOfListInSection:0];
+	for(int i=0; i < listCount; ++i) {
 		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}

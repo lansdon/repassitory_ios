@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Record;
+
 @interface LRPRecord : NSObject
 
 
@@ -21,6 +23,8 @@
 
 //@property (strong, nonatomic) NSMutableString* category;
 // ID ??
+
+-(id)initWithRecord:(Record*)sourceRecord;
 
 -(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSString*)url notes:(NSString*)notes;
 

@@ -388,7 +388,6 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 	return TRUE;
 }
  */
-
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {

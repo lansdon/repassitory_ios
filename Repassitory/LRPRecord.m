@@ -9,8 +9,20 @@
 #import "LRPRecord.h"
 #import "LRPAppState.h"
 #import "LRPUser.h"
+#import "Record.h"
 
 @implementation LRPRecord
+
+-(id)initWithRecord:(Record*)sourceRecord {
+	_title = sourceRecord.title;
+	_username = sourceRecord.username;
+	_password = sourceRecord.password;
+	_url = sourceRecord.url;
+	_updated = sourceRecord.updated;
+	_notes = sourceRecord.notes;
+	_user_id = [[LRPAppState currentUser] user_id];
+	return self;
+}
 
 -(id)initWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password url:(NSString*)url notes:(NSString*)notes {
     
