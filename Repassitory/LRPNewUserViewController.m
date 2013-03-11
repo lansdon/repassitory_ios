@@ -13,6 +13,7 @@
 #import "LRPAppDelegate.h"
 #import "User.h"
 #import "LRPAppState.h"
+#import "LRPScreenAdjust.h"
 
 @interface LRPNewUserViewController ()
 
@@ -46,6 +47,16 @@
 */    
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
+	
+	// Setup Screen Scrolling Mechanism
+	self.screenAdj = [[LRPScreenAdjust alloc]
+					  initWithActiveViews:[[NSArray alloc] initWithObjects:
+										   self.usernameInput,
+										   self.passwordInput,
+										   self.password2Input,
+										   nil]
+					  inContainingView:self.view
+					  inTable:self.tableView];
 
 	[self.usernameInput becomeFirstResponder];
 	
@@ -334,81 +345,23 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-//	self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-	
-//    [self animateTextField: textField up: YES];
+	[self.screenAdj viewBecameActive:textField];
 }
 
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-	if(textField.tag == 5) {
-		[textField resignFirstResponder];
-	}
-	
-	
-//    [self animateTextField: textField up: NO];
-}
-
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
-    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        const int movementDistance = 120; // tweak as needed
-        const float movementDuration = 0.3f; // tweak as needed
-        
-        int movement = (up ? -movementDistance : movementDistance);
-        
-        [UIView beginAnimations: @"anim" context: nil];
-        [UIView setAnimationBeginsFromCurrentState: YES];
-        [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-        [UIView commitAnimations];
-    }
 }
 
 
 - (IBAction)textFieldDidExit:(UITextField *)textField
 {
+	[self.screenAdj viewBecameInactive:textField];
+
 	// INPUT COMPLETED - Confirm User Save and then Login
     if(usernameOK && passwordOK && password2OK) {
-		[textField resignFirstResponder];
 		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
 	}
-	// INPUT INCOMPLETE - Set next input field to first responder
-	else {
-		switch (textField.tag) {
-			// Username Input
-			case 1:
-				[textField resignFirstResponder];
-				[self.passwordInput becomeFirstResponder];
-				[self animateTextField: textField up: YES];
-				break;
-			// Password input
-			case 2:
-				[textField resignFirstResponder];
-				[self.password2Input becomeFirstResponder];
-//				[self animateTextField: textField up: YES];
-				break;
-			// Password Confirm Input
-			case 3:
-				[textField resignFirstResponder];
-				[self.usernameInput becomeFirstResponder];
-//				[self.securityAnswerInput becomeFirstResponder];
-//				[self animateTextField: textField up: YES];
-				break;
-			// Security Answer Input
-			case 4:
-				[textField resignFirstResponder];
-				[self.usernameInput becomeFirstResponder];
-//				[self animateTextField: textField up: YES];
-				break;
-			default:
-				self.view.frame = CGRectOffset(self.view.frame, 0, 0);
-				// set #1 first responder?
-				break;				
-		}
-	}
-//	[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]] setHidden:YES];
 }
 
 

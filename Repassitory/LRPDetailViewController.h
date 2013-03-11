@@ -10,7 +10,7 @@
 
 @class LRPRecord;
 @class LRPSplitViewController;
-
+@class LRPScreenAdjust;
 
 @interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate> {
 	
@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITextField* notesTextField;
 
 @property (weak, nonatomic) IBOutlet UINavigationItem* navBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem* btnRecordVault;	// 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* btnDelete;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* btnEdit;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* btnNew;
@@ -46,11 +47,15 @@
 
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
 
+@property (nonatomic) LRPScreenAdjust* screenAdj;
+
 -(IBAction) saveRecord:(id)sender;
 -(IBAction) deleteRecord:(id)sender;
 
 - (IBAction)textFieldDidExit:(UITextField *)textField;
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField;
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField;
+
+-(void) updateRecordVaultLabel;
 
 @end

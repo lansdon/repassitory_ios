@@ -15,6 +15,7 @@
 #import "User.h"
 #import "LRPAppState.h"
 #import "LRPAppDelegate.h"
+#import "LRPScreenAdjust.h"
 
 
 @interface LRPLoginViewController ()
@@ -62,7 +63,15 @@
 	
 //	NSArray* lBtnList = [[NSArray alloc] initWithObjects:aboutBtn, nil];
 //	self.navigationItem.leftBarButtonItems = lBtnList;
+	// Setup Screen Scrolling Mechanism
 
+	self.screenAdj = [[LRPScreenAdjust alloc]
+					  initWithActiveViews:[[NSArray alloc] initWithObjects:
+										   self.usernameField,
+										   self.passwordField,
+										   nil]
+					  inContainingView:self.view
+					  inTable:nil];
 }
 
 
@@ -116,8 +125,7 @@
 		[self dismissViewControllerAnimated:true completion:nil];
 		[appDelegate loginSuccessfull];
 		
-	}
-	else { // ERROR CREATING USER
+	} else { // ERROR CREATING USER
 		
 		UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:@"Login Error!"
@@ -136,11 +144,14 @@
 //  When we are done editing on the keyboard
 - (IBAction)resignAndLogin:(id)sender
 {
-    //  Get a reference to the text field on which the done button was pressed
+	//  Get a reference to the text field on which the done button was pressed
     UITextField *tf = (UITextField *)sender;
+
+	// Screen shift
+	[self.screenAdj viewBecameInactive:tf];
     
     //  Check the tag. If this is the username field, then jump to the password field automatically
-    if (tf.tag == 1) {
+    if (tf.tag == 0) {
         [passwordField becomeFirstResponder];
 
     //  Otherwise we pressed done on the password field, and want to attempt login
@@ -161,49 +172,27 @@
 }
 
 - (IBAction) createNewUser:(id)sender {
-        [self performSegueWithIdentifier:@"newUserStart" sender:sender];
+	[self performSegueWithIdentifier:@"newUserStart" sender:sender];
 }
 
+
+
+
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
+
+
+
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: YES];
+	[self.screenAdj viewBecameActive:textField];
 }
+
 
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: NO];
+//    [self animateTextField: textField up: NO];
 }
-
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
-    // make sure device has started sending orientation
-    if(![[UIDevice currentDevice] orientation]) {
-        // Start orientation calls
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    }
-
-    
-    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        const int movementDistance = 120; // tweak as needed
-        const float movementDuration = 0.3f; // tweak as needed
-        
-        int movement = 0;
-        if([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft) {
-            movement = (!up ? -movementDistance : movementDistance);
-        } else if([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-            movement = (up ? -movementDistance : movementDistance);
-        }
-        
-        [UIView beginAnimations: @"anim" context: nil];
-        [UIView setAnimationBeginsFromCurrentState: YES];
-        [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, movement, 0);
-        [UIView commitAnimations];
-    }
-}
-
 
 
 

@@ -96,15 +96,10 @@
 // Unload login screen and load split view
 - (void) loginSuccessfull {
     
-    
 	// remove old view
-//	NSEnumerator* enumerator = [[[self window] subviews] reverseObjectEnumerator];
-	
 	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 	}
-//	[[[[self window ] subviews]
-//    [[[[self window ] subviews] objectAtIndex:0] removeFromSuperview];
 
     // Load User records into master view
     [self.splitVC.masterVC loadUserRecords];

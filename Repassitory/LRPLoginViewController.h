@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class LRPSplitViewController;
+@class LRPScreenAdjust;
 
 @interface LRPLoginViewController : UIViewController
 
@@ -21,7 +22,8 @@
 
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField;
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField;
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up;
+
+@property (nonatomic) LRPScreenAdjust* screenAdj;
 
 
 @end

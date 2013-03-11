@@ -14,12 +14,6 @@
 #import "LRPSplitViewController.h"
 #import "LRPAppState.h"
 
-/*
-@interface LRPMasterViewController () {
-    NSMutableArray *_objects;
-}
-@end
- */
 
 @implementation LRPMasterViewController
 
@@ -48,10 +42,15 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
  */
-    self.detailViewController = (LRPDetailViewController *)
-        [[self.splitViewController.viewControllers lastObject] topViewController];
 
     self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
+
+    // register self with SplitVC
+    self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    self.splitVC.masterVC = self;
+
+    self.detailViewController = (LRPDetailViewController *)
+	[[self.splitViewController.viewControllers lastObject] topViewController];
     
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
@@ -74,8 +73,15 @@
     [self reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	if(![self.dataController.lastNewRecord.title isEqualToString:@""]) {
+		[self.dataController setCheckmarkForNewRecord:YES];
+	}
+}
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+	[self.dataController.lastNewRecord clear];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -132,11 +138,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	[self.dataController configureCell:cell atIndexPath:indexPath];
-    
-//    LRPRecord* recordAtIndex = [self.dataController recordAtIndex:indexPath.row];
-//    [[cell textLabel] setText:recordAtIndex.title];
-//    [[cell detailTextLabel] setText:recordAtIndex.username];
-	
     
     return cell;
 }
@@ -214,31 +215,14 @@
 - (void) loadUserRecords {
     [_dataController loadUserRecordsFromContext];
     [self reloadData];
-
+	[self.detailViewController updateRecordVaultLabel];
 }
 
 - (void) reloadData {
 	[self.tableView reloadData];
-	[self clearCheckmarks];
+	[self.detailViewController updateRecordVaultLabel];
 }
 
-// Clear checkmarks
-- (void) clearCheckmarks {
-	int listCount = [self.dataController countOfListInSection:0];
-	for(int i=0; i < listCount; ++i) {
-		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-		cell.accessoryType = UITableViewCellAccessoryNone;
-	}
-}
-
-- (void) displayCheckmark: (LRPRecord*)detailRecord {
-	NSIndexPath* indexOfNewRecord = [self.dataController getIndexForMatchingRecord:detailRecord];
-	if(indexOfNewRecord) {
-		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexOfNewRecord];
-		cell.accessoryType = UITableViewCellAccessoryCheckmark;
-		[cell setSelected:YES];
-	}
-}
 
 
 @end

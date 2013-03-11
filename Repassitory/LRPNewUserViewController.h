@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class LRPUser;
+@class LRPScreenAdjust;
 
 @interface LRPNewUserViewController : UITableViewController
 <UIAlertViewDelegate>
@@ -20,6 +21,8 @@
     bool usernameOK;
     bool password2OK;
     bool passwordOK;
+	
+	
 //    bool securityAnswerOK;
 //	bool securityQuestionOK;
 }
@@ -36,6 +39,7 @@
 //@property (strong, nonatomic) IBOutlet UITextField *securityQuestionInput;
 //@property (strong, nonatomic) IBOutlet UILabel *securityQuestionFeedback;
 
+@property (nonatomic) LRPScreenAdjust* screenAdj;
 
 @property (strong, nonatomic) NSArray *securityQuestions;
 //-(IBAction)textFieldReturn:(id)sender;

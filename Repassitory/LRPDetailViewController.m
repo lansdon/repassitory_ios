@@ -15,6 +15,8 @@
 #import "LRPRecord.h"
 #import "LRPUser.h"
 #import "LRPAppState.h"
+#import "LRPScreenAdjust.h"
+
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -53,7 +55,10 @@
         NSString* greeting = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
 		self.navigationItem.title = greeting;
     }
-    
+
+    // Record Label
+	[self updateRecordVaultLabel];
+
     // Update the user interface for the detail item.
     if (![self.record.title isEqualToString:@""]) {
 		[self setState:STATE_DISPLAY];
@@ -75,14 +80,21 @@
     
     // register self with SplitVC
     self.splitVC.detailVC = self;
-    
-    // Test for user logged in
-//    if ( [LRPAppState checkForUser] ) {
-//    }
-    
+        
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
+	// Setup Screen Scrolling Mechanism
+	self.screenAdj = [[LRPScreenAdjust alloc]
+					  initWithActiveViews:[[NSArray alloc] initWithObjects:
+										   self.titleTextField,
+										   self.usernameTextField,
+										   self.passwordTextField,
+										   self.urlTextField,
+										   self.notesTextField,
+										   nil]
+					  inContainingView:self.view
+					  inTable:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,9 +107,18 @@
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
-    barButtonItem.title = NSLocalizedString(@"Record Vault", @"Record Vault");
+	_btnRecordVault = barButtonItem;
+//    barButtonItem.title = NSLocalizedString(@"Record Vault", @"Record Vault");
+	[self updateRecordVaultLabel];
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
+}
+
+
+-(void) updateRecordVaultLabel {
+	if(self.btnRecordVault) {
+		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [self.splitVC.masterVC.dataController countOfListInSection:0]];
+	}
 }
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
@@ -222,7 +243,6 @@
 			urlTextField.text = self.record.url;
 			dateLabel.text = [self.record getUpdateAsString];
 			notesTextField.text = self.record.notes;
-//			[self.tableView reloadData];
 			[self.tableView reloadData];
 			
 			[self disableInputFields];
@@ -233,15 +253,14 @@
 			[self enableInputFields];
 			break;
 			
-		default:
-			
+		default:			
 			break;
 	}
-
 	[self updateButtonStates];
 	[self.tableView reloadData];
-	
 }
+
+
 
 -(void) disableInputFields {
 	[self setActiveCellByRow:-1];  // clear them all
@@ -263,21 +282,16 @@
 
 // Indicate whichi cells are active
 -(void)setActiveCellByRow:(int)row {
-//	UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
 	NSArray* indexPaths = [self.tableView visibleCells];
 	for(int i=0; i<[indexPaths count]; ++i) {
 		UITableViewCell* cell = indexPaths[i];
 		if(row == i) {
 			[cell setBackgroundColor:[UIColor blueColor]];
-//			[cell setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"blk_btn_dissolve"]]];
 			[self setFirstResponderByTableRow:row];
 		} else {
 			[cell setBackgroundColor:[UIColor clearColor]];
 		}
-	}
-//	firstCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-//	[firstCell setSelected:YES animated:YES];
-	
+	}	
 }
 
 -(void)setFirstResponderByTableRow:(int)row {
@@ -303,7 +317,7 @@
 		[self.record clear];
 	}
 	
-	// Store Record in Core Data using input fields
+	// Update local record using input fields
 	if(!record) record = [LRPRecord alloc];
 	self.record = [self.record initWithTitle:titleTextField.text
 									username:usernameTextField.text
@@ -311,21 +325,22 @@
 									url:urlTextField.text
 									notes:notesTextField.text];
 	
-	
+	// Save local record to core data
 	[self.splitVC.masterVC.dataController addRecord:record];
 
 	// Update Master View
-	[self.splitVC.masterVC.tableView reloadData];
+//	[self.splitVC.masterVC.tableView reloadData];
 	
 	// Update button states
 	[self setState:STATE_DISPLAY];
 	
-	// Display Green Checkmark
-//	[self.splitVC.masterVC displayCheckmark:record];
-	
+	// Open split view by simulating button press
+	// (to display new record + checkmarks)
 	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
 	[masterButton.target performSelector:masterButton.action];
-	[self.splitVC.masterVC displayCheckmark:record];
+
+	// Display Green Checkmark
+//	[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
 }
 
 -(IBAction) deleteRecord:(id)sender {
@@ -391,139 +406,43 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-	[self setActiveCellByRow:textField.tag];
-	
-//    [self animateTextField: textField up: YES];
-	
-//	[self animateScreenLocationForView:(UITextView*)textField.superview];
+//	[self setActiveCellByRow:textField.tag];
+	[self.screenAdj viewBecameActive:textField];
 }
 
 
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-/*
-	switch (textField.tag) {
-		case 0:
-			[textField resignFirstResponder];
-			[self.usernameTextField becomeFirstResponder];
-			[self setActiveCellByRow:1];
-			break;
-		case 1:
-			[textField resignFirstResponder];
-			[self.passwordTextField becomeFirstResponder];
-			[self setActiveCellByRow:2];
-			break;
-		case 2:
-			[textField resignFirstResponder];
-			[self.urlTextField becomeFirstResponder];
-			[self setActiveCellByRow:3];
-			break;
-		case 3:
-			[textField resignFirstResponder];
-			[self.notesTextField becomeFirstResponder];
-			[self setActiveCellByRow:4];
-			break;
-		case 4:
-			[textField resignFirstResponder];
-			[self saveRecord:nil];
-			[self setActiveCellByRow:-1];
-			break;
-		default:
-			// set #1 first responder?
-			break;
-	}
- */
-	//	}
-//    [self animateTextField: textField up: NO];
-}
-
-// Center screen on give view
-- (void) animateScreenLocationForView:(UITextView*)tv {
-	// NIL will reset screen to original settings
-	if(tv == nil) {
-		self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-	} else {
-		CGPoint cellOrigin = [tv convertPoint:tv.frame.origin  toView:nil];
-		CGPoint superOrigin = [tv.superview convertPoint:tv.frame.origin toView:nil];
-		int windowHeight = self.view.frame.size.height;
-		
-		int windowWidth = self.view.frame.size.width;
-		int displayHeight = (int)(0.3f * windowHeight);
-		self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height); // start at origin
-        self.view.frame = CGRectOffset(self.view.frame, 0, displayHeight-cellOrigin.y);
-	}
-	
-}
-
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
-	if(UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-//    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        const int movementDistance = 40; // tweak as needed
-        const float movementDuration = 0.3f; // tweak as needed
-        
-        int movement = (up ? -movementDistance : movementDistance);
-        
-        [UIView beginAnimations: @"anim" context: nil];
-        [UIView setAnimationBeginsFromCurrentState: YES];
-        [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-        [UIView commitAnimations];
-    }
+//	[self.screenAdj viewBecameInactive:textField];
 }
 
 
 - (IBAction)textFieldDidExit:(UITextField *)textField
 {
-	// INPUT COMPLETED - Confirm User Save and then Login
-//    if(usernameOK && passwordOK && password2OK && securityAnswerOK) {
-//		[textField resignFirstResponder];
-//		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
-//	}
-	// INPUT INCOMPLETE - Set next input field to first responder
-//	else {
-		switch (textField.tag) {
+	[self.screenAdj viewBecameInactive:textField];
+
+	switch (textField.tag) {
 
 			case 0: 
-				[textField resignFirstResponder];
-				[self.usernameTextField becomeFirstResponder];
-				[self setActiveCellByRow:1];
-				[self animateTextField: textField up: YES];
-				break;
 			case 1: 
-				[textField resignFirstResponder];
-				[self.passwordTextField becomeFirstResponder];
-				[self setActiveCellByRow:2];
-				[self animateTextField: textField up: YES];
-				break;
 			case 2: 
-				[textField resignFirstResponder];
-				[self.urlTextField becomeFirstResponder];
-				[self setActiveCellByRow:3];
-				[self animateTextField: textField up: YES];
-				break;
 			case 3: 
-				[textField resignFirstResponder];
-				[self.notesTextField becomeFirstResponder];
-				[self setActiveCellByRow:4];
-				[self animateTextField: textField up: YES];
+				[self setActiveCellByRow:textField.tag+1];
 				break;
-
-			break;
 				
 			case 4:
-				[textField resignFirstResponder];
-				[UIView beginAnimations: @"anim" context: nil];
-				[UIView setAnimationBeginsFromCurrentState: YES];
-				[UIView setAnimationDuration: 0.3];
-				self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-				[UIView commitAnimations];
+//				[textField resignFirstResponder];
+//				[UIView beginAnimations: @"anim" context: nil];
+//				[UIView setAnimationBeginsFromCurrentState: YES];
+//				[UIView setAnimationDuration: 0.3];
+//				self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//				[UIView commitAnimations];
 				[self saveRecord:nil];
 				[self setActiveCellByRow:-1];
 				break;
 			default:
-				// set #1 first responder?
+				[self setActiveCellByRow:textField.tag+1];
 				break;
 		}
 //	}
