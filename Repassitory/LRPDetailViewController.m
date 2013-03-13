@@ -16,6 +16,8 @@
 #import "LRPUser.h"
 #import "LRPAppState.h"
 #import "LRPScreenAdjust.h"
+#import "LRPAlertView.h"
+#import "LRPAppDelegate.h"
 
 
 @interface LRPDetailViewController ()
@@ -95,6 +97,8 @@
 										   nil]
 					  inContainingView:self.view
 					  inTable:self.tableView];
+	
+	self.activityAlert = [[LRPAlertView alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -134,10 +138,12 @@
 	if(!self.record) self.record = [LRPRecord alloc];
 	[self.record clear];
 	
+	if(!self.activityAlert) self.activityAlert = [[LRPAlertView alloc] init];
+	
     [self configureView];
 }
 
-
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"DoLoginSegue"]) {
@@ -146,7 +152,7 @@
         loginVC.splitVC = self.splitVC;
     }
 }
-
+*/
 
 
 
@@ -307,16 +313,33 @@
 
 #pragma mark - Database / Records
 -(IBAction) saveRecord:(id)sender {
-	[self doConfirmDialogueWithTitle:@"Save Record" message:@"Are you sure you want to save this record?"];
+	
+	// Save Button Code Block
+	void (^saveBlock)(void) = ^(void) {
+		[self.activityAlert startAnimating];
+		[self performSelectorInBackground:@selector(saveRecordConfirmed:) withObject:nil];
+//		[self.activityAlert stopAnimating];
+	};
+	
+	self.activityAlert= [[LRPAlertView alloc] initWithTitle:@"Save Record" withMessage:@"Are ou sure you want to save this record?"];
+	[self.activityAlert addButtonWithTitle:@"Cancel" usingBlock:nil];
+	[self.activityAlert addButtonWithTitle:@"Save" usingBlock:saveBlock];
+	[self.activityAlert addObserver:self selector:@"alertStartSave" name:@"saveRecordStart" object:nil];
+	[self.activityAlert addObserver:self selector:@"alertStopSave" name:@"saveRecordDone" object:nil];
+	LRPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+	[appDelegate addAlert:self.activityAlert];
+	
 }
 
--(void)saveRecordConfirmed {
+-(void)saveRecordConfirmed:(UIAlertView*)alertView {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordStart" object:self];
+	
 	// Need to remove old record?
 	if(self.editingExistingRecord) {
 		[self.splitVC.masterVC.dataController deleteRecord:record];
 		[self.record clear];
 	}
-	
+		
 	// Update local record using input fields
 	if(!record) record = [LRPRecord alloc];
 	self.record = [self.record initWithTitle:titleTextField.text
@@ -327,20 +350,16 @@
 	
 	// Save local record to core data
 	[self.splitVC.masterVC.dataController addRecord:record];
-
-	// Update Master View
-//	[self.splitVC.masterVC.tableView reloadData];
 	
 	// Update button states
 	[self setState:STATE_DISPLAY];
 	
 	// Open split view by simulating button press
 	// (to display new record + checkmarks)
-	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
-	[masterButton.target performSelector:masterButton.action];
-
-	// Display Green Checkmark
-//	[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
+//	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+//	[masterButton.target performSelector:masterButton.action];
+		
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordDone" object:self];
 }
 
 -(IBAction) deleteRecord:(id)sender {
@@ -451,12 +470,37 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 }
 
 #pragma mark - Alert View Helpers/Response
+
+- (void) alertStartSave {
+	[self.activityAlert.message setText:@"Saving record..."];
+	[self.activityAlert startAnimating];
+}
+
+- (void) alertStopSave {
+	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+	[masterButton.target performSelector:masterButton.action];
+//	[self.activityAlert stopAnimating];
+	[self.activityAlert dismissAlert];
+}
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	// SAVE RECORD RESPONSE
 	if([alertView.title isEqualToString: @"Save Record"]) {
 		if(buttonIndex == 1) { // YES
-			[self saveRecordConfirmed];
+			LRPAlertView *activityAlert = [[LRPAlertView alloc] init];
+			
+			[alertView addSubview:activityAlert];
+			[activityAlert setCenter:alertView.center];
+			[alertView setNeedsDisplay];
+			
+			[activityAlert showAlert];
+			
+			[self saveRecordConfirmed:alertView];
+
+//			[activityAlert dismissAlertMethod];
+			
 		} else if (buttonIndex == 0) { // NO
 			[self setActiveCellByRow:0];
 		}		
@@ -485,5 +529,28 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 }
 
 
+#pragma mark - Activity Indicator
+/*
+- (void) activityIndicatorStop {
+	[self.progressLabel setText:@"Done!"];
+	[self.progressLabel setTextColor:[UIColor greenColor]];
+	
+	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(activityIndicatorComplete) userInfo:nil repeats:NO];	
+}
 
+- (void) activityIndicatorStartWithLabel:(NSString*)label {
+	[self.progressLabel setText:label];
+	[self.progressLabel setTextColor:[UIColor whiteColor]];
+	[self.activityIndicator setHidden:false];
+	[self.progressLabel setHidden:false];
+	[self.activityIndicator startAnimating];
+//	[self configureView];
+}
+
+- (void) activityIndicatorComplete {
+	[self.activityIndicator setHidden:true];
+	[self.progressLabel setHidden:true];
+	[self.activityIndicator stopAnimating];
+}
+*/
 @end

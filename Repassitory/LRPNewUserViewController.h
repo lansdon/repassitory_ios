@@ -50,7 +50,7 @@
 -(IBAction)validateUsername:(id)sender;
 -(IBAction)validatePassword:(id)sender;
 -(IBAction)validatePassword2:(id)sender;
--(IBAction)validateSecurityAnswer:(id)sender;
+//-(IBAction)validateSecurityAnswer:(id)sender;
 -(void)updateSaveButton;
 -(void)doConfirmDialogueWithTitle:(NSString*)title message:(NSString*)msg;
 - (IBAction)textFieldDidExit:(UITextField *)textField;

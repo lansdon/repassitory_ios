@@ -14,7 +14,7 @@
 @class LRPRecord;
 @class Record;
 @class LRPMasterViewController;
-
+@class LRPAlertView;
 
 @interface LRPRecordDataController : NSObject <NSFetchedResultsControllerDelegate>
 
@@ -22,6 +22,7 @@
 @property (retain, nonatomic) NSFetchedResultsController* fetchedResultsController;
 @property (nonatomic) LRPRecord* lastNewRecord;
 @property (nonatomic) UITableViewCell* lastNewRecordCell;
+@property (nonatomic) LRPAlertView* activityAlert;
 
 - (id)initWithMasterVC:(LRPMasterViewController*)masterVC;
 
@@ -30,7 +31,7 @@
 - (LRPRecord*)recordAtIndexPath:(NSIndexPath*)indexPath;
 
 - (void)addRecord:(LRPRecord*)record;
-- (void) deleteRecord:(LRPRecord*)record;
+- (void)deleteRecord:(LRPRecord*)record;
 
 - (BOOL)loadUserRecordsFromContext;
 
@@ -39,5 +40,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 - (void)setCheckmarkForNewRecord:(BOOL)isOn;
+
+- (void) clearNewRecord;
 
 @end

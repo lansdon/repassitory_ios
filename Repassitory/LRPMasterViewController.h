@@ -12,17 +12,20 @@
 @class LRPDetailViewController;
 @class LRPSplitViewController;
 @class LRPRecord;
+@class LRPAlertView;
 
-@interface LRPMasterViewController : UITableViewController
+@interface LRPMasterViewController : UITableViewController {
+
+}
 
 @property (strong, nonatomic) LRPRecordDataController* dataController;
 @property (strong, nonatomic) LRPDetailViewController *detailViewController;
 @property (weak, nonatomic) LRPSplitViewController *splitVC;
+@property (nonatomic) LRPAlertView* activityAlert;
 
-- (void) loadUserRecords;
-
-//- (void) displayCheckmark: (LRPRecord*)detailRecord;
+//- (void) loadUserRecords;
 
 - (void) tableViewBeginUpdates;
+- (void) reloadData;
 
 @end

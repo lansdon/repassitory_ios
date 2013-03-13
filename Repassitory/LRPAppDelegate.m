@@ -13,16 +13,15 @@
 #import "LRPMasterViewController.h"
 #import "LRPDetailViewController.h"
 #import "User.h"
+#import "LRPUser.h"
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
-
+#import "LRPAlertViewController.h"
+#import "LRPAlertView.h"
 
 
 @implementation LRPAppDelegate
 
-//@synthesize managedObjectContext = _managedObjectContext;
-//@synthesize managedObjectModel = _managedObjectModel;
-//@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -95,15 +94,42 @@
 
 // Unload login screen and load split view
 - (void) loginSuccessfull {
-    
-	// remove old view
+	self.loginAlert= [[LRPAlertView alloc] initWithTitle:@"Logging in..." withMessage:[NSString stringWithFormat:@"Retrieving records for %@",[LRPAppState currentUser].username]];
+	
+//	[self.loginAlert addObserver:self selector:@"startLogin" name:@"startLogin" object:nil];
+	[self.loginAlert addObserver:self selector:@"stopLogin" name:@"stopLogin" object:nil];
+	[self.loginAlert startAnimating];
+	
+
+	// remove old views
 	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 	}
+	
+	[self addAlert:self.loginAlert];
+    
+	// Load in different thread
+	[self performSelectorInBackground:@selector(doLogin) withObject:nil];
 
-    // Load User records into master view
-    [self.splitVC.masterVC loadUserRecords];
+}
 
+//-(void)startLogin {
+//	[self.loginAlert startAnimating];
+//}
+
+-(void)stopLogin {
+	[self.loginAlert dismissAlert];
+}
+
+- (void) doLogin {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"startLogin" object:self];
+	
+//	for(int i = [[[self window] subviews] count]; i > 0; --i) {
+//		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
+//	}
+	
+	[self.loginAlert showAlert];
+	
     // add split view as new root controller
     [self.window setRootViewController:_splitVC];
     
@@ -113,6 +139,7 @@
         [_splitVC.viewControllers lastObject];
         _splitVC.delegate = (id)navigationController.topViewController;
     }
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"stopLogin" object:self];
     
 }
 
@@ -121,7 +148,9 @@
 //	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 //		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 //	}
-
+	[self.alertControl unload];
+	self.alertControl = nil;
+	
 	// Set login view controller to top level view
 	[self.loginNavC popToRootViewControllerAnimated:YES];
 	
@@ -136,12 +165,14 @@
 }
 
 - (void)applicationLoad {
+	self.alertControl = [[LRPAlertViewController alloc] init];
     
 	[LRPAppState reset]; // redundant but safe
 
 	// Load Login first
 	[self.loginNavC popToRootViewControllerAnimated:YES];
     [self.window setRootViewController:self.loginNavC];
+	
 }
 
 	
@@ -212,6 +243,14 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+
+#pragma mark - Alert View
+
+- (void)addAlert:(LRPAlertView*)alert {
+	[self.alertControl addAlert:alert];
+}
+
 
 
 

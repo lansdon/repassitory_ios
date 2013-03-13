@@ -13,6 +13,8 @@
 #import "LRPRecord.h"
 #import "LRPSplitViewController.h"
 #import "LRPAppState.h"
+#import "LRPAlertView.h"
+#import "LRPUser.h"
 
 
 @implementation LRPMasterViewController
@@ -67,9 +69,9 @@
     if (!_dataController) {
         self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
     }
-    if(![self.dataController loadUserRecordsFromContext]) {
+//    if(![self.dataController loadUserRecordsFromContext]) {
         // error loading user records
-    }
+//    }
     [self reloadData];
 }
 
@@ -114,6 +116,7 @@
 */
 
 #pragma mark - Table View
+
 
 - (void) tableViewBeginUpdates {
 	[self.tableView beginUpdates];
@@ -178,9 +181,16 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
          LRPRecord* currentRecord = [self.dataController recordAtIndexPath:indexPath];
-//        [self.splitVC.detailVC setRecord:currentRecord];
         [self.detailViewController setRecord:currentRecord];
-    
+		
+		// If the cell selected is different than lastNewRecord, clear lastNewRecord
+		if(!([self.dataController.lastNewRecord.title isEqualToString:currentRecord.title] &&
+		   [self.dataController.lastNewRecord.password isEqualToString:currentRecord.password] &&
+		   [self.dataController.lastNewRecord.username isEqualToString:currentRecord.username] &&
+		   self.dataController.lastNewRecord.user_id == currentRecord.user_id &&
+		   [self.dataController.lastNewRecord.notes isEqualToString:currentRecord.notes])) {
+			[self.dataController clearNewRecord];
+		}
     }
 }
 
@@ -212,17 +222,49 @@
  */
 
 #pragma mark - User Functions
+/*
 - (void) loadUserRecords {
-    [_dataController loadUserRecordsFromContext];
-    [self reloadData];
-	[self.detailViewController updateRecordVaultLabel];
+	
+	// Setup Alert Window
+	self.activityAlert = [[LRPAlertView alloc] init];
+	[self.activityAlert.title setText:@"Load Records"];
+	[self.activityAlert.message setText:[NSString stringWithFormat:@"Retrieving records for %@",[LRPAppState currentUser].username]];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimating) name:@"loadRecordsStart" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimating) name:@"loadRecordsDone" object:nil];
+	
+	[self.activityAlert startAnimating];
+	[self.activityAlert showAlert];
+
+	[self performSelectorInBackground:@selector(_laodUserRecords) withObject:nil];
+
+	
+//	[activityAlert dismissAlert];
 }
+
+// Private method (contains body for background processing)
+- (void) _loadUserRecords {
+	[_dataController loadUserRecordsFromContext];
+	[self reloadData];
+	[self.detailViewController updateRecordVaultLabel];	
+}
+*/
 
 - (void) reloadData {
-	[self.tableView reloadData];
+//	[self.tableView reloadData];
 	[self.detailViewController updateRecordVaultLabel];
 }
 
+#pragma mark - Alert View Helpers/Response
+/*
+- (void) startAnimating {
+//	[self.activityAlert.message setText:@"Saving record..."];
+	[self.activityAlert startAnimating];
+}
 
-
+- (void) stopAnimating {
+	[self.activityAlert stopAnimating];
+	[self.activityAlert dismissAlert];
+}
+*/
 @end
