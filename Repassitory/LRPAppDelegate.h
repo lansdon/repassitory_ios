@@ -11,7 +11,7 @@
 
 @class LRPLoginViewController;
 @class LRPSplitViewController;
-@class LRPAlertViewController;
+@class LRPAlertViewQueue;
 @class LRPAlertView;
 
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
@@ -23,7 +23,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) LRPAlertViewController* alertControl;
+@property (strong, nonatomic) LRPAlertViewQueue* alertQueue;
 @property (nonatomic) LRPAlertView* loginAlert;
 
 - (void) loginSuccessfull;
@@ -32,4 +32,5 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void)addAlert:(LRPAlertView*)alert;
+- (void)dismissALert;
 @end

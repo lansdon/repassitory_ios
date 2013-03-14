@@ -1,23 +1,17 @@
 //
-//  LRPAlertViewController.h
+//  LRPViewController.h
 //  Repassitory
 //
 //  Created by Lansdon Page on 3/13/13.
 //  Copyright (c) 2013 Lansdon Page. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class LRPAlertView;
 
+@interface LRPAlertViewController : UIViewController
+- (id) initWithView:(LRPAlertView*)view;
 
-@interface LRPAlertViewController : NSObject
-
-
--(id)init;
--(void)unload;
--(void)addAlert:(LRPAlertView*)alertView;
-
-
-
+-(void)showAlert;
 @end

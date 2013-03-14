@@ -18,6 +18,7 @@
 #import "LRPScreenAdjust.h"
 #import "LRPAlertView.h"
 #import "LRPAppDelegate.h"
+#import "LRPAlertViewQueue.h"
 
 
 @interface LRPDetailViewController ()
@@ -321,7 +322,7 @@
 //		[self.activityAlert stopAnimating];
 	};
 	
-	self.activityAlert= [[LRPAlertView alloc] initWithTitle:@"Save Record" withMessage:@"Are ou sure you want to save this record?"];
+	self.activityAlert = [[LRPAlertView alloc] initWithTitle:@"Save Record" withMessage:@"Are you sure you want to save this record?"];
 	[self.activityAlert addButtonWithTitle:@"Cancel" usingBlock:nil];
 	[self.activityAlert addButtonWithTitle:@"Save" usingBlock:saveBlock];
 	[self.activityAlert addObserver:self selector:@"alertStartSave" name:@"saveRecordStart" object:nil];
@@ -477,10 +478,11 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 }
 
 - (void) alertStopSave {
+	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+	[appDelegate dismissALert];
+
 	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
 	[masterButton.target performSelector:masterButton.action];
-//	[self.activityAlert stopAnimating];
-	[self.activityAlert dismissAlert];
 }
 
 

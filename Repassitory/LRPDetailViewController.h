@@ -62,6 +62,6 @@
 
 -(void) updateRecordVaultLabel;
 
-- (void) startAnimating;
-- (void) stopAnimating;
+- (void) alertStartSave;
+- (void) alertStopSave;
 @end

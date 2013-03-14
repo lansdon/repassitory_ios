@@ -16,8 +16,9 @@
 #import "LRPUser.h"
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
-#import "LRPAlertViewController.h"
+#import "LRPAlertViewQueue.h"
 #import "LRPAlertView.h"
+#import "LRPAlertViewController.h"
 
 
 @implementation LRPAppDelegate
@@ -32,7 +33,9 @@
     [CoreDataHelper managedObjectModel];    
     [CoreDataHelper persistentStoreCoordinator];
     [CoreDataHelper managedObjectContext];
-        
+    
+	self.alertQueue = [[LRPAlertViewQueue alloc] init];
+	
     // Get a reference to the stardard user defaults
 //    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -118,7 +121,13 @@
 //}
 
 -(void)stopLogin {
-	[self.loginAlert dismissAlert];
+//	[self.loginAlert dismissAlert];
+//	id appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+//	LRPAlertView* view = (LRPAlertView*)[appDelegate presentedViewController].view;
+	
+//	[view dismissAlert];
+//	 [appDelegate dismissViewControllerAnimated:true completion:nil];
+	[self.alertQueue dismissAlert];
 }
 
 - (void) doLogin {
@@ -148,8 +157,8 @@
 //	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 //		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 //	}
-	[self.alertControl unload];
-	self.alertControl = nil;
+	[self.alertQueue unload];
+	self.alertQueue = nil;
 	
 	// Set login view controller to top level view
 	[self.loginNavC popToRootViewControllerAnimated:YES];
@@ -165,7 +174,7 @@
 }
 
 - (void)applicationLoad {
-	self.alertControl = [[LRPAlertViewController alloc] init];
+	self.alertQueue = [[LRPAlertViewQueue alloc] init];
     
 	[LRPAppState reset]; // redundant but safe
 
@@ -248,9 +257,12 @@
 #pragma mark - Alert View
 
 - (void)addAlert:(LRPAlertView*)alert {
-	[self.alertControl addAlert:alert];
+	[self.alertQueue addAlert:alert];
 }
 
+- (void)dismissALert {
+	[self.alertQueue dismissAlert];
+}
 
 
 

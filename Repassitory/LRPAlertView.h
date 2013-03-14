@@ -10,6 +10,7 @@
 
 @interface LRPAlertView : UIView
 
+@property (retain, nonatomic) UIView* containerView;
 @property (retain, nonatomic) UILabel* title;
 @property (retain, nonatomic) UILabel* message;
 @property (retain, nonatomic) UIActivityIndicatorView* activityIndicator;
@@ -19,14 +20,14 @@
 //@property UIAlertView* progressAlert;
 
 - (id)initWithTitle:(NSString*)title withMessage:(NSString*)message;
--(void)showAlert;
--(void)dismissAlert;
+- (void)showAlert;
+- (void)dismissAlert;
 - (NSInteger) addButtonWithTitle:(NSString*)t usingBlock:(void (^)(void))blockFunc;
 
 - (void) addObserver:(id)observer selector:(NSString*)selectorName name:(NSString*)name object:(id)object;
 - (void) onButtonPress: (id) sender;
--(void)startAnimating;
--(void)stopAnimating;
+- (void)startAnimating;
+- (void)stopAnimating;
 
 
 @end

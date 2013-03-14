@@ -8,6 +8,11 @@
 
 #import "LRPAlertView.h"
 
+#import "LRPAppDelegate.h"
+#import "LRPAlertViewQueue.h"
+
+#define DegreesToRadians(x) ((x) * M_PI / 180.0)
+
 @implementation LRPAlertView {
 	NSMutableArray* observers;
 }
@@ -23,8 +28,10 @@
 
 - (id)initWithTitle:(NSString*)title withMessage:(NSString*)message
 {
-    self = [super init];
-    if (self) {
+
+    if (self = [super init]) {
+		float viewWidth = 400.0;
+		float viewHeight = 210.0;
 		float viewWidthMultiplier = 0.70; // percent of screen width = view width
 		float viewHeightMultiplier = 0.25; // percent of screen width = view width
 		float subviewWidthMultiplier = 0.90; // percent of screen width = view width
@@ -33,25 +40,39 @@
 //		int buttonFontSize = 30;
 		self.dismissTimer = 0.0;	// seconds until auto dismiss
 		
-		self.buttons = [[NSMutableArray alloc] init];
-		self.buttonBlocks = [[NSMutableArray alloc] init];
+		if(!self.buttons) self.buttons = [[NSMutableArray alloc] init];
+		if(!self.buttonBlocks) self.buttonBlocks = [[NSMutableArray alloc] init];
 
-		id appDelegate = [[UIApplication sharedApplication] delegate];
-		UIWindow *window = [appDelegate window];
-//		[window addSubview:self];
+		LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+		UIWindow *window = appDelegate.alertQueue.alertWindow;
 		
 		// Container Window Dimensions + location
-		self.frame = CGRectMake(0, 0, window.frame.size.width*viewWidthMultiplier, window.frame.size.height*viewHeightMultiplier);
-		self.center = window.center;
+//        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+		
+		self.bounds = CGRectMake(0,0, window.frame.size.width, window.frame.size.height);
+//		self.center = CGPointMake(window.frame.size.width/2, window.frame.size.height/2);
+		// container box
+		self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+		[self centerViews];
+//		self.containerView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+
+		//		self.frame = CGRectMake(0, 0, window.frame.size.width*viewWidthMultiplier, window.frame.size.height*viewHeightMultiplier);
+//		self.center = window.center;
+//		[self setAutoresizesSubviews:false];
+		[self setContentMode:UIViewContentModeCenter];
+//		[self setAutoresizingMask:UIViewAutoresizingNone];
+//		self.containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
+//		UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+//		UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		
 		// Subview Dimensions + Locations
-		self.title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*subviewWidthMultiplier, self.frame.size.height*0.15)];
-		self.message = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*subviewWidthMultiplier, self.frame.size.height*0.4)];
+		self.title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.containerView.frame.size.width*subviewWidthMultiplier, self.containerView.frame.size.height*0.15)];
+		self.message = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.containerView.frame.size.width*subviewWidthMultiplier, self.containerView.frame.size.height*0.4)];
 		self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		
-		[self.title setCenter:CGPointMake(self.frame.size.width*.5, self.frame.size.height*.15)];
-		[self.message setCenter:CGPointMake(self.frame.size.width*.5, self.frame.size.height*.4)];
-		[self.activityIndicator setCenter:CGPointMake(self.frame.size.width*.5, self.frame.size.height*.6)];
+		[self.title setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.15)];
+		[self.message setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.4)];
+		[self.activityIndicator setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.6)];
 		
 		// Text Properties
 		[self.title setFont:[UIFont fontWithName:@"ArialMT" size:titleFontSize]];
@@ -66,17 +87,23 @@
 		[self.message setText:message];
 		
 		// Add subviews to container view
-		[self addSubview:self.title];
-		[self addSubview:self.message];
-		[self addSubview:self.activityIndicator];
+		[self.containerView addSubview:self.title];
+		[self.containerView addSubview:self.message];
+		[self.containerView addSubview:self.activityIndicator];
+		[self addSubview:self.containerView];
 		
 		// Background Colors
-		[self setBackgroundColor:[UIColor blackColor]];
+		[self setBackgroundColor:[UIColor whiteColor]];
+		[self.containerView setBackgroundColor:[UIColor blackColor]];
 		[self.title setBackgroundColor:[UIColor clearColor]];
 		[self.message setBackgroundColor:[UIColor clearColor]];
 		
 		// configure buttons
 		[self configureButtons];
+		
+		// Respond to orientation changes
+		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object: nil];
 	}
 	return self;
 }
@@ -86,16 +113,22 @@
 	// configure buttons
 	for(int i=0; i<self.buttons.count; ++i) {
 		UIButton* b = [self.buttons objectAtIndex:i];
-		[self addSubview:b];
+		[self.containerView addSubview:b];
 		[b setHidden:NO];
-		[b setFrame:CGRectMake(0, 0, self.frame.size.width/(self.buttons.count+1.5), self.frame.size.height*.15)];
+		[b setFrame:CGRectMake(0, 0, self.containerView.frame.size.width/(self.buttons.count+1.5), self.containerView.frame.size.height*.15)];
 		
-		[b setCenter:CGPointMake(self.frame.size.width/(self.buttons.count+1)*(i+1), self.frame.size.height*.85)];
+		[b setCenter:CGPointMake(self.containerView.frame.size.width/(self.buttons.count+1)*(i+1), self.containerView.frame.size.height*.85)];
 		b.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:30];
 		[b setNeedsDisplay];
 	}
 	
 }
+/*
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+*/
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -119,18 +152,36 @@
 	[self showAlert];
 }
 
+// Centers the container view to the middle of the superview
+- (void) centerViews {
+	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+	UIWindow *window = appDelegate.alertQueue.alertWindow;
+
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+//	if(UIInterfaceOrientationIsLandscape(orientation)) {
+//	if(orientation == UIInterfaceOrientationLandscapeRight ||
+//	   orientation == UIInterfaceOrientationLandscapeLeft) {
+		self.containerView.center = CGPointMake(self.bounds.size.width/2+self.bounds.origin.x, self.bounds.size.height/2+self.bounds.origin.y);
+		
+//	} else {
+//		self.containerView.center = CGPointMake(self.bounds.size.height/2, self.bounds.size.width/2);
+//	}
+
+
+}
+
+
 -(void)showAlert
 {
-	id appDelegate = [[UIApplication sharedApplication] delegate];
-	UIWindow *window = [appDelegate window];
-	[window addSubview:self];
-
+	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+	UIWindow *window = appDelegate.alertQueue.alertWindow;
+	
+//	[self centerViews];
+	
     self.title.hidden = NO;
     self.message.hidden = NO;
-//    self.activityIndicator.hidden = YES;
-//	[self startAnimating];
 	
-    self.activityIndicator.contentMode = UIViewContentModeCenter;
+//    self.activityIndicator.contentMode = UIViewContentModeCenter;
 
 	[self updateView];
 
@@ -147,7 +198,7 @@
 	[self.activityIndicator setHidden:NO];
 	[self.activityIndicator startAnimating];
 	[self.activityIndicator setNeedsDisplay];
-	[self addSubview:self.activityIndicator];
+	[self.containerView addSubview:self.activityIndicator];
 	[self bringSubviewToFront:self.activityIndicator];
 	[self updateView];
 
@@ -165,7 +216,9 @@
 {
 //    [UIView beginAnimations:nil context:nil];
 //    self.alpha = 0.0;
-	[self removeFromSuperview];
+//	[self removeFromSuperview];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	[self removeAllObservers];
 //    [UIView commitAnimations];
 }
@@ -194,7 +247,9 @@
 	[self.buttons addObject: b];
 	
 	void (^defCancelBlock)(void) = ^(void) {
-		[self dismissAlert];
+		LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+		[appDelegate dismissALert];
+//		[self dismissAlert];
 	};
 	
 	if(blockFunc == nil) {
@@ -211,11 +266,13 @@
 	
 - (void) onButtonPress: (id) sender
 {
-	int buttonIndex = [_buttons indexOfObjectIdenticalTo: sender];
-	void (^blockFunc)(void) = [self.buttonBlocks objectAtIndex:buttonIndex];
-	if(blockFunc != NULL) {
-		blockFunc();
-		//		[self performSelectorOnMainThread: withObject:nil waitUntilDone:NO ];
+	if(_buttons.count) {
+		int buttonIndex = [_buttons indexOfObjectIdenticalTo: sender];
+		void (^blockFunc)(void) = [self.buttonBlocks objectAtIndex:buttonIndex];
+		if(blockFunc != NULL) {
+			blockFunc();
+			//		[self performSelectorOnMainThread: withObject:nil waitUntilDone:NO ];
+		}
 	}
 //	else {
 //		[self dismissAlertMethod];
@@ -257,4 +314,56 @@
 	}
 }
 
+
+//UIDeviceOrientation currentOrientation;
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+
+//	[self centerViews];
+		
+//	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(relayoutLayers) object:nil];
+	
+//	[self performSelector:@selector(rotateOrientationInDegrees) withObject:nil afterDelay:0];
+}
+
+
+
+/*
+-(void) rotateOrientationInDegrees {
+	enum degrees {UIDeviceOrientationLandscapeLeft=-90,
+					UIDeviceOrientationPortrait=0,
+					UIDeviceOrientationLandscapeRight=90,
+					UIDeviceOrientationPortraitUpsideDown=180};
+	
+	//Obtaining the current device orientation
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	
+	float newAngle = 0.0;
+	if (orientation == UIDeviceOrientationPortrait) {
+		newAngle = 0.0;
+	}
+	else if (orientation == UIDeviceOrientationLandscapeRight) {
+		newAngle = -90.0;
+	}
+	else if (orientation == UIDeviceOrientationLandscapeLeft) {
+		newAngle = 90.0;
+	}
+	else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+		newAngle = 180.0;
+	}
+
+	
+	currentOrientation = orientation;
+//	[self initWithTitle:self.title.text withMessage:self.message.text];
+//	[self showAlert];
+//	[self ]
+	[UIView beginAnimations:@"rotate" context:nil];
+	[UIView setAnimationDuration:0.5];
+	self.transform = CGAffineTransformIdentity;
+	self.transform = CGAffineTransformMakeRotation(DegreesToRadians(newAngle));
+	[UIView commitAnimations];
+}
+ 
+ */
+ 
 @end

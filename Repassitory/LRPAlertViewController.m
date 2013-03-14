@@ -1,5 +1,5 @@
 //
-//  LRPAlertViewController.m
+//  LRPViewController.m
 //  Repassitory
 //
 //  Created by Lansdon Page on 3/13/13.
@@ -7,70 +7,62 @@
 //
 
 #import "LRPAlertViewController.h"
-
 #import "LRPAlertView.h"
+#import "LRPAppDelegate.h"
+//#import "LRPAlertViewQueue.m"
 
-// Alert View Options
 
-@implementation LRPAlertViewController {
-	NSMutableArray* alertViewQueue;
-	bool alertOnDisplay;					// toggle if an alert is being shown
-	
+@interface LRPAlertViewController ()
+
+@end
+
+@implementation LRPAlertViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
 }
 
--(id)init {
-	if([super init]) {
-		alertViewQueue = [[NSMutableArray alloc] init];
-		alertOnDisplay = false;
+- (id) initWithView:(LRPAlertView*)view {
+	if(self = [super init]) {
+		self.view = view;
+		
 	}
 	return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+}
 
--(void)addAlert:(LRPAlertView*)alertView {
-	if (![alertViewQueue containsObject:alertView] && alertViewQueue.count == 0) {
-		[alertViewQueue addObject:alertView];
-		if(alertView == [alertViewQueue objectAtIndex:0]) {
-			[alertView showAlert];
-		}
-	}
-	[self update];
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
-- (id) dequeueAlert {
-    // if ([self count] == 0) return nil; // to avoid raising exception (Quinn)
-    id headObject = [alertViewQueue objectAtIndex:0];
-    if (headObject != nil) {
-		
-//        [headObject retain]; // so it isn't dealloc'ed on remove
-        [alertViewQueue removeObjectAtIndex:0];
-    }
-    return headObject;
-}
+-(void)showAlert {
+//	id appDelegate = [[UIApplication sharedApplication] delegate];
+//	UIWindow *window = [appDelegate window];
+//	[window addSubview:self.view];
 
-
-
--(void)unload {
-	// clear stuff here!
 	
+//	[appDelegate presentViewController:self animated:true completion:nil];
+	[(LRPAlertView*)self.view showAlert];
 }
 
--(void)update {
-	if(alertViewQueue.count) {
-		LRPAlertView* head = [alertViewQueue objectAtIndex:0];
-		if(head && [head superview]) {
-			[head showAlert];
-		} else {
-			[self dequeueAlert];
-			[self update];
-		}
-		[NSTimer scheduledTimerWithTimeInterval:1.0
-										 target:self
-									   selector:@selector(update)
-									   userInfo:nil
-										repeats:NO];
-	}
+-(void)dismissAlert {
+	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+	[appDelegate dismissALert];
+//	[(LRPAlertView*)self.view dismissAlert];
+//	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
