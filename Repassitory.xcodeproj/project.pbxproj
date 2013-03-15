@@ -10,9 +10,9 @@
 		5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924733B16AD180400A8DD14 /* LRPMasterViewController.m */; };
 		5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */; };
 		5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */; };
-		5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */; };
 		5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39016AD437700C2EBDE /* LRPDetailViewController.m */; };
 		5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39416AD437700C2EBDE /* LRPRecordDataController.m */; };
+		594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 594AFB3216D643F700F0ADFF /* green-checkmark.png */; };
 		594F8A5B16D1EE92007AF3F1 /* MainStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5916D1EE92007AF3F1 /* MainStore.xcdatamodeld */; };
 		594F8A6716D1EF05007AF3F1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5816D1EDF1007AF3F1 /* User.m */; };
 		594F8A7016D1EF5F007AF3F1 /* LRPRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A6D16D1EF5F007AF3F1 /* LRPRecord.m */; };
@@ -35,8 +35,14 @@
 		594F8AA516D2245F007AF3F1 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA016D2245F007AF3F1 /* Background.png */; };
 		594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA116D2245F007AF3F1 /* Background@2x.png */; };
 		594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA216D2245F007AF3F1 /* blue_bk.jpg */; };
+		598470DE16F0613800EFFE16 /* LRPAlertViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */; };
+		598470E416F0EBD700EFFE16 /* LRPAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */; };
 		59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5616A7BD5700C36331 /* CoreDataHelper.m */; };
 		59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5A16A7C50900C36331 /* LRPLoginViewController.m */; };
+		5999FD0616D608FB00F61353 /* repassitory-icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0216D608FB00F61353 /* repassitory-icon_57.png */; };
+		5999FD0816D608FB00F61353 /* repassitory-icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0416D608FB00F61353 /* repassitory-icon_114.png */; };
+		5999FD0B16D6093400F61353 /* repassitory-icon_144.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0A16D6093400F61353 /* repassitory-icon_144.png */; };
+		5999FD0D16D6094800F61353 /* repassitory-icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0C16D6094800F61353 /* repassitory-icon_72.png */; };
 		59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091916A73E0500267021 /* UIKit.framework */; };
 		59A7091C16A73E0500267021 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091B16A73E0500267021 /* Foundation.framework */; };
 		59A7091E16A73E0500267021 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091D16A73E0500267021 /* CoreGraphics.framework */; };
@@ -49,6 +55,10 @@
 		59A7093216A73E0500267021 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A7093116A73E0500267021 /* Default-568h@2x.png */; };
 		59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */; };
 		59A7094C16A74C8400267021 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094B16A74C8400267021 /* Record.m */; };
+		59C28EAD16EE1928005F1994 /* LRPScreenAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */; };
+		59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */; };
+		59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */; };
+		59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA492316EEE6E70028E147 /* LRPAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,12 +67,11 @@
 		5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPSplitViewController.h; sourceTree = "<group>"; };
 		5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPSplitViewController.m; sourceTree = "<group>"; };
 		5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
-		5938C38D16AD437700C2EBDE /* LRPAddRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAddRecordViewController.h; sourceTree = "<group>"; };
-		5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAddRecordViewController.m; sourceTree = "<group>"; };
 		5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPDetailViewController.h; sourceTree = "<group>"; };
 		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
 		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
 		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
+		594AFB3216D643F700F0ADFF /* green-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-checkmark.png"; sourceTree = "<group>"; };
 		594F8A5716D1EDF1007AF3F1 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		594F8A5816D1EDF1007AF3F1 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		594F8A5A16D1EE92007AF3F1 /* MainStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MainStore.xcdatamodel; sourceTree = "<group>"; };
@@ -102,10 +111,18 @@
 		594F8AA016D2245F007AF3F1 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		594F8AA116D2245F007AF3F1 /* Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x.png"; sourceTree = "<group>"; };
 		594F8AA216D2245F007AF3F1 /* blue_bk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blue_bk.jpg; sourceTree = "<group>"; };
+		598470DC16F0613800EFFE16 /* LRPAlertViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertViewQueue.h; sourceTree = "<group>"; };
+		598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertViewQueue.m; sourceTree = "<group>"; };
+		598470E216F0EBD600EFFE16 /* LRPAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertViewController.h; sourceTree = "<group>"; };
+		598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertViewController.m; sourceTree = "<group>"; };
 		59951B5516A7BD5700C36331 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		59951B5616A7BD5700C36331 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		59951B5916A7C50900C36331 /* LRPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPLoginViewController.h; sourceTree = "<group>"; };
 		59951B5A16A7C50900C36331 /* LRPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPLoginViewController.m; sourceTree = "<group>"; };
+		5999FD0216D608FB00F61353 /* repassitory-icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_57.png"; sourceTree = "<group>"; };
+		5999FD0416D608FB00F61353 /* repassitory-icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_114.png"; sourceTree = "<group>"; };
+		5999FD0A16D6093400F61353 /* repassitory-icon_144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_144.png"; path = "../../repassitory-icon_144.png"; sourceTree = "<group>"; };
+		5999FD0C16D6094800F61353 /* repassitory-icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_72.png"; path = "../../repassitory-icon_72.png"; sourceTree = "<group>"; };
 		59A7091516A73E0500267021 /* Repassitory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repassitory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A7091916A73E0500267021 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		59A7091B16A73E0500267021 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +140,12 @@
 		59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
 		59A7094A16A74C8400267021 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		59A7094B16A74C8400267021 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		59C28EAB16EE1928005F1994 /* LRPScreenAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPScreenAdjust.h; sourceTree = "<group>"; };
+		59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPScreenAdjust.m; sourceTree = "<group>"; };
+		59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blk_btn dissolve.PNG"; sourceTree = "<group>"; };
+		59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blk_btn_red_glow.png; sourceTree = "<group>"; };
+		59DA492216EEE6E70028E147 /* LRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertView.h; sourceTree = "<group>"; };
+		59DA492316EEE6E70028E147 /* LRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +190,13 @@
 		594F8A9D16D2245F007AF3F1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */,
+				59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */,
+				5999FD0C16D6094800F61353 /* repassitory-icon_72.png */,
+				5999FD0A16D6093400F61353 /* repassitory-icon_144.png */,
+				594AFB3216D643F700F0ADFF /* green-checkmark.png */,
+				5999FD0216D608FB00F61353 /* repassitory-icon_57.png */,
+				5999FD0416D608FB00F61353 /* repassitory-icon_114.png */,
 				594F8A9E16D2245F007AF3F1 /* Background-568h@2x.png */,
 				594F8A9F16D2245F007AF3F1 /* Background-iPad.png */,
 				594F8AA016D2245F007AF3F1 /* Background.png */,
@@ -209,29 +239,21 @@
 		59A7092116A73E0500267021 /* Repassitory */ = {
 			isa = PBXGroup;
 			children = (
-				594F8A9716D1F205007AF3F1 /* LRPNewUserViewController.h */,
-				594F8A9816D1F205007AF3F1 /* LRPNewUserViewController.m */,
+				59C28EAB16EE1928005F1994 /* LRPScreenAdjust.h */,
+				59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */,
 				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
 				59A7092B16A73E0500267021 /* LRPAppDelegate.m */,
 				594F8A7416D1EFF4007AF3F1 /* LRPAppState.h */,
 				594F8A7516D1EFF4007AF3F1 /* LRPAppState.m */,
-				5938C38D16AD437700C2EBDE /* LRPAddRecordViewController.h */,
-				5938C38E16AD437700C2EBDE /* LRPAddRecordViewController.m */,
-				5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */,
-				5938C39016AD437700C2EBDE /* LRPDetailViewController.m */,
-				5938C39316AD437700C2EBDE /* LRPRecordDataController.h */,
-				5938C39416AD437700C2EBDE /* LRPRecordDataController.m */,
-				5924733A16AD180400A8DD14 /* LRPMasterViewController.h */,
-				5924733B16AD180400A8DD14 /* LRPMasterViewController.m */,
-				59951B5916A7C50900C36331 /* LRPLoginViewController.h */,
-				59951B5A16A7C50900C36331 /* LRPLoginViewController.m */,
+				59DA492216EEE6E70028E147 /* LRPAlertView.h */,
+				59DA492316EEE6E70028E147 /* LRPAlertView.m */,
+				598470DC16F0613800EFFE16 /* LRPAlertViewQueue.h */,
+				598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */,
+				598470E216F0EBD600EFFE16 /* LRPAlertViewController.h */,
+				598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */,
 				59A7094616A74AFC00267021 /* Core data */,
-				5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */,
-				5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */,
-				5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */,
-				59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */,
-				594F8A9A16D21A91007AF3F1 /* LRPStartViewController.h */,
-				594F8A9B16D21A91007AF3F1 /* LRPStartViewController.m */,
+				59E2479A16D32B27006AAAA1 /* Storyboards */,
+				59E2479516D32A5A006AAAA1 /* View Controllers */,
 			);
 			path = Repassitory;
 			sourceTree = "<group>";
@@ -273,6 +295,68 @@
 				59A7094B16A74C8400267021 /* Record.m */,
 			);
 			name = "Core data";
+			sourceTree = "<group>";
+		};
+		59E2479516D32A5A006AAAA1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				59E2479916D32A89006AAAA1 /* Master/Detail */,
+				59E2479816D32A82006AAAA1 /* New User */,
+				59E2479716D32A77006AAAA1 /* Login Screen */,
+				59E2479616D32A6B006AAAA1 /* Start Screen */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		59E2479616D32A6B006AAAA1 /* Start Screen */ = {
+			isa = PBXGroup;
+			children = (
+				594F8A9A16D21A91007AF3F1 /* LRPStartViewController.h */,
+				594F8A9B16D21A91007AF3F1 /* LRPStartViewController.m */,
+			);
+			name = "Start Screen";
+			sourceTree = "<group>";
+		};
+		59E2479716D32A77006AAAA1 /* Login Screen */ = {
+			isa = PBXGroup;
+			children = (
+				59951B5916A7C50900C36331 /* LRPLoginViewController.h */,
+				59951B5A16A7C50900C36331 /* LRPLoginViewController.m */,
+			);
+			name = "Login Screen";
+			sourceTree = "<group>";
+		};
+		59E2479816D32A82006AAAA1 /* New User */ = {
+			isa = PBXGroup;
+			children = (
+				594F8A9716D1F205007AF3F1 /* LRPNewUserViewController.h */,
+				594F8A9816D1F205007AF3F1 /* LRPNewUserViewController.m */,
+			);
+			name = "New User";
+			sourceTree = "<group>";
+		};
+		59E2479916D32A89006AAAA1 /* Master/Detail */ = {
+			isa = PBXGroup;
+			children = (
+				5924734C16AD1AF500A8DD14 /* LRPSplitViewController.h */,
+				5924734D16AD1AF500A8DD14 /* LRPSplitViewController.m */,
+				5938C38F16AD437700C2EBDE /* LRPDetailViewController.h */,
+				5938C39016AD437700C2EBDE /* LRPDetailViewController.m */,
+				5938C39316AD437700C2EBDE /* LRPRecordDataController.h */,
+				5938C39416AD437700C2EBDE /* LRPRecordDataController.m */,
+				5924733A16AD180400A8DD14 /* LRPMasterViewController.h */,
+				5924733B16AD180400A8DD14 /* LRPMasterViewController.m */,
+			);
+			name = Master/Detail;
+			sourceTree = "<group>";
+		};
+		59E2479A16D32B27006AAAA1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */,
+				59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +422,13 @@
 				594F8AA516D2245F007AF3F1 /* Background.png in Resources */,
 				594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */,
 				594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */,
+				5999FD0616D608FB00F61353 /* repassitory-icon_57.png in Resources */,
+				5999FD0816D608FB00F61353 /* repassitory-icon_114.png in Resources */,
+				5999FD0B16D6093400F61353 /* repassitory-icon_144.png in Resources */,
+				5999FD0D16D6094800F61353 /* repassitory-icon_72.png in Resources */,
+				594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */,
+				59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */,
+				59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +447,6 @@
 				59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */,
 				5924733C16AD180400A8DD14 /* LRPMasterViewController.m in Sources */,
 				5924734E16AD1AF500A8DD14 /* LRPSplitViewController.m in Sources */,
-				5938C39516AD437700C2EBDE /* LRPAddRecordViewController.m in Sources */,
 				5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */,
 				5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */,
 				594F8A5B16D1EE92007AF3F1 /* MainStore.xcdatamodeld in Sources */,
@@ -374,6 +464,10 @@
 				594F8A9416D1F0FB007AF3F1 /* RNOpenSSLEncryptor.m in Sources */,
 				594F8A9916D1F205007AF3F1 /* LRPNewUserViewController.m in Sources */,
 				594F8A9C16D21A91007AF3F1 /* LRPStartViewController.m in Sources */,
+				59C28EAD16EE1928005F1994 /* LRPScreenAdjust.m in Sources */,
+				59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */,
+				598470DE16F0613800EFFE16 /* LRPAlertViewQueue.m in Sources */,
+				598470E416F0EBD700EFFE16 /* LRPAlertViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
