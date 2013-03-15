@@ -61,9 +61,8 @@
 //		[self setAutoresizesSubviews:false];
 		[self setContentMode:UIViewContentModeCenter];
 //		[self setAutoresizingMask:UIViewAutoresizingNone];
-//		self.containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
-//		UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
-//		UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+		self.containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+		UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		
 		// Subview Dimensions + Locations
 		self.title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.containerView.frame.size.width*subviewWidthMultiplier, self.containerView.frame.size.height*0.15)];
@@ -93,7 +92,7 @@
 		[self addSubview:self.containerView];
 		
 		// Background Colors
-		[self setBackgroundColor:[UIColor whiteColor]];
+		[self setBackgroundColor:[UIColor clearColor]];
 		[self.containerView setBackgroundColor:[UIColor blackColor]];
 		[self.title setBackgroundColor:[UIColor clearColor]];
 		[self.message setBackgroundColor:[UIColor clearColor]];
