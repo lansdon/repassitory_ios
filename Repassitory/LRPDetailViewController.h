@@ -12,6 +12,7 @@
 @class LRPSplitViewController;
 @class LRPScreenAdjust;
 @class LRPAlertView;
+@class LRPAlertViewController;
 
 @interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate> {
 	
@@ -50,8 +51,7 @@
 
 @property (nonatomic) LRPScreenAdjust* screenAdj;
 
-@property (nonatomic) LRPAlertView* activityAlert;
-//@property (weak, nonatomic) IBOutlet UILabel* progressLabel;
+@property (nonatomic) LRPAlertViewController* saveAlertController;
 
 -(IBAction) saveRecord:(id)sender;
 -(IBAction) deleteRecord:(id)sender;

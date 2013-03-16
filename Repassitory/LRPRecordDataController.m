@@ -26,12 +26,13 @@
 - (id)initWithMasterVC:(LRPMasterViewController*)masterVC {
     if(self = [super init]) {
 		_masterVC = masterVC;
-		NSError *error;
-		if (![[self fetchedResultsController] performFetch:&error]) {
+//		NSError *error;
+		self.fetchedResultsController = [self fetchedResultsController];
+//		if (![[self fetchedResultsController] performFetch:&error]) {
 			// Update to handle the error appropriately.
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-		}
+//			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//			exit(-1);  // Fail
+//		}
     }
     return self;
 }
@@ -66,7 +67,7 @@
 
 - (void)addRecord:(LRPRecord*)record {
     // Clear previous record
-	[self setCheckmarkForNewRecord:false];
+//	[self setCheckmarkForNewRecord:false];
 	
 	// Track which record was added last (for updating checkmarks and selected state)
 	_lastNewRecord = record;
@@ -84,9 +85,9 @@
     
     [CoreDataHelper saveContext];
     
-	[self loadUserRecordsFromContext];
+//	[self loadUserRecordsFromContext];
 		
-	[self setCheckmarkForNewRecord:YES];
+//	[self setCheckmarkForNewRecord:YES];
 }
 
 
@@ -97,7 +98,7 @@
 	[CoreDataHelper deleteAllObjectsForEntity:@"Record" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]];
 	[CoreDataHelper saveContext];
 	
-	[self loadUserRecordsFromContext];
+//	[self loadUserRecordsFromContext];
 	
 	// LOOK HERE FOR FETCHED RESULTS
 //case:NSFetchedResultsChangeDelete:
@@ -106,26 +107,9 @@
 }
 
 
--(BOOL)loadUserRecordsFromContext {
-// Setup Alert Window
-	if(!self.activityAlert) {
-		self.activityAlert= [[LRPAlertView alloc] initWithTitle:@"Load Records" withMessage:[NSString stringWithFormat:@"Retrieving records for %@",[LRPAppState currentUser].username]];
-
-//		[self.activityAlert addObserver:self selector:@"startLoadingRecord" name:@"loadRecordsStart" object:nil];
-		[self.activityAlert addObserver:self selector:@"stopLoadingRecord" name:@"loadRecordsDone" object:nil];
-		[self.activityAlert startAnimating];		
-	}
-	LRPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate addAlert:self.activityAlert];
-	
-	[self performSelectorInBackground:@selector(_loadUserRecordsFromContext) withObject:nil];
-//	[self _loadUserRecordsFromContext];
-	
-	return true;
-}
 
 // Private method (contains body for background processing)
-- (BOOL)_loadUserRecordsFromContext {
+- (BOOL)loadUserRecordsFromContext {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadRecordsStart" object:self];
 			
 	// Reset FetchedResultsController
@@ -168,7 +152,7 @@
 
 
 #pragma mark - Alert View Helpers/Response
-
+/*
 - (void) startLoadingRecord {
 	//	[self.activityAlert.message setText:@"Saving record..."];
 //	[self.activityAlert startAnimating];
@@ -180,7 +164,7 @@
 	[self.activityAlert dismissAlert];
 //	self.activityAlert = nil;
 }
-
+*/
 
 
 #pragma mark - FetchedResultsController
@@ -224,15 +208,25 @@
 
 
 - (void)setCheckmarkForNewRecord:(BOOL)isOn {
-	if(self.lastNewRecordCell && self.lastNewRecord) {
+	if(self.lastNewRecord) {
 		if(isOn) {
-			self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryCheckmark;
-			[self.lastNewRecordCell setSelected:YES];
+			NSIndexPath* indexPath = [self getIndexForMatchingRecord:self.lastNewRecord];
+			
+			// scroll to new record
+			[self.masterVC.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:false];
+
+			// Highlight and checkmark
+			self.lastNewRecordCell = [self.masterVC.tableView cellForRowAtIndexPath:indexPath];
+			if(self.lastNewRecordCell) {
+				self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryCheckmark;
+				[self.lastNewRecordCell setSelected:YES];
+			}
 		} else {
-			self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryNone;
-			[self.lastNewRecordCell setSelected:NO];
+//			self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryNone;
+//			[self.lastNewRecordCell setSelected:NO];
 		}
 	}
+	[self.masterVC.view setNeedsDisplay];
 }
 
 

@@ -34,7 +34,7 @@
     [CoreDataHelper persistentStoreCoordinator];
     [CoreDataHelper managedObjectContext];
     
-	self.alertQueue = [[LRPAlertViewQueue alloc] init];
+//	self.alertQueue = [[LRPAlertViewQueue alloc] init];
 	
     // Get a reference to the stardard user defaults
 //    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -75,9 +75,8 @@
         self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
     }
     
- // Load Login first
+	// Load Login first
     [self.window setRootViewController:self.loginNavC];
-    
     
     // Split Window optional loading for ipad/iphone
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -95,70 +94,15 @@
 }
 
 
-// Unload login screen and load split view
-- (void) loginSuccessfull {
-	self.loginAlert= [[LRPAlertView alloc] initWithTitle:@"Logging in..." withMessage:[NSString stringWithFormat:@"Retrieving records for %@",[LRPAppState currentUser].username]];
-	
-//	[self.loginAlert addObserver:self selector:@"startLogin" name:@"startLogin" object:nil];
-	[self.loginAlert addObserver:self selector:@"stopLogin" name:@"stopLogin" object:nil];
-	[self.loginAlert startAnimating];
-	
 
-	// remove old views
-	for(int i = [[[self window] subviews] count]; i > 0; --i) {
-		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
-	}
-	
-	[self addAlert:self.loginAlert];
-    
-	// Load in different thread
-	[self performSelectorInBackground:@selector(doLogin) withObject:nil];
-
-}
-
-//-(void)startLogin {
-//	[self.loginAlert startAnimating];
-//}
-
--(void)stopLogin {
-//	[self.loginAlert dismissAlert];
-//	id appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-//	LRPAlertView* view = (LRPAlertView*)[appDelegate presentedViewController].view;
-	
-//	[view dismissAlert];
-//	 [appDelegate dismissViewControllerAnimated:true completion:nil];
-	[self.alertQueue dismissAlert];
-}
-
-- (void) doLogin {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"startLogin" object:self];
-	
-//	for(int i = [[[self window] subviews] count]; i > 0; --i) {
-//		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
-//	}
-	
-	[self.loginAlert showAlert];
-	
-    // add split view as new root controller
-    [self.window setRootViewController:_splitVC];
-    
-    // ipad specific split view behavior
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UINavigationController *navigationController =
-        [_splitVC.viewControllers lastObject];
-        _splitVC.delegate = (id)navigationController.topViewController;
-    }
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"stopLogin" object:self];
-    
-}
 
 - (void)applicationUnload {
 	// Remove views (we want to always come back on the login screen)
 //	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 //		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 //	}
-	[self.alertQueue unload];
-	self.alertQueue = nil;
+//	[self.alertQueue unload];
+//	self.alertQueue = nil;
 	
 	// Set login view controller to top level view
 	[self.loginNavC popToRootViewControllerAnimated:YES];
@@ -168,19 +112,40 @@
 	
 	// Reset the detail view so records aren't partially visible when reloading app
     [_splitVC.detailVC setRecord:nil];
+	
+	_splitVC = nil;
+//	_loginVC = nil;
 
 	[self.window setRootViewController:nil];
 
 }
 
 - (void)applicationLoad {
-	self.alertQueue = [[LRPAlertViewQueue alloc] init];
+//	self.alertQueue = [[LRPAlertViewQueue alloc] init];
     
 	[LRPAppState reset]; // redundant but safe
 
 	// Load Login first
 	[self.loginNavC popToRootViewControllerAnimated:YES];
     [self.window setRootViewController:self.loginNavC];
+	
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
+                                                             bundle: nil];
+    if(!self.loginVC) {
+        self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+    }
+    if(!self.splitVC) {
+        self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
+    }
+    
+	// Load Login first
+    [self.window setRootViewController:self.loginNavC];
+    
+    // Split Window optional loading for ipad/iphone
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
+        _splitVC.delegate = (id)navigationController.topViewController;
+    }
 	
 }
 
@@ -255,7 +220,7 @@
 
 
 #pragma mark - Alert View
-
+/*
 - (void)addAlert:(LRPAlertView*)alert {
 	[self.alertQueue addAlert:alert];
 }
@@ -263,7 +228,35 @@
 - (void)dismissALert {
 	[self.alertQueue dismissAlert];
 }
+*/
 
+#pragma mark - User Functions
+
+/*
+	loginSuccessful
+	- When a user has successfully logged in, we remove the start/login view controllers
+	 and switch to split screen root view controller for presenting records
+ */
+- (void) loginSuccessfull {
+	
+	// remove old views
+	for(int i = [[[self window] subviews] count]; i > 0; --i) {
+		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
+	}
+	
+	// reset user login bool
+	[self.splitVC setUserLoginComplete:false];
+	
+    // add split view as new root controller
+    [self.window setRootViewController:_splitVC];
+    
+    // ipad specific split view behavior
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UINavigationController *navigationController =
+        [_splitVC.viewControllers lastObject];
+        _splitVC.delegate = (id)navigationController.topViewController;
+    }
+}
 
 
 @end

@@ -122,11 +122,11 @@
 		
 		// Load new root view from app delegate
 		LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-		[self dismissViewControllerAnimated:true completion:nil];
+//		[self dismissViewControllerAnimated:true completion:nil];
 		[appDelegate loginSuccessfull];
 		
 	} else { // ERROR CREATING USER
-		
+
 		UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:@"Login Error!"
 						  message:@"Invalid username/password. Please try again."

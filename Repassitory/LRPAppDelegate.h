@@ -16,21 +16,17 @@
 
 @interface LRPAppDelegate : UIResponder <UIApplicationDelegate>
 
-
 @property (strong, nonatomic) UINavigationController *loginNavC;
 @property (strong, nonatomic) LRPLoginViewController *loginVC;
 @property (strong, nonatomic) LRPSplitViewController *splitVC;
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) LRPAlertViewQueue* alertQueue;
-@property (nonatomic) LRPAlertView* loginAlert;
-
 - (void) loginSuccessfull;
-- (void) doLogin;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-- (void)addAlert:(LRPAlertView*)alert;
-- (void)dismissALert;
+
+
+
 @end

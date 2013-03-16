@@ -11,7 +11,24 @@
 @class LRPAlertView;
 
 @interface LRPAlertViewController : UIViewController
-- (id) initWithView:(LRPAlertView*)view;
+@property (strong, nonatomic) LRPAlertView* alertView;
 
--(void)showAlert;
+
+
+//-(id)initWithView:(LRPAlertView*)view;
+-(id)initWithTitle:(NSString*)title withMessage:(NSString*)message;
+
+-(void)showAlertInViewController:(id)vc;
+-(void)startActivityIndicator;
+-(void)stopActivityIndicator;
+
+- (void) addButtonWithTitle:(NSString*)t usingBlock:(void (^)(void))blockFunc;
+
+- (void) addObserver:(id)observer selector:(NSString*)selectorName name:(NSString*)name object:(id)object;
+
+- (void)setDismissNotificationName:(NSString*)notificationName;
+
+-(void)dismissAlertWithCompletionBlock:(id) completion;
+
+
 @end

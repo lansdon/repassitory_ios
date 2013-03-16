@@ -45,7 +45,7 @@
 //	UIView* topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 400, 210)];
 //	[topView setBackgroundColor:[UIColor redColor]];
 //	[topView addSubview:alertView];
-	LRPAlertViewController* avController = [[LRPAlertViewController alloc] initWithView:alertView];
+	LRPAlertViewController* avController = [[LRPAlertViewController alloc] initWithTitle:@"FAIL" withMessage:@"FAIL"];
 //	[avController.view setAutoresizesSubviews:false];
 //	[avController.view setAutoresizingMask:UIViewAutoresizingNone];
 //	avController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
@@ -88,7 +88,7 @@
 		LRPAlertViewController* avController = (LRPAlertViewController*)[alertViewQueue objectAtIndex:0];
 		LRPAlertView* view = (LRPAlertView*)[avController view];
 		if(view && [view superview]) {
-			[avController showAlert];
+//			[avController showAlertInViewController:nil];
 		} else {
 			[self dequeueAlert];
 			[self update];
@@ -111,8 +111,10 @@
 		[self init];
 	}
 	
+
 	[self.alertWindow setRootViewController:avController];
 	[self.alertWindow makeKeyAndVisible];
+//	LRPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
 
 }
 

@@ -9,14 +9,14 @@
 #import "LRPAlertView.h"
 
 #import "LRPAppDelegate.h"
-#import "LRPAlertViewQueue.h"
+#import "LRPAlertViewController.h"
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
 @implementation LRPAlertView {
 	NSMutableArray* observers;
 }
-
+/*
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -25,42 +25,36 @@
     }
     return self;
 }
-
+*/
 - (id)initWithTitle:(NSString*)title withMessage:(NSString*)message
 {
 
     if (self = [super init]) {
 		float viewWidth = 400.0;
 		float viewHeight = 210.0;
-		float viewWidthMultiplier = 0.70; // percent of screen width = view width
-		float viewHeightMultiplier = 0.25; // percent of screen width = view width
+//		float viewWidthMultiplier = 0.70; // percent of screen width = view width
+//		float viewHeightMultiplier = 0.25; // percent of screen width = view width
 		float subviewWidthMultiplier = 0.90; // percent of screen width = view width
-		int titleFontSize = 36;
-		int messageFontSize = 32;
+		int titleFontSize = 32;
+		int messageFontSize = 28;
 //		int buttonFontSize = 30;
 		self.dismissTimer = 0.0;	// seconds until auto dismiss
 		
 		if(!self.buttons) self.buttons = [[NSMutableArray alloc] init];
 		if(!self.buttonBlocks) self.buttonBlocks = [[NSMutableArray alloc] init];
 
-		LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-		UIWindow *window = appDelegate.alertQueue.alertWindow;
+//		LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+//		UIWindow *window = appDelegate.window;
 		
-		// Container Window Dimensions + location
-//        CGRect screenBounds = [[UIScreen mainScreen] bounds];
-		
-		self.bounds = CGRectMake(0,0, window.frame.size.width, window.frame.size.height);
-//		self.center = CGPointMake(window.frame.size.width/2, window.frame.size.height/2);
-		// container box
-		self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-		[self centerViews];
-//		self.containerView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+		// Main View covers entire window
+//		self.bounds = CGRectMake(0,0, window.frame.size.width, window.frame.size.height);
 
-		//		self.frame = CGRectMake(0, 0, window.frame.size.width*viewWidthMultiplier, window.frame.size.height*viewHeightMultiplier);
-//		self.center = window.center;
-//		[self setAutoresizesSubviews:false];
-		[self setContentMode:UIViewContentModeCenter];
-//		[self setAutoresizingMask:UIViewAutoresizingNone];
+		// Container Window Dimensions + location (this is the actual alert view window)
+		self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+		[self centerViews]; // sets orientation w/ window
+
+		self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+		UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		self.containerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
 		UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		
@@ -69,8 +63,8 @@
 		self.message = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.containerView.frame.size.width*subviewWidthMultiplier, self.containerView.frame.size.height*0.4)];
 		self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		
-		[self.title setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.15)];
-		[self.message setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.4)];
+		[self.title setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.18)];
+		[self.message setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.45)];
 		[self.activityIndicator setCenter:CGPointMake(self.containerView.bounds.size.width*.5, self.containerView.bounds.size.height*.6)];
 		
 		// Text Properties
@@ -80,6 +74,8 @@
 		[self.message setTextAlignment:NSTextAlignmentCenter];
 		[self.title setTextColor:[UIColor blueColor]];
 		[self.message setTextColor:[UIColor blueColor]];
+		[self.title setAdjustsFontSizeToFitWidth:true];
+		[self.message setAdjustsFontSizeToFitWidth:true];
 		
 		// Assign Text
 		[self.title setText:title];
@@ -101,8 +97,8 @@
 		[self configureButtons];
 		
 		// Respond to orientation changes
-		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object: nil];
+//		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object: nil];
 	}
 	return self;
 }
@@ -115,6 +111,8 @@
 		[self.containerView addSubview:b];
 		[b setHidden:NO];
 		[b setFrame:CGRectMake(0, 0, self.containerView.frame.size.width/(self.buttons.count+1.5), self.containerView.frame.size.height*.15)];
+//		[b.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+		[b.titleLabel setAdjustsFontSizeToFitWidth:true];
 		
 		[b setCenter:CGPointMake(self.containerView.frame.size.width/(self.buttons.count+1)*(i+1), self.containerView.frame.size.height*.85)];
 		b.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:30];
@@ -153,37 +151,18 @@
 
 // Centers the container view to the middle of the superview
 - (void) centerViews {
-	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = appDelegate.alertQueue.alertWindow;
-
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-//	if(UIInterfaceOrientationIsLandscape(orientation)) {
-//	if(orientation == UIInterfaceOrientationLandscapeRight ||
-//	   orientation == UIInterfaceOrientationLandscapeLeft) {
-		self.containerView.center = CGPointMake(self.bounds.size.width/2+self.bounds.origin.x, self.bounds.size.height/2+self.bounds.origin.y);
-		
-//	} else {
-//		self.containerView.center = CGPointMake(self.bounds.size.height/2, self.bounds.size.width/2);
-//	}
-
-
+	self.containerView.center = CGPointMake(self.bounds.size.width/2+self.bounds.origin.x, self.bounds.size.height/2+self.bounds.origin.y);
 }
 
 
 -(void)showAlert
-{
-	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = appDelegate.alertQueue.alertWindow;
-	
-//	[self centerViews];
-	
+{	
     self.title.hidden = NO;
     self.message.hidden = NO;
 	
-//    self.activityIndicator.contentMode = UIViewContentModeCenter;
-
 	[self updateView];
 
+	// Setup dismissTimer (alerts can automatically dismiss after a set time)
 	if(self.dismissTimer >= 0.1) {
 		[NSTimer scheduledTimerWithTimeInterval:self.dismissTimer
 										 target:self
@@ -193,7 +172,7 @@
 	}
 }
 
--(void)startAnimating {
+-(void)startActivityIndicator {
 	[self.activityIndicator setHidden:NO];
 	[self.activityIndicator startAnimating];
 	[self.activityIndicator setNeedsDisplay];
@@ -203,7 +182,7 @@
 
 }
 
--(void)stopAnimating {
+-(void)stopActivityIndicator {
 	[self.activityIndicator setHidden:YES];
 	[self.activityIndicator stopAnimating];
 	[self.activityIndicator removeFromSuperview];
@@ -245,10 +224,12 @@
 	
 	[self.buttons addObject: b];
 	
+	// This is a redundant and ugly backup for the backup. The default block
+	// is defined in LRPAlertViewController in this same function (helper)
 	void (^defCancelBlock)(void) = ^(void) {
-		LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-		[appDelegate dismissALert];
-//		[self dismissAlert];
+		if([self containerView]) {
+			[((LRPAlertViewController*)[self containerView]) dismissAlertWithCompletionBlock:nil];
+		}
 	};
 	
 	if(blockFunc == nil) {

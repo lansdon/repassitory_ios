@@ -26,8 +26,9 @@
 
 - (void) addObserver:(id)observer selector:(NSString*)selectorName name:(NSString*)name object:(id)object;
 - (void) onButtonPress: (id) sender;
-- (void)startAnimating;
-- (void)stopAnimating;
+- (void)startActivityIndicator;
+- (void)stopActivityIndicator;
+- (void) displayMasterVC;
 
 
 @end

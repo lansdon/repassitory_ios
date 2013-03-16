@@ -26,9 +26,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
-
-//    self.dataController = [[LRPRecordDataController alloc] initWithUser:[LRPAppState currentUser]];
-
 }
 
 
@@ -38,25 +35,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-//    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-/*
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
- */
 
     self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
 
     // register self with SplitVC
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
     self.splitVC.masterVC = self;
-
-    self.detailViewController = (LRPDetailViewController *)
-	[[self.splitViewController.viewControllers lastObject] topViewController];
-    
+	
+	if(self.splitVC.detailVC) {
+		self.detailViewController = self.splitVC.detailVC;
+	} else {
+		self.detailViewController = (LRPDetailViewController*)[[self.splitVC.viewControllers lastObject] topViewController];
+    }
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
+	self.splitVC.mastervc_loaded = true;
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"mastervc_did_load" object:nil];
+	NSLog(@"Master - view did load");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,19 +65,17 @@
     if (!_dataController) {
         self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
     }
-//    if(![self.dataController loadUserRecordsFromContext]) {
-        // error loading user records
-//    }
+
     [self reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-	if(![self.dataController.lastNewRecord.title isEqualToString:@""]) {
+//	if(![self.dataController.lastNewRecord.title isEqualToString:@""]) {
 		[self.dataController setCheckmarkForNewRecord:YES];
-	}
+//	}
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
 	[self.dataController.lastNewRecord clear];
 }
 
@@ -222,49 +216,15 @@
  */
 
 #pragma mark - User Functions
-/*
-- (void) loadUserRecords {
-	
-	// Setup Alert Window
-	self.activityAlert = [[LRPAlertView alloc] init];
-	[self.activityAlert.title setText:@"Load Records"];
-	[self.activityAlert.message setText:[NSString stringWithFormat:@"Retrieving records for %@",[LRPAppState currentUser].username]];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimating) name:@"loadRecordsStart" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimating) name:@"loadRecordsDone" object:nil];
-	
-	[self.activityAlert startAnimating];
-	[self.activityAlert showAlert];
-
-	[self performSelectorInBackground:@selector(_laodUserRecords) withObject:nil];
-
-	
-//	[activityAlert dismissAlert];
+- (BOOL)loadUserRecordsFromContext {	// helper function to call load from datacontroller
+	return [self.dataController loadUserRecordsFromContext];
 }
 
-// Private method (contains body for background processing)
-- (void) _loadUserRecords {
-	[_dataController loadUserRecordsFromContext];
-	[self reloadData];
-	[self.detailViewController updateRecordVaultLabel];	
-}
-*/
 
 - (void) reloadData {
-//	[self.tableView reloadData];
+	[self.tableView reloadData];
 	[self.detailViewController updateRecordVaultLabel];
 }
 
 #pragma mark - Alert View Helpers/Response
-/*
-- (void) startAnimating {
-//	[self.activityAlert.message setText:@"Saving record..."];
-	[self.activityAlert startAnimating];
-}
-
-- (void) stopAnimating {
-	[self.activityAlert stopAnimating];
-	[self.activityAlert dismissAlert];
-}
-*/
 @end

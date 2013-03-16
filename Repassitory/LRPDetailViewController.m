@@ -19,13 +19,11 @@
 #import "LRPAlertView.h"
 #import "LRPAppDelegate.h"
 #import "LRPAlertViewQueue.h"
+#import "LRPAlertViewController.h"
 
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-//- (void)configureView;
-//-(void) saveRecord;
-//-(void) deleteRecord;
 
 @end
 
@@ -98,8 +96,10 @@
 										   nil]
 					  inContainingView:self.view
 					  inTable:self.tableView];
-	
-	self.activityAlert = [[LRPAlertView alloc] init];
+
+	self.splitVC.detailvc_loaded = true;
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"detailvc_did_load" object:nil];
+	NSLog(@"Detail - view did load");
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,22 +109,24 @@
 }
 
 #pragma mark - Split view
+-(void) updateRecordVaultLabel {
+	if(self.btnRecordVault) {
+		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [self.splitVC.masterVC.dataController countOfListInSection:0]];
+//		[self.navigationItem setLeftBarButtonItem:nil animated:YES];
+//		[self.navigationItem setLeftBarButtonItem:self.btnRecordVault animated:YES];
+		
+//		[self.splitViewController.view setNeedsLayout];
+	}
+}
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
 	_btnRecordVault = barButtonItem;
-//    barButtonItem.title = NSLocalizedString(@"Record Vault", @"Record Vault");
 	[self updateRecordVaultLabel];
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
 
-
--(void) updateRecordVaultLabel {
-	if(self.btnRecordVault) {
-		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [self.splitVC.masterVC.dataController countOfListInSection:0]];
-	}
-}
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
@@ -136,13 +138,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	if(!self.record) self.record = [LRPRecord alloc];
+	if(!self.record) {
+		self.record = [LRPRecord alloc];
+	}
 	[self.record clear];
-	
-	if(!self.activityAlert) self.activityAlert = [[LRPAlertView alloc] init];
-	
+		
     [self configureView];
 }
+
+
 
 /*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -289,9 +293,10 @@
 
 // Indicate whichi cells are active
 -(void)setActiveCellByRow:(int)row {
-	NSArray* indexPaths = [self.tableView visibleCells];
-	for(int i=0; i<[indexPaths count]; ++i) {
-		UITableViewCell* cell = indexPaths[i];
+//	NSArray* indexPaths = [self.tableView numberOfRowsInSection:0];
+	for(int i=0; i<[self.tableView numberOfRowsInSection:0]; ++i) {
+//		UITableViewCell* cell = indexPaths[i];
+		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
 		if(row == i) {
 			[cell setBackgroundColor:[UIColor blueColor]];
 			[self setFirstResponderByTableRow:row];
@@ -314,23 +319,29 @@
 
 #pragma mark - Database / Records
 -(IBAction) saveRecord:(id)sender {
-	
 	// Save Button Code Block
 	void (^saveBlock)(void) = ^(void) {
-		[self.activityAlert startAnimating];
+		[self.saveAlertController startActivityIndicator];
 		[self performSelectorInBackground:@selector(saveRecordConfirmed:) withObject:nil];
-//		[self.activityAlert stopAnimating];
 	};
+		
+	self.saveAlertController = [[LRPAlertViewController alloc] initWithTitle:@"Save Record"
+							withMessage:@"Are you sure you want to save this record?"];
+	[self.saveAlertController addButtonWithTitle:@"Cancel" usingBlock:nil];
+	[self.saveAlertController addButtonWithTitle:@"Save" usingBlock:saveBlock];
+	[self.saveAlertController addObserver:self selector:@"alertStartSave" name:@"saveRecordStart" object:nil];
+	[self.saveAlertController addObserver:self selector:@"alertStopSave" name:@"saveRecordDone" object:nil];
 	
-	self.activityAlert = [[LRPAlertView alloc] initWithTitle:@"Save Record" withMessage:@"Are you sure you want to save this record?"];
-	[self.activityAlert addButtonWithTitle:@"Cancel" usingBlock:nil];
-	[self.activityAlert addButtonWithTitle:@"Save" usingBlock:saveBlock];
-	[self.activityAlert addObserver:self selector:@"alertStartSave" name:@"saveRecordStart" object:nil];
-	[self.activityAlert addObserver:self selector:@"alertStopSave" name:@"saveRecordDone" object:nil];
-	LRPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate addAlert:self.activityAlert];
-	
+	// Reset title/message and show alert
+	[self.saveAlertController stopActivityIndicator];
+	[self.saveAlertController showAlertInViewController:self];
 }
+
+
+
+/*
+	Called after the user Confirms they want to save (following alert view)
+ */
 
 -(void)saveRecordConfirmed:(UIAlertView*)alertView {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordStart" object:self];
@@ -354,12 +365,7 @@
 	
 	// Update button states
 	[self setState:STATE_DISPLAY];
-	
-	// Open split view by simulating button press
-	// (to display new record + checkmarks)
-//	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
-//	[masterButton.target performSelector:masterButton.action];
-		
+			
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordDone" object:self];
 }
 
@@ -473,18 +479,30 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 #pragma mark - Alert View Helpers/Response
 
 - (void) alertStartSave {
-	[self.activityAlert.message setText:@"Saving record..."];
-	[self.activityAlert startAnimating];
+	[self.saveAlertController.alertView.message setText:@"Saving record..."];
+	[self.saveAlertController startActivityIndicator];
 }
 
 - (void) alertStopSave {
-	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-	[appDelegate dismissALert];
-
-	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
-	[masterButton.target performSelector:masterButton.action];
+	
+	void (^openMasterVC)(void) = ^(void) {
+		[self displayMasterVC];
+	};
+	
+	[self.saveAlertController dismissAlertWithCompletionBlock:openMasterVC];
+//	[self.saveAlertController performSelectorOnMainThread:@selector(dismissAlert) withObject:nil waitUntilDone:false];
+	
+//	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+//	[masterButton.target performSelector:masterButton.action];
+//	[self performSelectorOnMainThread:@selector(displayMasterVC) withObject:nil waitUntilDone:false];
+//	[self performSelector:@selector(displayMasterVC) withObject:nil afterDelay:0.2];
 }
 
+// Function seperated for delayed use
+- (void) displayMasterVC {
+	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+	[masterButton.target performSelector:masterButton.action];	
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

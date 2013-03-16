@@ -11,7 +11,8 @@
 @class LRPLoginViewController;
 @class LRPDetailViewController;
 @class LRPMasterViewController;
-@class LRPAddRecordViewController;
+//@class LRPAddRecordViewController;
+@class LRPAlertViewController;
 
 @interface LRPSplitViewController : UISplitViewController
 
@@ -20,5 +21,13 @@
 @property (strong, nonatomic) LRPDetailViewController *detailVC;
 @property (strong, nonatomic) LRPMasterViewController *masterVC;
 
+@property (strong, nonatomic) LRPAlertViewController* loadingAlertVC;
+
+@property (nonatomic) bool mastervc_loaded;
+@property (nonatomic) bool splitvc_loaded;
+@property (nonatomic) bool detailvc_loaded;
+
+
+-(void)setUserLoginComplete:(bool)isLoggedIn;
 
 @end
