@@ -20,6 +20,7 @@
 #import "LRPAppDelegate.h"
 #import "LRPAlertViewQueue.h"
 #import "LRPAlertViewController.h"
+#import "MBProgressHUD.h"
 
 
 @interface LRPDetailViewController ()
@@ -319,55 +320,80 @@
 
 #pragma mark - Database / Records
 -(IBAction) saveRecord:(id)sender {
-	// Save Button Code Block
-	void (^saveBlock)(void) = ^(void) {
-		[self.saveAlertController startActivityIndicator];
-		[self performSelectorInBackground:@selector(saveRecordConfirmed:) withObject:nil];
-	};
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeIndeterminate;
+	hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
+	hud.labelFont = [UIFont boldSystemFontOfSize:40];
+	hud.minShowTime = 1.0;
+	hud.dimBackground = true;
+	
+	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+		/**
+			Save record to coredata
+		 */
 		
-	self.saveAlertController = [[LRPAlertViewController alloc] initWithTitle:@"Save Record"
-							withMessage:@"Are you sure you want to save this record?"];
-	[self.saveAlertController addButtonWithTitle:@"Cancel" usingBlock:nil];
-	[self.saveAlertController addButtonWithTitle:@"Save" usingBlock:saveBlock];
-	[self.saveAlertController addObserver:self selector:@"alertStartSave" name:@"saveRecordStart" object:nil];
-	[self.saveAlertController addObserver:self selector:@"alertStopSave" name:@"saveRecordDone" object:nil];
-	
-	// Reset title/message and show alert
-	[self.saveAlertController stopActivityIndicator];
-	[self.saveAlertController showAlertInViewController:self];
-}
-
-
-
-/*
-	Called after the user Confirms they want to save (following alert view)
- */
-
--(void)saveRecordConfirmed:(UIAlertView*)alertView {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordStart" object:self];
-	
-	// Need to remove old record?
-	if(self.editingExistingRecord) {
-		[self.splitVC.masterVC.dataController deleteRecord:record];
-		[self.record clear];
-	}
+		// Need to remove old record?   (this should be redone to use core data object directly?)
+		if(self.editingExistingRecord) {
+			[self.splitVC.masterVC.dataController deleteRecord:record];
+			[self.record clear];
+		}
 		
-	// Update local record using input fields
-	if(!record) record = [LRPRecord alloc];
-	self.record = [self.record initWithTitle:titleTextField.text
-									username:usernameTextField.text
-									password:passwordTextField.text
-									url:urlTextField.text
-									notes:notesTextField.text];
-	
-	// Save local record to core data
-	[self.splitVC.masterVC.dataController addRecord:record];
-	
-	// Update button states
-	[self setState:STATE_DISPLAY];
+		// Update local record using input fields
+		if(!record) record = [LRPRecord alloc];
+		self.record = [self.record initWithTitle:titleTextField.text
+										username:usernameTextField.text
+										password:passwordTextField.text
+										url:urlTextField.text
+										notes:notesTextField.text];
+		
+		// Save local record to core data
+		[self.splitVC.masterVC.dataController addRecord:record];
+		
+		// Update button states
+		[self setState:STATE_DISPLAY];
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[MBProgressHUD hideHUDForView:self.view animated:NO];
+		});
+		dispatch_async(dispatch_get_main_queue(), ^{			
+			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+			hud.mode = MBProgressHUDModeCustomView;
+			hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
+			hud.detailsLabelText = @"Success!";
 			
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRecordDone" object:self];
+			hud.labelFont = [UIFont boldSystemFontOfSize:40];
+			hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
+			hud.minShowTime = 1.0;
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
+			hud.dimBackground = true;
+			[hud hide:YES afterDelay:1.0];
+			
+//			[self.splitVC.masterVC reloadData];
+			[self.splitVC.masterVC.view setNeedsDisplay];
+			[self.view setNeedsDisplay];
+		});
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self displayMasterVC];
+		});
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
+		});
+
+	});
 }
+
+// Function seperated for delayed use
+- (void) displayMasterVC {
+	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+	if (!UIInterfaceOrientationIsLandscape(orientation)) {
+		UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
+		if(masterButton) {
+			[masterButton.target performSelector:masterButton.action];
+		}
+	}
+}
+
 
 -(IBAction) deleteRecord:(id)sender {
 	[self doConfirmDialogueWithTitle:@"Delete Record" message:@"Are you sure you want to delete this record?"];
@@ -401,34 +427,6 @@
 
 
 
-/*
-#pragma mark - Color comparison
-BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
-	float tolerance = 0.05; // 5%
-	
-	CGColorRef leftColor = [left CGColor];
-	CGColorRef rightColor = [right CGColor];
-	
-	if (CGColorGetColorSpace(leftColor) != CGColorGetColorSpace(rightColor)) {
-		return FALSE;
-	}
-	
-	int componentCount = CGColorGetNumberOfComponents(leftColor);
-	
-	const float *leftComponents = CGColorGetComponents(leftColor);
-	const float *rightComponents = CGColorGetComponents(rightColor);
-	
-	for (int i = 0; i < componentCount; i++) {
-		float difference = leftComponents[i] / rightComponents[i];
-		
-		if (fabs(difference - 1) > tolerance) {
-			return FALSE;
-		}
-	}
-	
-	return TRUE;
-}
- */
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -478,53 +476,9 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 
 #pragma mark - Alert View Helpers/Response
 
-- (void) alertStartSave {
-	[self.saveAlertController.alertView.message setText:@"Saving record..."];
-	[self.saveAlertController startActivityIndicator];
-}
-
-- (void) alertStopSave {
-	
-	void (^openMasterVC)(void) = ^(void) {
-		[self displayMasterVC];
-	};
-	
-	[self.saveAlertController dismissAlertWithCompletionBlock:openMasterVC];
-//	[self.saveAlertController performSelectorOnMainThread:@selector(dismissAlert) withObject:nil waitUntilDone:false];
-	
-//	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
-//	[masterButton.target performSelector:masterButton.action];
-//	[self performSelectorOnMainThread:@selector(displayMasterVC) withObject:nil waitUntilDone:false];
-//	[self performSelector:@selector(displayMasterVC) withObject:nil afterDelay:0.2];
-}
-
-// Function seperated for delayed use
-- (void) displayMasterVC {
-	UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
-	[masterButton.target performSelector:masterButton.action];	
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	// SAVE RECORD RESPONSE
-	if([alertView.title isEqualToString: @"Save Record"]) {
-		if(buttonIndex == 1) { // YES
-			LRPAlertView *activityAlert = [[LRPAlertView alloc] init];
-			
-			[alertView addSubview:activityAlert];
-			[activityAlert setCenter:alertView.center];
-			[alertView setNeedsDisplay];
-			
-			[activityAlert showAlert];
-			
-			[self saveRecordConfirmed:alertView];
-
-//			[activityAlert dismissAlertMethod];
-			
-		} else if (buttonIndex == 0) { // NO
-			[self setActiveCellByRow:0];
-		}		
-	}
 	// DELETE RECORD RESPONSE
 	if([alertView.title isEqualToString: @"Delete Record"]) {
 		if(buttonIndex == 1) { // YES
@@ -549,28 +503,4 @@ BOOL colorSimilarToColor(UIColor *left, UIColor *right) {
 }
 
 
-#pragma mark - Activity Indicator
-/*
-- (void) activityIndicatorStop {
-	[self.progressLabel setText:@"Done!"];
-	[self.progressLabel setTextColor:[UIColor greenColor]];
-	
-	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(activityIndicatorComplete) userInfo:nil repeats:NO];	
-}
-
-- (void) activityIndicatorStartWithLabel:(NSString*)label {
-	[self.progressLabel setText:label];
-	[self.progressLabel setTextColor:[UIColor whiteColor]];
-	[self.activityIndicator setHidden:false];
-	[self.progressLabel setHidden:false];
-	[self.activityIndicator startAnimating];
-//	[self configureView];
-}
-
-- (void) activityIndicatorComplete {
-	[self.activityIndicator setHidden:true];
-	[self.progressLabel setHidden:true];
-	[self.activityIndicator stopAnimating];
-}
-*/
 @end

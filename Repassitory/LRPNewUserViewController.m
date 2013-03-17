@@ -169,8 +169,6 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 -(bool)loginUser:(LRPUser*)user {
-    // Setup search key
-	[LRPAppState setKey:user.password];
 
     NSLog(@"Logging in user:%@, pass:%@, key:%@", user.username, user.password, [LRPAppState getKey]);
 
@@ -189,7 +187,8 @@ numberOfRowsInComponent:(NSInteger)component
         [appDelegate loginSuccessfull];
         
     } else {
-        // ERROR CREATING USER - todo: send error message
+        // ERROR CREATING USER
+		[LRPAppState reset];
         UIAlertView *alert = [[UIAlertView alloc]
                             initWithTitle:@"Login Error!"
                             message:@"Invalid username/password. Please try again."

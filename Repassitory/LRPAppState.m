@@ -14,7 +14,7 @@
 @end
 
 
-static NSString* _key = nil;            // Static variable for user key
+//static NSString* _key = nil;            // Static variable for user key
 
 
 @implementation LRPAppState
@@ -52,9 +52,7 @@ static NSString* _key = nil;            // Static variable for user key
     [[LRPAppState currentUser] setUser_id:[NSNumber numberWithInt:-2]];
     [[LRPAppState currentUser] setSecurity_question:[NSNumber numberWithInt:-2]];
     [[LRPAppState currentUser] setSecurity_answer:@""];
-    
-    [LRPAppState setKey:@"default2"];
-}
+    }
 
 
 
@@ -69,25 +67,26 @@ static NSString* _key = nil;            // Static variable for user key
 }
 
 #pragma mark - Encryption Keys
-
+/*
 +(void)setKey:(NSString*)newKey { // User creation must manually set the key prior to db activity.
     if(_key != newKey) {
         _key = newKey;
     }
 }
+*/
++(NSString*)getKeyForUser:(LRPUser*)user {
+	NSString* key = [[NSString alloc] init];
+    if(user) {
+        key = [NSString stringWithFormat:@"%@%@",[LRPAppState currentUser].username, [LRPAppState currentUser].password];
+    } else {
+        key = @"default";
+    }
+    return key;
+}
+
 
 +(NSString*)getKey {
-    if(!_key) {
-        _key = @"default";
-    }
-    
-    // Validation
-    if([LRPAppState checkForUser]) {
-        _key = [LRPAppState currentUser].password;
-    } else {
-        // No current user means we're hoping the key was set properly during new user creation
-    }
-    return _key;
+    return [self getKeyForUser:[self currentUser]];
 }
 
 

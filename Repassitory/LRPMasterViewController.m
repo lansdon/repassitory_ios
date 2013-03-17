@@ -57,6 +57,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	[super viewWillAppear:animated];
+	
     // register self with SplitVC
     self.splitVC = (LRPSplitViewController *)self.splitViewController;
     self.splitVC.masterVC = self;
@@ -66,16 +68,21 @@
         self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
     }
 
-    [self reloadData];
+//    [self reloadData];
+//	[self.dataController setCheckmarkForNewRecord:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
 //	if(![self.dataController.lastNewRecord.title isEqualToString:@""]) {
-		[self.dataController setCheckmarkForNewRecord:YES];
+//		[self.dataController setCheckmarkForNewRecord:YES];
 //	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	
 	[self.dataController.lastNewRecord clear];
 }
 
@@ -96,18 +103,6 @@
     }
 }
 
-
-/*
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-*/
 
 #pragma mark - Table View
 
@@ -144,32 +139,7 @@
     // Return NO if you do not want the specified item to be editable.
     return NO;
 }
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
- //       [_objects removeObjectAtIndex:indexPath.row];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-*/
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -190,30 +160,6 @@
 
 
 
-/*
-- (IBAction)done:(UIStoryboardSegue *)segue
-{
-
-    if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        
-        LRPAddRecordViewController *addController = [segue sourceViewController];
-        if (addController.record) {
-            [self.dataController addRecord:addController.record];
-            [[self tableView] reloadData];
-        }
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-
-}
-
-
-- (IBAction)cancel:(UIStoryboardSegue *)segue
-{
-    if ([[segue identifier] isEqualToString:@"CancelInput"]) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-}
- */
 
 #pragma mark - User Functions
 - (BOOL)loadUserRecordsFromContext {	// helper function to call load from datacontroller
@@ -224,6 +170,7 @@
 - (void) reloadData {
 	[self.tableView reloadData];
 	[self.detailViewController updateRecordVaultLabel];
+	NSLog(@"Master - reloadData");
 }
 
 #pragma mark - Alert View Helpers/Response

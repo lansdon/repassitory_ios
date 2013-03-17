@@ -66,6 +66,7 @@
 
 
 - (void)addRecord:(LRPRecord*)record {
+	NSLog(@"addRecord:%@", record.title);
     // Clear previous record
 //	[self setCheckmarkForNewRecord:false];
 	
@@ -110,7 +111,7 @@
 
 // Private method (contains body for background processing)
 - (BOOL)loadUserRecordsFromContext {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadRecordsStart" object:self];
+//	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadRecordsStart" object:self];
 			
 	// Reset FetchedResultsController
 	self.fetchedResultsController = nil;	
@@ -125,7 +126,6 @@
 
 	NSLog(@"Loading record for id: %@, count=%lu, success=%u", [LRPAppState currentUser].user_id, (unsigned long)[self countOfListInSection:0], success);
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadRecordsDone" object:self];
     return success;
 	
 }

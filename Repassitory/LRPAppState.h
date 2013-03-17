@@ -27,7 +27,7 @@
 +(bool)checkForUser;
 
 // Encryption Keys
-+(void)setKey:(NSString*)newKey; // User creation must manually set the key prior to db activity.
++(NSString*)getKeyForUser:(LRPUser*)user;
 +(NSString*)getKey;
 
 +(NSString*) getVersion;

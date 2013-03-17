@@ -130,8 +130,9 @@
 
 +(User*)getUser:(LRPUser*)testUser {
     // Use users key
-    [LRPAppState setKey:testUser.password];
-        
+//    [LRPAppState setKey:testUser.password];
+	[LRPAppState setCurrentUser:testUser];
+	
 	// Execute the count request
 	NSArray *fetchResults = [CoreDataHelper getObjectsForEntity:@"User" withSortKey:@"username" andSortAscending:true andContext:[CoreDataHelper managedObjectContext]];
                               
@@ -170,8 +171,9 @@
 
 + (BOOL)createNewUserFromObject:(LRPUser*)newUser {
     // Must update user key prior to accessing core data!
-    [LRPAppState setKey:newUser.password];
-
+//    [LRPAppState setKey:newUser.password];
+	[LRPAppState setCurrentUser:newUser];
+	
     NSLog(@"Creating user:%@, pass:%@, key:%@", newUser.username, newUser.password, [LRPAppState getKey]);
 
     // Check if username is taken

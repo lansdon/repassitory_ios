@@ -106,13 +106,11 @@
 #pragma mark - User/DB Operations
 
 - (void) loginUser {
+	//	NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
 	
-	LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];	
-	[LRPAppState setKey:[passwordField text]];
-	
-//	NSLog(@"Logging in user:%@, pass:%@, key:%@", [usernameField text], [passwordField text], [LRPAppState getKey]);
-		
+	LRPUser *loginUser = [[LRPUser alloc] initWithName:[usernameField text] password:[passwordField text]];				
 	User* userLoggingIn = [CoreDataHelper getUser:loginUser];
+	
 	if((![userLoggingIn.username isEqualToString:@""] && ![userLoggingIn.password isEqualToString:@""]) &&
 	   (userLoggingIn != nil)) {
 		
@@ -122,11 +120,10 @@
 		
 		// Load new root view from app delegate
 		LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-//		[self dismissViewControllerAnimated:true completion:nil];
 		[appDelegate loginSuccessfull];
 		
 	} else { // ERROR CREATING USER
-
+		[LRPAppState reset];
 		UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:@"Login Error!"
 						  message:@"Invalid username/password. Please try again."

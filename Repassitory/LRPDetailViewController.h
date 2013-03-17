@@ -62,6 +62,4 @@
 
 -(void) updateRecordVaultLabel;
 
-- (void) alertStartSave;
-- (void) alertStopSave;
 @end

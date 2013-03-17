@@ -28,7 +28,7 @@
 - (void) onButtonPress: (id) sender;
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
-- (void) displayMasterVC;
+//- (void) displayMasterVC;
 
 
 @end
