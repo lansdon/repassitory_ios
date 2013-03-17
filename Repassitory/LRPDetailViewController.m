@@ -21,7 +21,7 @@
 #import "LRPAlertViewQueue.h"
 #import "LRPAlertViewController.h"
 #import "MBProgressHUD.h"
-
+#import "objc/message.h"
 
 @interface LRPDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -363,7 +363,7 @@
 		[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
 
 //		dispatch_async(dispatch_get_main_queue(), ^{
-		/*
+		
 			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
 			hud.mode = MBProgressHUDModeCustomView;
 			hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
@@ -375,96 +375,21 @@
 			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
 			hud.dimBackground = true;
 			[hud hide:YES afterDelay:1.0];
-			*/
+
 			//			[self.splitVC.masterVC reloadData];
 			//			[self.splitVC.masterVC.view setNeedsDisplay];
 			//			[self.view setNeedsDisplay];
 //		});
 	};
-		
-		
-
-
-	
-		
-	
-		
-	/*
-	 
-				End test
-	 */
-	
-	
+			
 	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.mode = MBProgressHUDModeIndeterminate;
 	hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
 	hud.labelFont = [UIFont boldSystemFontOfSize:40];
 	hud.minShowTime = 1.0;
 	hud.dimBackground = true;
-	[hud showAnimated:YES whileExecutingBlock:saveBlock completionBlock:saveCompletionBlock];
-
-	// Clear previous record checkmarks
-//	[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:false];
-/*
-	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-		///
-			//Save record to coredata
-		 //
-		
-		// Need to remove old record?   (this should be redone to use core data object directly?)
-		if(self.editingExistingRecord) {
-			[self.splitVC.masterVC.dataController deleteRecord:record];
-			[self.record clear];
-		}
-		
-		// Update local record using input fields
-		if(!record) record = [LRPRecord alloc];
-		self.record = [self.record initWithTitle:titleTextField.text
-										username:usernameTextField.text
-										password:passwordTextField.text
-										url:urlTextField.text
-										notes:notesTextField.text];
-				
-		// Save local record to core data
-		[self.splitVC.masterVC.dataController addRecord:record];
-		
-		// Update button states
-		[self setState:STATE_DISPLAY];
-		
-		dispatch_async(dispatch_get_main_queue(), ^{
-			//			[self.view setNeedsDisplay];
-			//[self.tableView reloadData];
-			[self.splitVC.masterVC reloadData];
-			[self displayMasterVC];
-		});
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
-		});
-
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[MBProgressHUD hideHUDForView:self.view animated:NO];
-		});
-		
-
-		dispatch_async(dispatch_get_main_queue(), ^{
-			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-			hud.mode = MBProgressHUDModeCustomView;
-			hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
-			hud.detailsLabelText = @"Success!";
-			
-			hud.labelFont = [UIFont boldSystemFontOfSize:40];
-			hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
-			hud.minShowTime = 1.0;
-			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
-			hud.dimBackground = true;
-			[hud hide:YES afterDelay:1.0];
-			
-//			[self.splitVC.masterVC reloadData];
-//			[self.splitVC.masterVC.view setNeedsDisplay];
-//			[self.view setNeedsDisplay];
-		});
-	});
- */
+	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
+	
 }
 
 // Function seperated for delayed use
@@ -473,7 +398,8 @@
 	if (!UIInterfaceOrientationIsLandscape(orientation)) {
 		UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
 		if(masterButton) {
-			[masterButton.target performSelector:masterButton.action];
+			objc_msgSend(masterButton.target, masterButton.action);
+//			[masterButton.target performSelector:masterButton.action];
 		}
 	}
 }
