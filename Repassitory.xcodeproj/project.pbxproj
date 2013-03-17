@@ -59,6 +59,8 @@
 		59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */; };
 		59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */; };
 		59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA492316EEE6E70028E147 /* LRPAlertView.m */; };
+		59FDD97616F51105000618DF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FDD97516F51105000618DF /* MBProgressHUD.m */; };
+		59FDD97816F541B8000618DF /* checkmark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 59FDD97716F541B8000618DF /* checkmark.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +148,9 @@
 		59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blk_btn_red_glow.png; sourceTree = "<group>"; };
 		59DA492216EEE6E70028E147 /* LRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertView.h; sourceTree = "<group>"; };
 		59DA492316EEE6E70028E147 /* LRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertView.m; sourceTree = "<group>"; };
+		59FDD97416F51105000618DF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		59FDD97516F51105000618DF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		59FDD97716F541B8000618DF /* checkmark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = checkmark.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +195,7 @@
 		594F8A9D16D2245F007AF3F1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				59FDD97716F541B8000618DF /* checkmark.jpeg */,
 				59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */,
 				59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */,
 				5999FD0C16D6094800F61353 /* repassitory-icon_72.png */,
@@ -239,6 +245,8 @@
 		59A7092116A73E0500267021 /* Repassitory */ = {
 			isa = PBXGroup;
 			children = (
+				59FDD97416F51105000618DF /* MBProgressHUD.h */,
+				59FDD97516F51105000618DF /* MBProgressHUD.m */,
 				59C28EAB16EE1928005F1994 /* LRPScreenAdjust.h */,
 				59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */,
 				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
@@ -429,6 +437,7 @@
 				594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */,
 				59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */,
 				59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */,
+				59FDD97816F541B8000618DF /* checkmark.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +477,7 @@
 				59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */,
 				598470DE16F0613800EFFE16 /* LRPAlertViewQueue.m in Sources */,
 				598470E416F0EBD700EFFE16 /* LRPAlertViewController.m in Sources */,
+				59FDD97616F51105000618DF /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

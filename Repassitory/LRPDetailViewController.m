@@ -363,6 +363,7 @@
 		[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
 
 //		dispatch_async(dispatch_get_main_queue(), ^{
+		/*
 			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
 			hud.mode = MBProgressHUDModeCustomView;
 			hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
@@ -374,7 +375,7 @@
 			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
 			hud.dimBackground = true;
 			[hud hide:YES afterDelay:1.0];
-			
+			*/
 			//			[self.splitVC.masterVC reloadData];
 			//			[self.splitVC.masterVC.view setNeedsDisplay];
 			//			[self.view setNeedsDisplay];
