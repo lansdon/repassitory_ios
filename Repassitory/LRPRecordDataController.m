@@ -67,8 +67,6 @@
 
 - (void)addRecord:(LRPRecord*)record {
 	NSLog(@"addRecord:%@", record.title);
-    // Clear previous record
-//	[self setCheckmarkForNewRecord:false];
 	
 	// Track which record was added last (for updating checkmarks and selected state)
 	_lastNewRecord = record;
@@ -100,18 +98,11 @@
 	[CoreDataHelper saveContext];
 	
 //	[self loadUserRecordsFromContext];
-	
-	// LOOK HERE FOR FETCHED RESULTS
-//case:NSFetchedResultsChangeDelete:
-//    [self.tblRecentSearch deleteRowsAtIndexPaths:@[indexPath];
-//                                withRowAnimation: UITableViewRowAnimationFade];
 }
 
 
 
-// Private method (contains body for background processing)
 - (BOOL)loadUserRecordsFromContext {
-//	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadRecordsStart" object:self];
 			
 	// Reset FetchedResultsController
 	self.fetchedResultsController = nil;	
@@ -126,8 +117,7 @@
 
 	NSLog(@"Loading record for id: %@, count=%lu, success=%u", [LRPAppState currentUser].user_id, (unsigned long)[self countOfListInSection:0], success);
 
-    return success;
-	
+    return success;	
 }
 
 
@@ -151,20 +141,6 @@
 }
 
 
-#pragma mark - Alert View Helpers/Response
-/*
-- (void) startLoadingRecord {
-	//	[self.activityAlert.message setText:@"Saving record..."];
-//	[self.activityAlert startAnimating];
-}
-
-- (void) stopLoadingRecord {
-	[self.masterVC reloadData];
-//	[self.activityAlert stopAnimating];
-	[self.activityAlert dismissAlert];
-//	self.activityAlert = nil;
-}
-*/
 
 
 #pragma mark - FetchedResultsController
@@ -208,10 +184,12 @@
 
 
 - (void)setCheckmarkForNewRecord:(BOOL)isOn {
+	NSLog(@"setCheckMark:%d", isOn);
+	
 	if(self.lastNewRecord) {
+		NSIndexPath* indexPath = [self getIndexForMatchingRecord:self.lastNewRecord];
+
 		if(isOn) {
-			NSIndexPath* indexPath = [self getIndexForMatchingRecord:self.lastNewRecord];
-			
 			// scroll to new record
 			[self.masterVC.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:false];
 
@@ -222,11 +200,11 @@
 				[self.lastNewRecordCell setSelected:YES];
 			}
 		} else {
-//			self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryNone;
-//			[self.lastNewRecordCell setSelected:NO];
+			self.lastNewRecordCell.accessoryType = UITableViewCellAccessoryNone;
+			[self.lastNewRecordCell setSelected:NO];
 		}
 	}
-	[self.masterVC.view setNeedsDisplay];
+//	[self.masterVC.view setNeedsDisplay];
 }
 
 
