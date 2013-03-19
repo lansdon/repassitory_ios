@@ -31,7 +31,7 @@
 - (LRPRecord*)recordAtIndexPath:(NSIndexPath*)indexPath;
 
 - (void)addRecord:(LRPRecord*)record;
-- (void)deleteRecord:(LRPRecord*)record;
+- (void)deleteRecord:(Record*)record;
 
 - (BOOL)loadUserRecordsFromContext;
 

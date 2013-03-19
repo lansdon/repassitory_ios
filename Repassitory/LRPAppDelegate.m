@@ -16,77 +16,84 @@
 #import "LRPUser.h"
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
-#import "LRPAlertViewQueue.h"
-#import "LRPAlertView.h"
-#import "LRPAlertViewController.h"
+#import "MBProgressHUD.h"
 
+
+@interface LRPAppDelegate ()
+@property bool userLoaded;
+@end
 
 @implementation LRPAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Reset App State
-//    [LRPAppState reset];
-
+	//
+	// General Initialization (not device specific)
+	//
+	
     // Initialize Core Data
     [CoreDataHelper managedObjectModel];    
     [CoreDataHelper persistentStoreCoordinator];
     [CoreDataHelper managedObjectContext];
-    
-//	self.alertQueue = [[LRPAlertViewQueue alloc] init];
-	
-    // Get a reference to the stardard user defaults
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    // Check if the app has run before by checking a key in user defaults
-/*
-    if ([prefs boolForKey:@"hasRunBefore"] != YES)
-    {
-        // Set flag so we know not to run this next time
-        [prefs setBool:YES forKey:@"hasRunBefore"];
-        [prefs synchronize];
-        
-        // Add our default user object in Core Data
-        User *user = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
-        [user setUsername:@"admin"];
-        [user setPassword:@"password"];
-        [user setSecurity_question:[NSNumber numberWithInt:1]];
-        [user setUser_id:[NSNumber numberWithInt:1]];
-        
-        // Commit to core data
-        NSError *error;
-        if (![[CoreDataHelper managedObjectContext] save:&error])
-            NSLog(@"Failed to add default user with error: %@", [error domain]);
-        }
-*/
-    // Get Login and Split View references
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
-                                                             bundle: nil];
-	if(!self.loginNavC) {
-        self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
-	}
-    
-    if(!self.loginVC) {
-        self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
-    }
-    if(!self.splitVC) {
-        self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
-    }
-    
-	// Load Login first
-    [self.window setRootViewController:self.loginNavC];
-    
-    // Split Window optional loading for ipad/iphone
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
-        _splitVC.delegate = (id)navigationController.topViewController;
-    }
 
     // Set background image for window
-        self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
-    
+	self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"mastervc_did_load" object:nil];
+	/*
+	 [[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"splitvc_did_load" object:nil];
+	 [[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"detailvc_did_load" object:nil];
+	 */
+	
+	
+	//
+	// IPHONE SPECIFIC
+	//
+	if([LRPAppState isIphone]) {
+		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPhone" bundle: nil];
+		if(!self.loginNavC) {
+			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
+		}
+		if(!self.loginVC) {
+			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+		}
+		if(!self.phoneRecordsNav) {
+			self.phoneRecordsNav = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"phoneRecordsNav"];
+		}
+		if(!self.detailVC) {
+			self.detailVC = (LRPDetailViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"detailVC"];
+		}
+		if(!self.masterVC) {
+			self.masterVC = (LRPMasterViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"masterVC"];
+		}
+	}
+	
+	
+	//
+	// IPAD SPECIFIC
+	//
+	else if([LRPAppState isIpad]) {
+		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad" bundle: nil];
+		if(!self.loginNavC) {
+			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
+		}
+		
+		if(!self.loginVC) {
+			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+		}
+		if(!self.splitVC) {
+			self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
+		}
+		
+        UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
+        _splitVC.delegate = (id)navigationController.topViewController;
+		
+	}
+	
+	// Load Login first
+    [self.window setRootViewController:self.loginNavC];
+
     // Start orientation calls
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
@@ -111,42 +118,83 @@
 	[LRPAppState reset];
 	
 	// Reset the detail view so records aren't partially visible when reloading app
-    [_splitVC.detailVC setRecord:nil];
+    self.currentRecord = nil;
+	self.userLoaded = false;
 	
 	_splitVC = nil;
-//	_loginVC = nil;
+//	_masterVC = nil;	// required to trigger reloading of records
 
 	[self.window setRootViewController:nil];
 
 }
 
 - (void)applicationLoad {
-//	self.alertQueue = [[LRPAlertViewQueue alloc] init];
     
+	//
+	// General Initialization (not device specific)
+	//
 	[LRPAppState reset]; // redundant but safe
-
-	// Load Login first
-	[self.loginNavC popToRootViewControllerAnimated:YES];
-    [self.window setRootViewController:self.loginNavC];
+	self.userLoaded = false;
 	
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad"
-                                                             bundle: nil];
-    if(!self.loginVC) {
-        self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
-    }
-    if(!self.splitVC) {
-        self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
-    }
-    
-	// Load Login first
-    [self.window setRootViewController:self.loginNavC];
-    
-    // Split Window optional loading for ipad/iphone
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    // Initialize Core Data
+    [CoreDataHelper managedObjectModel];
+    [CoreDataHelper persistentStoreCoordinator];
+    [CoreDataHelper managedObjectContext];
+	
+    // Set background image for window
+	self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
+
+	
+	//
+	// IPHONE SPECIFIC
+	//
+	if([LRPAppState isIphone]) {
+		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPhone" bundle: nil];
+		
+		if(!self.loginNavC) {
+			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
+		}
+		
+		if(!self.loginVC) {
+			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+		}
+
+		if(!self.masterVC) {
+			self.masterVC = (LRPMasterViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"masterVC"];
+		}
+		if(!self.detailVC) {
+			self.detailVC = (LRPDetailViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"detailVC"];
+		}
+	}
+	
+	
+	//
+	// IPAD SPECIFIC
+	//
+	else if([LRPAppState isIpad]) {
+		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad" bundle: nil];
+
+		if(!self.loginNavC) {
+			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
+		}
+		if(!self.loginVC) {
+			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
+		}
+		if(!self.splitVC) {
+			self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
+		}		
         UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
         _splitVC.delegate = (id)navigationController.topViewController;
-    }
+		
+	}
 	
+	// Load Login first
+//	[self.loginNavC popToRootViewControllerAnimated:YES];
+    [self.window setRootViewController:self.loginNavC];
+	
+    // Start orientation calls
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+		
 }
 
 	
@@ -166,17 +214,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
-    // Split Window optional loading for ipad/iphone
-    // Override point for customization after application launch.
-/*
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-        splitViewController.delegate = (id)navigationController.topViewController;
-    }
-*/
 	[self applicationLoad];
 }
 
@@ -219,44 +256,103 @@
 }
 
 
-#pragma mark - Alert View
-/*
-- (void)addAlert:(LRPAlertView*)alert {
-	[self.alertQueue addAlert:alert];
-}
-
-- (void)dismissALert {
-	[self.alertQueue dismissAlert];
-}
-*/
 
 #pragma mark - User Functions
 
 /*
-	loginSuccessful
+	openRecords
 	- When a user has successfully logged in, we remove the start/login view controllers
 	 and switch to split screen root view controller for presenting records
  */
-- (void) loginSuccessfull {
+- (void) openRecords {
+	// reset user login bool
+	[self setUserLoginComplete:false];
 	
 	// remove old views
 	for(int i = [[[self window] subviews] count]; i > 0; --i) {
 		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
 	}
 	
-	// reset user login bool
-	[self.splitVC setUserLoginComplete:false];
 	
-    // add split view as new root controller
-    [self.window setRootViewController:_splitVC];
-    
-    // ipad specific split view behavior
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UINavigationController *navigationController =
-        [_splitVC.viewControllers lastObject];
-        _splitVC.delegate = (id)navigationController.topViewController;
-    }
+    // --- Switch to master/detail screens -- //
+	
+	// iPad
+	if([LRPAppState isIpad]) {
+		if(_splitVC) {
+			[self.window setRootViewController:_splitVC];
+			UINavigationController *navigationController =
+			[_splitVC.viewControllers lastObject];
+			_splitVC.delegate = (id)navigationController.topViewController;
+		}
+	}
+	
+	// iPhone
+	else if([LRPAppState isIphone]) {
+		[self.window setRootViewController:self.phoneRecordsNav];
+	}
+	
+	// Load user records here just in case master view is still in memory
+	if(self.mastervc_loaded) {
+//		[self loadUserRecords];
+	}
 }
+
+#pragma mark - User Functionality
+
+/*
+ This is the primary location for loading the user's records
+ - Displays an activity alert while loading
+ */
+- (void)loadUserRecords {
+	if(self.mastervc_loaded && !self.userLoaded) {
+		
+		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+		hud.mode = MBProgressHUDModeIndeterminate;
+		hud.labelText = [NSString stringWithFormat:@"Hello %@", [LRPAppState currentUser].username];
+		hud.labelFont = [UIFont boldSystemFontOfSize:40];
+		hud.detailsLabelText = @"Loading records...";
+		hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
+		hud.minShowTime = 1.0;
+		hud.dimBackground = true;
+		
+		dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+			// Do something...
+			[self.masterVC loadUserRecordsFromContext];
+			[self setUserLoaded:true];
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[MBProgressHUD hideHUDForView:self.window animated:YES];
+				[self.masterVC reloadData];
+			});
+		});
+	}
+}
+
+
+
+-(void)setUserLoginComplete:(bool)isLoggedIn {
+	self.userLoaded = isLoggedIn;
+}
+
+
+#pragma mark - Register View Controller
+- (id)registerViewController:(id)viewController {
+	
+	if([viewController isKindOfClass:[LRPSplitViewController class]]) {
+		self.splitVC = viewController;
+	}
+	else if([viewController isKindOfClass:[LRPDetailViewController class]]) {
+		self.detailVC = viewController;
+	}
+	if([viewController isKindOfClass:[LRPMasterViewController class]]) {
+		self.masterVC = viewController;
+	}
+	if([viewController isKindOfClass:[LRPLoginViewController class]]) {
+		self.loginVC = viewController;
+	}
+	return self;
+}
+
 
 
 @end

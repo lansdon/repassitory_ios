@@ -16,9 +16,14 @@
 #import "LRPAppState.h"
 #import "LRPAppDelegate.h"
 #import "LRPScreenAdjust.h"
+//#import "TTAlertView.h"
+#import "MBAlertView.h"
+#import "MBHUDView.h"
 
 
 @interface LRPLoginViewController ()
+@property LRPAppDelegate* appDelegate;
+
 - (IBAction)resignAndLogin:(id)sender;
 - (void) loginUser;
 
@@ -26,6 +31,7 @@
 
 @implementation LRPLoginViewController
 
+@synthesize appDelegate;
 @synthesize usernameField, passwordField;
 
 
@@ -40,30 +46,17 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    // Obtain managedContext
-    if(!self.splitVC)
-        self.splitVC = (LRPSplitViewController *)self.splitViewController;
+    [super viewDidLoad];	
+	
+	// Register with delegate
+	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
 
-    // register self with SplitVC
-    if(!self.splitVC.loginVC)
-        self.splitVC.loginVC = self;
-	
-	
 	// Add extra buttons to nav bar
 	UIBarButtonItem* loginBtn = [[UIBarButtonItem alloc] initWithTitle:@"   Login   " style:UIBarButtonItemStyleBordered target:self action:@selector(resignAndLogin:)];
 	UIBarButtonItem* newUserBtn = [[UIBarButtonItem alloc] initWithTitle:@"New User" style:UIBarButtonItemStyleBordered target:self action:@selector(createNewUser:)];
 	
 	NSArray* rBtnList = [[NSArray alloc] initWithObjects:loginBtn, newUserBtn, nil];
 	self.navigationItem.rightBarButtonItems = rBtnList;
-
-//	UIBarButtonItem* exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"Exit" style:UIBarButtonItemStyleBordered target:self action:@selector(resignAndLogin:)];
-//	UIBarButtonItem* aboutBtn = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAppInfo:)];
-	
-//	NSArray* lBtnList = [[NSArray alloc] initWithObjects:aboutBtn, nil];
-//	self.navigationItem.leftBarButtonItems = lBtnList;
-	// Setup Screen Scrolling Mechanism
 
 	self.screenAdj = [[LRPScreenAdjust alloc]
 					  initWithActiveViews:[[NSArray alloc] initWithObjects:
@@ -119,18 +112,15 @@
 		[LRPAppState setCurrentUser:loginUser];
 		
 		// Load new root view from app delegate
-		LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-		[appDelegate loginSuccessfull];
+		[appDelegate openRecords];
 		
 	} else { // ERROR CREATING USER
-		[LRPAppState reset];
-		UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:@"Login Error!"
-						  message:@"Invalid username/password. Please try again."
-						  delegate:nil
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
-		[alert show];
+		[LRPAppState reset];		
+		
+		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
+        alert.size = CGSizeMake(275, 175);
+		[alert addToDisplayQueue];
+		
 		[passwordField setText:@""];
 		[passwordField becomeFirstResponder];	
 		NSLog(@"Error - Login attempt failed for %@", [usernameField text]);	

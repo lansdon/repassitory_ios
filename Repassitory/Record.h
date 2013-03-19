@@ -20,4 +20,6 @@
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSNumber * user_id;
 
+-(NSString*)getUpdateAsString;
+
 @end

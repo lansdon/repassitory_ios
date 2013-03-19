@@ -11,13 +11,19 @@
 #import "LRPDetailViewController.h"
 #import "LRPRecordDataController.h"
 #import "LRPRecord.h"
+#import "Record.h"
 #import "LRPSplitViewController.h"
 #import "LRPAppState.h"
-#import "LRPAlertView.h"
 #import "LRPUser.h"
+#import "LRPAppDelegate.h"
 
+
+@interface LRPMasterViewController()
+@property LRPAppDelegate* appDelegate;
+@end
 
 @implementation LRPMasterViewController
+@synthesize appDelegate;
 
 - (void)awakeFromNib
 {
@@ -38,20 +44,15 @@
 
     self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
 
-    // register self with SplitVC
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.splitVC.masterVC = self;
-	
-	if(self.splitVC.detailVC) {
-		self.detailViewController = self.splitVC.detailVC;
-	} else {
-		self.detailViewController = (LRPDetailViewController*)[[self.splitVC.viewControllers lastObject] topViewController];
-    }
+	// Register with delegate
+	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
+
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
-	self.splitVC.mastervc_loaded = true;
+	appDelegate.mastervc_loaded = true;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"mastervc_did_load" object:nil];
+
 	NSLog(@"Master - view did load");
 }
 
@@ -60,8 +61,8 @@
 	[super viewWillAppear:animated];
 	
     // register self with SplitVC
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
-    self.splitVC.masterVC = self;
+    appDelegate.splitVC = (LRPSplitViewController *)self.splitViewController;
+    appDelegate.masterVC = self;
 	
     // Check for valid Data Controller
     if (!_dataController) {
@@ -98,8 +99,10 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        LRPRecord* selectedRecord = [self.dataController recordAtIndexPath:indexPath];
-        [[segue destinationViewController] setRecord:selectedRecord];
+		appDelegate.currentRecord = [self.dataController.fetchedResultsController objectAtIndexPath:indexPath];
+//        LRPRecord* selectedRecord = [self.dataController recordAtIndexPath:indexPath];
+		
+//        [[segue destinationViewController] setRecord:selectedRecord];
     }
 }
 
@@ -143,19 +146,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-         LRPRecord* currentRecord = [self.dataController recordAtIndexPath:indexPath];
-        [self.detailViewController setRecord:currentRecord];
-		
-		// If the cell selected is different than lastNewRecord, clear lastNewRecord
-		if(!([self.dataController.lastNewRecord.title isEqualToString:currentRecord.title] &&
-		   [self.dataController.lastNewRecord.password isEqualToString:currentRecord.password] &&
-		   [self.dataController.lastNewRecord.username isEqualToString:currentRecord.username] &&
-		   self.dataController.lastNewRecord.user_id == currentRecord.user_id &&
-		   [self.dataController.lastNewRecord.notes isEqualToString:currentRecord.notes])) {
-			[self.dataController clearNewRecord];
-		}
+//	LRPRecord* currentRecord = [self.dataController recordAtIndexPath:indexPath];
+	appDelegate.currentRecord = [self.dataController.fetchedResultsController objectAtIndexPath:indexPath];
+
+	// If the cell selected is different than lastNewRecord, clear lastNewRecord
+	if(!([self.dataController.lastNewRecord.title isEqualToString:appDelegate.currentRecord.title] &&
+		 [self.dataController.lastNewRecord.password isEqualToString:appDelegate.currentRecord.password] &&
+		 [self.dataController.lastNewRecord.username isEqualToString:appDelegate.currentRecord.username] &&
+		 self.dataController.lastNewRecord.user_id == appDelegate.currentRecord.user_id &&
+		 [self.dataController.lastNewRecord.notes isEqualToString:appDelegate.currentRecord.notes])) {
+		[self.dataController clearNewRecord];
+	}
+
+    
+	if ([LRPAppState isIpad]) {
+		[appDelegate.detailVC configureView];
     }
+	
+	else if([LRPAppState isIphone]) {
+		[self performSegueWithIdentifier:@"master_to_detail"  sender:self];
+	}
 }
 
 
@@ -169,7 +179,8 @@
 
 - (void) reloadData {
 	[self.tableView reloadData];
-	[self.detailViewController updateRecordVaultLabel];
+	[appDelegate.detailVC configureView]; // was update vault button
+	
 	NSLog(@"Master - reloadData");
 }
 

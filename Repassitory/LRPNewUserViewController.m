@@ -14,6 +14,7 @@
 #import "User.h"
 #import "LRPAppState.h"
 #import "LRPScreenAdjust.h"
+#import "MBAlertView.h"
 
 @interface LRPNewUserViewController ()
 
@@ -84,68 +85,11 @@
 	[self dismissViewControllerAnimated:false completion:nil];
 }
 
-/*
-#pragma mark PickerView DataSource
-
-- (NSInteger)numberOfComponentsInPickerView:
-(UIPickerView *)pickerView
-{
-    return 1;
-}
-- (NSInteger)pickerView:(UIPickerView *)pickerView
-numberOfRowsInComponent:(NSInteger)component
-{
-    return [securityQuestions count];
-}
-- (NSString *)pickerView:(UIPickerView *)pickerView
-             titleForRow:(NSInteger)row
-            forComponent:(NSInteger)component
-{
-    return [securityQuestions objectAtIndex:row];
-}
-*/
-
-#pragma mark PickerView Delegate
-
-
-/*
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
-      inComponent:(NSInteger)component
-{
-	securityQuestionIndex = row;
-	[self validateSecurityQuestion];
-}
-
-*/
-
-
-#pragma mark - Alert View
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (buttonIndex == 1) {	// YES
-		[self saveUser:nil];
-	}
-	//	if (buttonIndex == 0) {			// NO
-	//	}
-}
-
-// Confirmation Dialogue
--(void)doConfirmDialogueWithTitle:(NSString*)title message:(NSString*)msg {
-	UIAlertView *confirm = [[UIAlertView alloc] init];
-	[confirm setTitle:title];
-	[confirm setMessage:msg];
-	[confirm setDelegate:self];
-	[confirm addButtonWithTitle:@"No"];
-	[confirm addButtonWithTitle:@"Yes"];
-	[confirm show];
-}
 
 #pragma mark - User functions
 // Save button pressed
 -(IBAction)saveUser:(id)sender {
     LRPUser* newUser = [[LRPUser alloc] initWithName:[self.usernameInput text] password:[self.passwordInput text]];
-//    [newUser setSecurity_question:[NSNumber numberWithInteger:securityQuestionIndex]];
-//	[newUser setSecurity_answer:[self.securityAnswerInput text]];
 	
      if([CoreDataHelper createNewUserFromObject:newUser]) {
          // login after creation
@@ -153,18 +97,10 @@ numberOfRowsInComponent:(NSInteger)component
 	 } else {
      
          // ERROR CREATING USER - todo: send error message
-         UIAlertView *alert = [[UIAlertView alloc]
-                               initWithTitle:@"Error - Failed to create user"
-                               message:@"That username/password combination is invalid. Please try again."
-                               delegate:nil
-                               cancelButtonTitle:@"OK"
-                               otherButtonTitles:nil];
-         [alert show];
-//         [usernameField setText:@""];
-//         [passwordField setText:@""];
-     
-     NSLog(@"Error - Failed to create new user");
-//     */
+		 MBAlertView *alert = [MBAlertView alertWithBody:@"Error creating user account." cancelTitle:@"OK" cancelBlock:nil];
+		 [alert addToDisplayQueue];
+
+		 NSLog(@"Error - Failed to create new user");
      }
 }
 
@@ -184,21 +120,15 @@ numberOfRowsInComponent:(NSInteger)component
         // Load new root view from app delegate
         [self dismissViewControllerAnimated:true completion:nil];
         LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate loginSuccessfull];
-        
-    } else {
-        // ERROR CREATING USER
+        [appDelegate openRecords];
+    }
+
+	// ERROR - LOgging in
+	else {
 		[LRPAppState reset];
-        UIAlertView *alert = [[UIAlertView alloc]
-                            initWithTitle:@"Login Error!"
-                            message:@"Invalid username/password. Please try again."
-                            delegate:nil
-                            cancelButtonTitle:@"OK"
-                            otherButtonTitles:nil];
-        [alert show];
-        [self.passwordInput setText:@""];
-        [self.passwordInput becomeFirstResponder];
-    
+		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
+		[alert addToDisplayQueue];
+   
         NSLog(@"Error - Login attempt failed for %@", [self.usernameInput text]);    
     }
 	return true;
@@ -359,8 +289,17 @@ numberOfRowsInComponent:(NSInteger)component
 
 	// INPUT COMPLETED - Confirm User Save and then Login
     if(usernameOK && passwordOK && password2OK) {
-		[self doConfirmDialogueWithTitle:@"Save User" message:@"Be sure not to lose your username/password! Do you want to save this user?"];
+		
+		MBAlertView *alert = [MBAlertView alertWithBody:@"Be sure not to lose your username/password! Do you want to save this user?" cancelTitle:@"Cancel" cancelBlock:nil];
+		[alert setTitle:@"Save User"];
+		[alert addButtonWithText:@"Save" type:MBAlertViewItemTypePositive block:^{
+			[self saveUser:nil];
+		}];
+        alert.size = CGSizeMake(275, 175);
+		
+		[alert addToDisplayQueue];
 	}
+
 }
 
 

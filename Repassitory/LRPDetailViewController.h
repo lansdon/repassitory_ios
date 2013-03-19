@@ -11,24 +11,12 @@
 @class LRPRecord;
 @class LRPSplitViewController;
 @class LRPScreenAdjust;
-@class LRPAlertView;
-@class LRPAlertViewController;
 
 @interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate> {
-	
-	UILabel* segmentedLabel;
-	UISegmentedControl* segmentedControl;
-
-	// MUST match seg control layout!!
-	enum BTN_TYPE { BTN_DELETE, BTN_EDIT, BTN_NEW, BTN_SAVE };
-	
-	// current mode of detail screen
-	enum STATE { STATE_BLANK, STATE_DISPLAY, STATE_EDIT, STATE_CREATE };
-	int currentState;
 }
 
 // This is the existing record being displayed
-@property (strong, nonatomic) LRPRecord* record;
+//@property (strong, nonatomic) LRPRecord* record;
 
 // Editing/saving an existing record involves remove old record
 @property (assign, nonatomic) BOOL editingExistingRecord;
@@ -47,11 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* btnNew;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* btnSave;
 
-@property (weak, nonatomic) LRPSplitViewController *splitVC;
-
 @property (nonatomic) LRPScreenAdjust* screenAdj;
 
-@property (nonatomic) LRPAlertViewController* saveAlertController;
 
 -(IBAction) saveRecord:(id)sender;
 -(IBAction) deleteRecord:(id)sender;
@@ -60,6 +45,7 @@
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField;
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField;
 
--(void) updateRecordVaultLabel;
+- (void)configureView;
+
 
 @end

@@ -13,8 +13,6 @@
 
 @interface LRPLoginViewController : UIViewController
 
-@property (weak, nonatomic) LRPSplitViewController *splitVC;
-
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 

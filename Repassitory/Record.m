@@ -19,4 +19,11 @@
 @dynamic username;
 @dynamic user_id;
 
+-(NSString*)getUpdateAsString {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateStyle:NSDateFormatterMediumStyle];
+	return [formatter stringFromDate:self.updated];
+}
+
+
 @end

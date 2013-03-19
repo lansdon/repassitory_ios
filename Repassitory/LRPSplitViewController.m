@@ -8,19 +8,20 @@
 
 #import "LRPSplitViewController.h"
 
-#import "LRPAlertViewController.h"
 #import "LRPAppState.h"
 #import "LRPMasterViewController.h"
 #import "LRPUser.h"
 #import "MBProgressHUD.h"
-
+#import "LRPAppDelegate.h"
 
 
 @interface LRPSplitViewController ()
-@property bool userLoaded;
+@property LRPAppDelegate* appDelegate;
+//@property bool userLoaded;
 @end
 
 @implementation LRPSplitViewController
+@synthesize appDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,15 +32,19 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	// Register with delegate
+	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
     
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 	
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"mastervc_did_load" object:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"mastervc_did_load" object:nil];
 /*
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"splitvc_did_load" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"detailvc_did_load" object:nil];
@@ -50,7 +55,7 @@
 								   userInfo:nil
 									repeats:NO];
  */
-	self.userLoaded = false;
+//	self.userLoaded = false;
 //	self.splitvc_loaded = true;
 	NSLog(@"Split - view did load");
 }
@@ -62,11 +67,11 @@
 */
 
 -(void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:NO];
+	[super viewWillAppear:animated];
 	
-	if(!self.userLoaded) {
+//	if(!self.userLoaded) {
 //		[self loadUserRecords];
-	}
+//	}
 	NSLog(@"Split - view will appear");
 }
 
@@ -78,42 +83,6 @@
 }
 
 
-#pragma mark - User Functionality
-
-/*
-	This is the primary location for loading the user's records
-	- Displays an activity alert while loading
- */
-- (void)loadUserRecords {
-	if(self.mastervc_loaded) {
-
-		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-		hud.mode = MBProgressHUDModeIndeterminate;
-		hud.labelText = [NSString stringWithFormat:@"Welcome back %@", [LRPAppState currentUser].username];
-		hud.labelFont = [UIFont boldSystemFontOfSize:40];
-		hud.detailsLabelText = @"Loading records...";
-		hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
-		hud.minShowTime = 1.0;
-		hud.dimBackground = true;
-		
-		dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-			// Do something...
-			[self.masterVC loadUserRecordsFromContext];
-			[self setUserLoaded:true];
-			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[MBProgressHUD hideHUDForView:self.view animated:YES];
-				[self.masterVC reloadData];
-			});
-		});
-	}
-}
-
-
-
--(void)setUserLoginComplete:(bool)isLoggedIn {
-	self.userLoaded = isLoggedIn;
-}
 
 
 @end

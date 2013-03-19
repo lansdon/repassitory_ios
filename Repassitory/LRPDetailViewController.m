@@ -13,34 +13,54 @@
 #import "LRPLoginViewController.h"
 #import "LRPRecordDataController.h"
 #import "LRPRecord.h"
+#import "Record.h"
 #import "LRPUser.h"
 #import "LRPAppState.h"
 #import "LRPScreenAdjust.h"
-#import "LRPAlertView.h"
 #import "LRPAppDelegate.h"
-#import "LRPAlertViewQueue.h"
-#import "LRPAlertViewController.h"
 #import "MBProgressHUD.h"
 #import "objc/message.h"
+#import "MBAlertView.h"
 
-@interface LRPDetailViewController ()
+@interface LRPDetailViewController () {
+	UILabel* segmentedLabel;
+	UISegmentedControl* segmentedControl;
+	
+	// MUST match seg control layout!!
+	enum BTN_TYPE { BTN_DELETE, BTN_EDIT, BTN_NEW, BTN_SAVE };
+	
+	// current mode of detail screen
+	enum STATE { STATE_BLANK, STATE_DISPLAY, STATE_EDIT, STATE_CREATE };
+	int currentState;	
+}
+
+
+@property LRPAppDelegate* appDelegate;
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
+
 
 @end
 
 
 
 @implementation LRPDetailViewController
+@synthesize appDelegate;
 @synthesize titleTextField, usernameTextField, passwordTextField, urlTextField, notesTextField, dateLabel;
-@synthesize record;
+//@synthesize record;
 
 #pragma mark - Managing the detail item
-
+/*
 - (void)setRecord:(LRPRecord *)newRecord
 {
     if (record != newRecord) {
         record = newRecord;
         
+		self.titleTextField.text = newRecord.title;
+		self.usernameTextField.text = newRecord.username;
+		self.passwordTextField.text = newRecord.password;
+		self.urlTextField.text = newRecord.url;
+		self.notesTextField.text = newRecord.notes;
+		
         // Update the view.
         [self configureView];
     }
@@ -49,7 +69,7 @@
         [self.masterPopoverController dismissPopoverAnimated:YES];
     }        
 }
-
+*/
 - (void)configureView
 {
     // Current User Label
@@ -62,8 +82,14 @@
 	[self updateRecordVaultLabel];
 
     // Update the user interface for the detail item.
-    if (![self.record.title isEqualToString:@""]) {
+    if (appDelegate.currentRecord) {
 		[self setState:STATE_DISPLAY];
+		self.titleTextField.text = appDelegate.currentRecord.title;
+		self.dateLabel.text = [appDelegate.currentRecord getUpdateAsString];
+		self.usernameTextField.text = appDelegate.currentRecord.username;
+		self.passwordTextField.text = appDelegate.currentRecord.password;
+		self.urlTextField.text = appDelegate.currentRecord.url;
+		self.notesTextField.text = appDelegate.currentRecord.notes;
     } else {
 		[self setState:STATE_BLANK];
     }
@@ -73,16 +99,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	if(!record) record = [LRPRecord alloc];
+//	if(!record) record = [LRPRecord alloc];
+
+	// Register with delegate
+	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
+
 	self.editingExistingRecord = NO;
 	
     [self configureView];
-
-    self.splitVC = (LRPSplitViewController *)self.splitViewController;
     
-    // register self with SplitVC
-    self.splitVC.detailVC = self;
-        
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 
@@ -98,7 +123,7 @@
 					  inContainingView:self.view
 					  inTable:self.tableView];
 
-	self.splitVC.detailvc_loaded = true;
+	appDelegate.detailvc_loaded = true;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"detailvc_did_load" object:nil];
 	NSLog(@"Detail - view did load");
 }
@@ -112,11 +137,11 @@
 #pragma mark - Split view
 -(void) updateRecordVaultLabel {
 	if(self.btnRecordVault) {
-		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [self.splitVC.masterVC.dataController countOfListInSection:0]];
+		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [appDelegate.masterVC.dataController countOfListInSection:0]];
 //		[self.navigationItem setLeftBarButtonItem:nil animated:YES];
 //		[self.navigationItem setLeftBarButtonItem:self.btnRecordVault animated:YES];
 		
-//		[self.splitViewController.view setNeedsLayout];
+		[self.splitViewController.view setNeedsLayout];
 	}
 }
 
@@ -139,10 +164,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	if(!self.record) {
-		self.record = [LRPRecord alloc];
-	}
-	[self.record clear];
+//	if(!appDelegate.currentRecord) {
+//		self.record = [LRPRecord alloc];
+//	}
+	
+//	[self.record clear];
 		
     [self configureView];
 }
@@ -236,7 +262,7 @@
 			
 		case STATE_CREATE:
 			[self setEditingExistingRecord:NO];
-			[self.record clear];
+			appDelegate.currentRecord = nil;
 			titleTextField.text = @"";
 			usernameTextField.text = @"";
 			passwordTextField.text = @"";
@@ -249,12 +275,12 @@
 		case STATE_DISPLAY:
 			[self setEditingExistingRecord:NO];
 			// Load current record to screen
-			titleTextField.text = self.record.title;
-			usernameTextField.text = self.record.username;
-			passwordTextField.text = self.record.password;
-			urlTextField.text = self.record.url;
-			dateLabel.text = [self.record getUpdateAsString];
-			notesTextField.text = self.record.notes;
+			titleTextField.text = appDelegate.currentRecord.title;
+			usernameTextField.text = appDelegate.currentRecord.username;
+			passwordTextField.text = appDelegate.currentRecord.password;
+			urlTextField.text = appDelegate.currentRecord.url;
+			dateLabel.text = [appDelegate.currentRecord getUpdateAsString];
+			notesTextField.text = appDelegate.currentRecord.notes;
 			[self.tableView reloadData];
 			
 			[self disableInputFields];
@@ -322,100 +348,93 @@
 -(IBAction) saveRecord:(id)sender {
 	
 	/*
-	 Test - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block;
-
-	 
+		Setup blocks to pass to alert buttons
 	 */
 	
+	//Save record to coredata
 	void(^saveBlock)(void) = ^{
-		/**
-		 Save record to coredata
-		 */
 		
 		// Need to remove old record?   (this should be redone to use core data object directly?)
 		if(self.editingExistingRecord) {
-			[self.splitVC.masterVC.dataController deleteRecord:record];
-			[self.record clear];
+//			[appDelegate.masterVC.dataController deleteRecord:record];
+			appDelegate.currentRecord = nil;
 		}
 		
 		// Update local record using input fields
-		if(!record) record = [LRPRecord alloc];
-		self.record = [self.record initWithTitle:titleTextField.text
+		LRPRecord* record = [LRPRecord alloc];
+		record = [record initWithTitle:titleTextField.text
 										username:usernameTextField.text
 										password:passwordTextField.text
-											 url:urlTextField.text
-										   notes:notesTextField.text];
+										url:urlTextField.text
+										notes:notesTextField.text];
 		
 		// Clear previous record checkmarks
-		[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:false];
+		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
 		// Save local record to core data
-		[self.splitVC.masterVC.dataController addRecord:record];
+		[appDelegate.masterVC.dataController addRecord:record];
 		
 		// Update button states
 		[self setState:STATE_DISPLAY];
 	};
 	
 	void(^saveCompletionBlock)(void) = ^{
-		//			[self.view setNeedsDisplay];
-		[self.tableView reloadData];
-		[self.splitVC.masterVC reloadData];
-		[self displayMasterVC];
-		[self.splitVC.masterVC.dataController setCheckmarkForNewRecord:YES];
-
-//		dispatch_async(dispatch_get_main_queue(), ^{
+		[appDelegate.masterVC reloadData];
+//		[self displayMasterVC];
 		
-			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-			hud.mode = MBProgressHUDModeCustomView;
-			hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
-			hud.detailsLabelText = @"Success!";
-			
-			hud.labelFont = [UIFont boldSystemFontOfSize:40];
-			hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
-			hud.minShowTime = 1.0;
-			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
-			hud.dimBackground = true;
-			[hud hide:YES afterDelay:1.0];
+		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
+		
+		// *** Second alert for success message
+		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+		hud.mode = MBProgressHUDModeCustomView;
+		hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
+		hud.detailsLabelText = @"Success!";
+		
+		hud.labelFont = [UIFont boldSystemFontOfSize:40];
+		hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
+		hud.minShowTime = 1.0;
+		hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
+		hud.dimBackground = true;
+		[hud hide:YES afterDelay:1.0];
 
-			//			[self.splitVC.masterVC reloadData];
-			//			[self.splitVC.masterVC.view setNeedsDisplay];
-			//			[self.view setNeedsDisplay];
-//		});
 	};
 			
 	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.mode = MBProgressHUDModeIndeterminate;
-	hud.labelText = [NSString stringWithFormat:@"Saving %@...", self.record.title];
+	hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
 	hud.labelFont = [UIFont boldSystemFontOfSize:40];
 	hud.minShowTime = 1.0;
 	hud.dimBackground = true;
-	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
-	
+	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];	
 }
 
-// Function seperated for delayed use
+// Manually opens master view controller
 - (void) displayMasterVC {
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 	if (!UIInterfaceOrientationIsLandscape(orientation)) {
 		UIBarButtonItem* masterButton = self.navBar.leftBarButtonItems[0];
 		if(masterButton) {
 			objc_msgSend(masterButton.target, masterButton.action);
-//			[masterButton.target performSelector:masterButton.action];
 		}
 	}
 }
 
 
 -(IBAction) deleteRecord:(id)sender {
-	[self doConfirmDialogueWithTitle:@"Delete Record" message:@"Are you sure you want to delete this record?"];
+	MBAlertView *alert = [MBAlertView alertWithBody:@"Delete this record?" cancelTitle:@"Cancel" cancelBlock:nil];
+	[alert addButtonWithText:@"Delete" type:MBAlertViewItemTypeDestructive block:^{
+		[self deleteRecordConfirmed];
+	}];
+	alert.size = CGSizeMake(275, 175);
+	[alert addToDisplayQueue];
 }
 
 -(void) deleteRecordConfirmed {
 	// Delete from Core Data + refresh master list
-	[self.splitVC.masterVC.dataController deleteRecord:record];
-	[self.splitVC.masterVC.tableView reloadData];
+	[appDelegate.masterVC.dataController deleteRecord:appDelegate.currentRecord];
+	[appDelegate.masterVC reloadData];
 	
 	// Clear from local memory then refresh details
-	[self.record clear];
+	appDelegate.currentRecord = nil;
 	[[self tableView] reloadData];
 	
 	// Update State/buttons
@@ -484,6 +503,7 @@
 //    [self animateTextField: textField up: YES];
 }
 
+/*
 #pragma mark - Alert View Helpers/Response
 
 
@@ -511,6 +531,6 @@
 	[confirm addButtonWithTitle:@"Yes"];
 	[confirm show];
 }
-
+*/
 
 @end

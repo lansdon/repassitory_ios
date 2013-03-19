@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class LRPUser;
+@class Record;
 
 @interface LRPAppState : NSObject
 
@@ -33,5 +34,16 @@
 +(NSString*) getVersion;
 
 +(void) showAppInfo;
+
+// Check if this is iphone or ipad
++(bool) isIpad;
++(bool) isIphone;
+
+
+// Current record for display on detail view
+//+(Record*)currentRecord:(Record*)newRecord;
+
+
+//+(void)setCurrentRecord:(Record*)record;
 
 @end

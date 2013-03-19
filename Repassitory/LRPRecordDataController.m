@@ -13,7 +13,6 @@
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
 #import "LRPMasterViewController.h"
-#import "LRPAlertView.h"
 #import "LRPAppDelegate.h"
 
 @interface LRPRecordDataController ()
@@ -83,7 +82,8 @@
     [cdNewRecord setValue:record.user_id forKey:@"user_id"];
     
     [CoreDataHelper saveContext];
-    
+	
+	((LRPAppDelegate*)[[UIApplication sharedApplication] delegate]).currentRecord = (Record*)cdNewRecord;
 //	[self loadUserRecordsFromContext];
 		
 //	[self setCheckmarkForNewRecord:YES];
@@ -91,7 +91,13 @@
 
 
 
+- (void) deleteRecord:(Record*)record {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(title == %@ && url == %@ && notes == %@ && updated == %@ && user_id == %@)", record.title, record.url, record.notes, record.updated, record.user_id];
+	[CoreDataHelper deleteAllObjectsForEntity:@"Record" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]];
+	[CoreDataHelper saveContext];
+}
 
+/*
 - (void) deleteRecord:(LRPRecord*)record {
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"(title == %@ && url == %@ && notes == %@ && updated == %@ && user_id == %@)", record.title, record.url, record.notes, record.updated, record.user_id];
 	[CoreDataHelper deleteAllObjectsForEntity:@"Record" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]];
@@ -99,7 +105,7 @@
 	
 //	[self loadUserRecordsFromContext];
 }
-
+*/
 
 
 - (BOOL)loadUserRecordsFromContext {
@@ -184,7 +190,7 @@
 
 
 - (void)setCheckmarkForNewRecord:(BOOL)isOn {
-	NSLog(@"setCheckMark:%d", isOn);
+//	NSLog(@"setCheckMark:%d", isOn);
 	
 	if(self.lastNewRecord) {
 		NSIndexPath* indexPath = [self getIndexForMatchingRecord:self.lastNewRecord];

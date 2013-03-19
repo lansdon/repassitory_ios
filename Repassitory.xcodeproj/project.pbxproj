@@ -12,6 +12,16 @@
 		5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */; };
 		5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39016AD437700C2EBDE /* LRPDetailViewController.m */; };
 		5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39416AD437700C2EBDE /* LRPRecordDataController.m */; };
+		5945FD2316F5E98600476371 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5945FD2216F5E98600476371 /* QuartzCore.framework */; };
+		5945FD2816F5EC1000476371 /* MBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD2516F5EC1000476371 /* MBAlertView.m */; };
+		5945FD2916F5EC1000476371 /* MBHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD2716F5EC1000476371 /* MBHUDView.m */; };
+		5945FD2E16F5EC1E00476371 /* MBAlertViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD2C16F5EC1E00476371 /* MBAlertViewItem.m */; };
+		5945FD3616F5EC2E00476371 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD3116F5EC2E00476371 /* NSString+Trim.m */; };
+		5945FD3716F5EC2E00476371 /* UIFont+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD3316F5EC2E00476371 /* UIFont+Alert.m */; };
+		5945FD3816F5EC2E00476371 /* UIView+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD3516F5EC2E00476371 /* UIView+Animations.m */; };
+		5945FD4216F5EC5800476371 /* MBAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD3D16F5EC5800476371 /* MBAlertViewButton.m */; };
+		5945FD4316F5EC5800476371 /* MBCheckMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD3F16F5EC5800476371 /* MBCheckMarkView.m */; };
+		5945FD4416F5EC5800476371 /* MBSpinningCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD4116F5EC5800476371 /* MBSpinningCircle.m */; };
 		594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 594AFB3216D643F700F0ADFF /* green-checkmark.png */; };
 		594F8A5B16D1EE92007AF3F1 /* MainStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5916D1EE92007AF3F1 /* MainStore.xcdatamodeld */; };
 		594F8A6716D1EF05007AF3F1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 594F8A5816D1EDF1007AF3F1 /* User.m */; };
@@ -35,8 +45,6 @@
 		594F8AA516D2245F007AF3F1 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA016D2245F007AF3F1 /* Background.png */; };
 		594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA116D2245F007AF3F1 /* Background@2x.png */; };
 		594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA216D2245F007AF3F1 /* blue_bk.jpg */; };
-		598470DE16F0613800EFFE16 /* LRPAlertViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */; };
-		598470E416F0EBD700EFFE16 /* LRPAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */; };
 		59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5616A7BD5700C36331 /* CoreDataHelper.m */; };
 		59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5A16A7C50900C36331 /* LRPLoginViewController.m */; };
 		5999FD0616D608FB00F61353 /* repassitory-icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0216D608FB00F61353 /* repassitory-icon_57.png */; };
@@ -58,7 +66,6 @@
 		59C28EAD16EE1928005F1994 /* LRPScreenAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */; };
 		59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */; };
 		59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */; };
-		59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA492316EEE6E70028E147 /* LRPAlertView.m */; };
 		59FDD97616F51105000618DF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FDD97516F51105000618DF /* MBProgressHUD.m */; };
 		59FDD97816F541B8000618DF /* checkmark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 59FDD97716F541B8000618DF /* checkmark.jpeg */; };
 /* End PBXBuildFile section */
@@ -73,6 +80,27 @@
 		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
 		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
 		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
+		5945FD2216F5E98600476371 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5945FD2416F5EC1000476371 /* MBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertView.h; sourceTree = "<group>"; };
+		5945FD2516F5EC1000476371 /* MBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertView.m; sourceTree = "<group>"; };
+		5945FD2616F5EC1000476371 /* MBHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBHUDView.h; sourceTree = "<group>"; };
+		5945FD2716F5EC1000476371 /* MBHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBHUDView.m; sourceTree = "<group>"; };
+		5945FD2B16F5EC1E00476371 /* MBAlertViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertViewItem.h; sourceTree = "<group>"; };
+		5945FD2C16F5EC1E00476371 /* MBAlertViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertViewItem.m; sourceTree = "<group>"; };
+		5945FD2D16F5EC1E00476371 /* MBAlertViewSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertViewSubclass.h; sourceTree = "<group>"; };
+		5945FD3016F5EC2E00476371 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
+		5945FD3116F5EC2E00476371 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
+		5945FD3216F5EC2E00476371 /* UIFont+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Alert.h"; sourceTree = "<group>"; };
+		5945FD3316F5EC2E00476371 /* UIFont+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Alert.m"; sourceTree = "<group>"; };
+		5945FD3416F5EC2E00476371 /* UIView+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animations.h"; sourceTree = "<group>"; };
+		5945FD3516F5EC2E00476371 /* UIView+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animations.m"; sourceTree = "<group>"; };
+		5945FD3B16F5EC5800476371 /* AlertViewUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewUI.h; sourceTree = "<group>"; };
+		5945FD3C16F5EC5800476371 /* MBAlertViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertViewButton.h; sourceTree = "<group>"; };
+		5945FD3D16F5EC5800476371 /* MBAlertViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertViewButton.m; sourceTree = "<group>"; };
+		5945FD3E16F5EC5800476371 /* MBCheckMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCheckMarkView.h; sourceTree = "<group>"; };
+		5945FD3F16F5EC5800476371 /* MBCheckMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCheckMarkView.m; sourceTree = "<group>"; };
+		5945FD4016F5EC5800476371 /* MBSpinningCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSpinningCircle.h; sourceTree = "<group>"; };
+		5945FD4116F5EC5800476371 /* MBSpinningCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSpinningCircle.m; sourceTree = "<group>"; };
 		594AFB3216D643F700F0ADFF /* green-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-checkmark.png"; sourceTree = "<group>"; };
 		594F8A5716D1EDF1007AF3F1 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		594F8A5816D1EDF1007AF3F1 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -113,10 +141,6 @@
 		594F8AA016D2245F007AF3F1 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		594F8AA116D2245F007AF3F1 /* Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background@2x.png"; sourceTree = "<group>"; };
 		594F8AA216D2245F007AF3F1 /* blue_bk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blue_bk.jpg; sourceTree = "<group>"; };
-		598470DC16F0613800EFFE16 /* LRPAlertViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertViewQueue.h; sourceTree = "<group>"; };
-		598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertViewQueue.m; sourceTree = "<group>"; };
-		598470E216F0EBD600EFFE16 /* LRPAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertViewController.h; sourceTree = "<group>"; };
-		598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertViewController.m; sourceTree = "<group>"; };
 		59951B5516A7BD5700C36331 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		59951B5616A7BD5700C36331 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		59951B5916A7C50900C36331 /* LRPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPLoginViewController.h; sourceTree = "<group>"; };
@@ -146,8 +170,6 @@
 		59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPScreenAdjust.m; sourceTree = "<group>"; };
 		59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blk_btn dissolve.PNG"; sourceTree = "<group>"; };
 		59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blk_btn_red_glow.png; sourceTree = "<group>"; };
-		59DA492216EEE6E70028E147 /* LRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPAlertView.h; sourceTree = "<group>"; };
-		59DA492316EEE6E70028E147 /* LRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPAlertView.m; sourceTree = "<group>"; };
 		59FDD97416F51105000618DF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		59FDD97516F51105000618DF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		59FDD97716F541B8000618DF /* checkmark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = checkmark.jpeg; sourceTree = "<group>"; };
@@ -158,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5945FD2316F5E98600476371 /* QuartzCore.framework in Frameworks */,
 				594F8A9616D1F162007AF3F1 /* Security.framework in Frameworks */,
 				59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */,
 				59A7091C16A73E0500267021 /* Foundation.framework in Frameworks */,
@@ -169,6 +192,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5945FCE516F5DE7200476371 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				59FDD97416F51105000618DF /* MBProgressHUD.h */,
+				59FDD97516F51105000618DF /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		5945FD2A16F5EC1E00476371 /* Protected */ = {
+			isa = PBXGroup;
+			children = (
+				5945FD2B16F5EC1E00476371 /* MBAlertViewItem.h */,
+				5945FD2C16F5EC1E00476371 /* MBAlertViewItem.m */,
+				5945FD2D16F5EC1E00476371 /* MBAlertViewSubclass.h */,
+			);
+			path = Protected;
+			sourceTree = "<group>";
+		};
+		5945FD2F16F5EC2E00476371 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5945FD3016F5EC2E00476371 /* NSString+Trim.h */,
+				5945FD3116F5EC2E00476371 /* NSString+Trim.m */,
+				5945FD3216F5EC2E00476371 /* UIFont+Alert.h */,
+				5945FD3316F5EC2E00476371 /* UIFont+Alert.m */,
+				5945FD3416F5EC2E00476371 /* UIView+Animations.h */,
+				5945FD3516F5EC2E00476371 /* UIView+Animations.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		5945FD3916F5EC3200476371 /* MBAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				5945FD3A16F5EC5800476371 /* Views */,
+				5945FD2F16F5EC2E00476371 /* Categories */,
+				5945FD2A16F5EC1E00476371 /* Protected */,
+				5945FD2416F5EC1000476371 /* MBAlertView.h */,
+				5945FD2516F5EC1000476371 /* MBAlertView.m */,
+				5945FD2616F5EC1000476371 /* MBHUDView.h */,
+				5945FD2716F5EC1000476371 /* MBHUDView.m */,
+			);
+			name = MBAlertView;
+			sourceTree = "<group>";
+		};
+		5945FD3A16F5EC5800476371 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5945FD3B16F5EC5800476371 /* AlertViewUI.h */,
+				5945FD3C16F5EC5800476371 /* MBAlertViewButton.h */,
+				5945FD3D16F5EC5800476371 /* MBAlertViewButton.m */,
+				5945FD3E16F5EC5800476371 /* MBCheckMarkView.h */,
+				5945FD3F16F5EC5800476371 /* MBCheckMarkView.m */,
+				5945FD4016F5EC5800476371 /* MBSpinningCircle.h */,
+				5945FD4116F5EC5800476371 /* MBSpinningCircle.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		594F8A7D16D1F0FB007AF3F1 /* RNCryptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +316,7 @@
 		59A7091816A73E0500267021 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5945FD2216F5E98600476371 /* QuartzCore.framework */,
 				594F8A9516D1F162007AF3F1 /* Security.framework */,
 				59A7091916A73E0500267021 /* UIKit.framework */,
 				59A7091B16A73E0500267021 /* Foundation.framework */,
@@ -245,20 +329,14 @@
 		59A7092116A73E0500267021 /* Repassitory */ = {
 			isa = PBXGroup;
 			children = (
-				59FDD97416F51105000618DF /* MBProgressHUD.h */,
-				59FDD97516F51105000618DF /* MBProgressHUD.m */,
+				5945FD3916F5EC3200476371 /* MBAlertView */,
+				5945FCE516F5DE7200476371 /* MBProgressHUD */,
 				59C28EAB16EE1928005F1994 /* LRPScreenAdjust.h */,
 				59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */,
 				59A7092A16A73E0500267021 /* LRPAppDelegate.h */,
 				59A7092B16A73E0500267021 /* LRPAppDelegate.m */,
 				594F8A7416D1EFF4007AF3F1 /* LRPAppState.h */,
 				594F8A7516D1EFF4007AF3F1 /* LRPAppState.m */,
-				59DA492216EEE6E70028E147 /* LRPAlertView.h */,
-				59DA492316EEE6E70028E147 /* LRPAlertView.m */,
-				598470DC16F0613800EFFE16 /* LRPAlertViewQueue.h */,
-				598470DD16F0613800EFFE16 /* LRPAlertViewQueue.m */,
-				598470E216F0EBD600EFFE16 /* LRPAlertViewController.h */,
-				598470E316F0EBD700EFFE16 /* LRPAlertViewController.m */,
 				59A7094616A74AFC00267021 /* Core data */,
 				59E2479A16D32B27006AAAA1 /* Storyboards */,
 				59E2479516D32A5A006AAAA1 /* View Controllers */,
@@ -474,10 +552,16 @@
 				594F8A9916D1F205007AF3F1 /* LRPNewUserViewController.m in Sources */,
 				594F8A9C16D21A91007AF3F1 /* LRPStartViewController.m in Sources */,
 				59C28EAD16EE1928005F1994 /* LRPScreenAdjust.m in Sources */,
-				59DA492416EEE6E70028E147 /* LRPAlertView.m in Sources */,
-				598470DE16F0613800EFFE16 /* LRPAlertViewQueue.m in Sources */,
-				598470E416F0EBD700EFFE16 /* LRPAlertViewController.m in Sources */,
 				59FDD97616F51105000618DF /* MBProgressHUD.m in Sources */,
+				5945FD2816F5EC1000476371 /* MBAlertView.m in Sources */,
+				5945FD2916F5EC1000476371 /* MBHUDView.m in Sources */,
+				5945FD2E16F5EC1E00476371 /* MBAlertViewItem.m in Sources */,
+				5945FD3616F5EC2E00476371 /* NSString+Trim.m in Sources */,
+				5945FD3716F5EC2E00476371 /* UIFont+Alert.m in Sources */,
+				5945FD3816F5EC2E00476371 /* UIView+Animations.m in Sources */,
+				5945FD4216F5EC5800476371 /* MBAlertViewButton.m in Sources */,
+				5945FD4316F5EC5800476371 /* MBCheckMarkView.m in Sources */,
+				5945FD4416F5EC5800476371 /* MBSpinningCircle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,7 +638,7 @@
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -566,7 +650,7 @@
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

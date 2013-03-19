@@ -8,6 +8,8 @@
 
 #import "LRPAppState.h"
 #import "LRPUser.h"
+#import "MBAlertView.h"
+#import "Record.h"
 
 @interface LRPAppState ()
 
@@ -19,11 +21,46 @@
 
 @implementation LRPAppState
 
+
+#pragma mark - Version
 // PROGRAM VERSION
 +(NSString*) getVersion {
-	
 	return @"0.5.0";
 }
+
+
++(void) showAppInfo {
+	
+	NSString* aboutMsg = [[NSString alloc] initWithFormat:
+						  @"Repassitory\n"
+						  "Version %@\n"
+						  "By Lansdon Page\n"
+						  "Copyright 2013\n"
+						  "\n"
+						  "Repassitory is a password database where you can store "
+						  "your passwords in one spot. You'll never lose those annoying, "
+						  "infrequently used passwords again!\n"
+						  ""
+						  "Security: Repassitory uses a powerful AES encryption algorithm "
+						  "in combination with Apple's Core Data storage technology. This means "
+						  "your information is stored on your device in a secure encrypted format "
+						  "that only YOU can get to!", [LRPAppState getVersion]];
+	
+	MBAlertView *alert = [MBAlertView alertWithBody:aboutMsg cancelTitle:@"OK" cancelBlock:nil];
+	
+	if([self isIphone]) {
+		alert.bodyFont = [UIFont systemFontOfSize:15];
+	} else {
+		
+	}
+	
+	[alert addToDisplayQueue];
+	
+}
+
+
+
+#pragma mark - Current User
 
 // Get Currently Logged in User
 +(LRPUser*)currentUser {
@@ -90,34 +127,51 @@
 }
 
 
-+(void) showAppInfo {
-	
-	NSString* aboutMsg = [[NSString alloc] initWithFormat:
-						  @"Repassitory\n"
-						  "Version %@\n"
-						  "By Lansdon Page\n"
-						  "Copyright 2013\n"
-						  "\n"
-						  "Repassitory is a password database where you can store "
-						  "your passwords in one spot. You'll never lose those annoying, "
-						  "infrequently used passwords again!\n"
-						  ""
-						  "Security: Repassitory uses a powerful AES encryption algorithm "
-						  "in combination with Apple's Core Data storage technology. This means "
-						  "your information is stored on your device in a secure encrypted format "
-						  "that only YOU can get to!", [LRPAppState getVersion]];
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithFrame:CGRectMake(0, 0, 400, 750)];
-	alert.frame = CGRectMake(0, 0, 300, 800);
-	[alert autoresizesSubviews];
-	[alert setFrame:CGRectMake(0, 0, 300, 300)];
-	[alert setTitle:@"About Repassitory"];
-	[alert setMessage:aboutMsg];
-	[alert setDelegate:self];
-	[alert addButtonWithTitle:@"OK"];
-	[alert show];
-	
+#pragma mark - Device Type Helpers
+
+
++(bool) isIpad {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+		return true;
+	}
+	return false;
 }
 
++(bool) isIphone {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+		return true;
+	}
+	return false;
+}
+
+
+
+
+#pragma mark - Current Record
+/*
+// Current record for display on detail view
++(Record*)currentRecord:(Record*)newRecord {
+    static Record* currentRecord = nil;
+	
+	// Check for optional new record
+    if(newRecord) {
+        currentRecord = newRecord;
+    }
+    return currentRecord;
+}
+*/
+/*
++(void)setCurrentRecord:(Record*)record {
+//	[LRPAppState currentRecord] = record;
+    [[LRPAppState currentRecord] setTitle:record.title];
+    [[LRPAppState currentRecord] setUpdated:record.updated];
+    [[LRPAppState currentRecord] setUsername:record.username];
+    [[LRPAppState currentRecord] setPassword:record.password];
+    [[LRPAppState currentRecord] setUser_id:record.user_id];
+    [[LRPAppState currentRecord] setUrl:record.url];
+    [[LRPAppState currentRecord] setNotes:record.notes];
+    
+}
+*/
 
 @end
