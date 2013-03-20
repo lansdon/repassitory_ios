@@ -37,8 +37,6 @@
 
 @property LRPAppDelegate* appDelegate;
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-
-
 @end
 
 
@@ -49,32 +47,21 @@
 //@synthesize record;
 
 #pragma mark - Managing the detail item
-/*
-- (void)setRecord:(LRPRecord *)newRecord
-{
-    if (record != newRecord) {
-        record = newRecord;
-        
-		self.titleTextField.text = newRecord.title;
-		self.usernameTextField.text = newRecord.username;
-		self.passwordTextField.text = newRecord.password;
-		self.urlTextField.text = newRecord.url;
-		self.notesTextField.text = newRecord.notes;
-		
-        // Update the view.
-        [self configureView];
-    }
 
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
-}
-*/
 - (void)configureView
 {
     // Current User Label
     if ( [LRPAppState checkForUser] ) {
-        NSString* greeting = [[NSString alloc] initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
+		NSString* greeting = [NSString alloc];
+		if([LRPAppState isIphone]) {
+			if([appDelegate currentRecord].title) {
+			greeting = [greeting initWithFormat:@"%@", [appDelegate currentRecord].title];
+			} else {
+				greeting = @"New Record";
+			}
+		} else {
+			greeting = [greeting initWithFormat:@"Welcome, %@", [LRPAppState currentUser].username];
+		}
 		self.navigationItem.title = greeting;
     }
 
@@ -91,7 +78,11 @@
 		self.urlTextField.text = appDelegate.currentRecord.url;
 		self.notesTextField.text = appDelegate.currentRecord.notes;
     } else {
-		[self setState:STATE_BLANK];
+		if([LRPAppState isIphone]) {
+			[self setState:STATE_CREATE];
+		} else {
+			[self setState:STATE_BLANK];
+		}
     }
 }
 
@@ -347,64 +338,93 @@
 #pragma mark - Database / Records
 -(IBAction) saveRecord:(id)sender {
 	
-	/*
-		Setup blocks to pass to alert buttons
-	 */
-	
-	//Save record to coredata
-	void(^saveBlock)(void) = ^{
-		
-		// Need to remove old record?   (this should be redone to use core data object directly?)
-		if(self.editingExistingRecord) {
-//			[appDelegate.masterVC.dataController deleteRecord:record];
-			appDelegate.currentRecord = nil;
+	// Validation - Don't allow empty titles or duplicate titles
+	if( ([titleTextField.text isEqualToString:@""]) || ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text]) ) {
+		NSString* errorTitle = [[NSString alloc] init];
+		NSString* errorBody = [[NSString alloc] init];
+
+		if([titleTextField.text isEqualToString:@""]) {
+			errorTitle = @"Error";
+			errorBody = @"You must enter a title.";
 		}
-		
-		// Update local record using input fields
-		LRPRecord* record = [LRPRecord alloc];
-		record = [record initWithTitle:titleTextField.text
-										username:usernameTextField.text
-										password:passwordTextField.text
-										url:urlTextField.text
-										notes:notesTextField.text];
-		
-		// Clear previous record checkmarks
-		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
-		// Save local record to core data
-		[appDelegate.masterVC.dataController addRecord:record];
-		
-		// Update button states
-		[self setState:STATE_DISPLAY];
-	};
-	
-	void(^saveCompletionBlock)(void) = ^{
-		[appDelegate.masterVC reloadData];
-//		[self displayMasterVC];
-		
-		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
-		
-		// *** Second alert for success message
-		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-		hud.mode = MBProgressHUDModeCustomView;
-		hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
-		hud.detailsLabelText = @"Success!";
-		
-		hud.labelFont = [UIFont boldSystemFontOfSize:40];
-		hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
+		   
+	   else if([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text]) {
+		   errorTitle = @"Error";
+		   errorBody = @"That title has been taken";
+	   }
+		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+		hud.mode = MBProgressHUDModeText;
+		hud.labelText = errorTitle;
+		hud.detailsLabelText = errorBody;
+		hud.labelFont = appDelegate.alertFontTitle;
+		hud.detailsLabelFont = appDelegate.alertFontBody;
 		hud.minShowTime = 1.0;
-		hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
 		hud.dimBackground = true;
 		[hud hide:YES afterDelay:1.0];
 
-	};
+	}
+	
+	// SAVE RECORD
+	else {
+		/*
+			Setup blocks to pass to alert buttons
+		 */
+		
+		//Save record to coredata
+		void(^saveBlock)(void) = ^{
 			
-	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-	hud.mode = MBProgressHUDModeIndeterminate;
-	hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
-	hud.labelFont = [UIFont boldSystemFontOfSize:40];
-	hud.minShowTime = 1.0;
-	hud.dimBackground = true;
-	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];	
+			// Need to remove old record?   (this should be redone to use core data object directly?)
+			if(self.editingExistingRecord) {
+	//			[appDelegate.masterVC.dataController deleteRecord:record];
+				appDelegate.currentRecord = nil;
+			}
+			
+			// Update local record using input fields
+			LRPRecord* record = [LRPRecord alloc];
+			record = [record initWithTitle:titleTextField.text
+											username:usernameTextField.text
+											password:passwordTextField.text
+											url:urlTextField.text
+											notes:notesTextField.text];
+			
+			// Clear previous record checkmarks
+			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
+			// Save local record to core data
+			[appDelegate.masterVC.dataController addRecord:record];
+			
+			// Update button states
+			[self setState:STATE_DISPLAY];
+		};
+		
+		void(^saveCompletionBlock)(void) = ^{
+			[appDelegate.masterVC reloadData];
+	//		[self displayMasterVC];
+			
+			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
+			
+			// *** Second alert for success message
+			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+			hud.mode = MBProgressHUDModeCustomView;
+			hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
+			hud.detailsLabelText = @"Success!";
+			
+			hud.labelFont = appDelegate.alertFontTitle;
+			hud.detailsLabelFont = appDelegate.alertFontBody;
+			hud.minShowTime = 1.0;
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
+			hud.dimBackground = true;
+			[hud hide:YES afterDelay:1.0];
+
+		};
+				
+		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+		hud.mode = MBProgressHUDModeIndeterminate;
+		hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
+		hud.labelFont = appDelegate.alertFontBody;
+		hud.minShowTime = 1.0;
+		hud.dimBackground = true;
+		[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
+	} // end save
 }
 
 // Manually opens master view controller
@@ -425,6 +445,7 @@
 		[self deleteRecordConfirmed];
 	}];
 	alert.size = CGSizeMake(275, 175);
+	alert.bodyFont = appDelegate.alertFontTitle;;
 	[alert addToDisplayQueue];
 }
 

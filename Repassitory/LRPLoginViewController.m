@@ -119,6 +119,7 @@
 		
 		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
         alert.size = CGSizeMake(275, 175);
+		alert.bodyFont = appDelegate.alertFontTitle;
 		[alert addToDisplayQueue];
 		
 		[passwordField setText:@""];

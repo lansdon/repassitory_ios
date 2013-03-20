@@ -22,7 +22,7 @@
 @property (retain, nonatomic) NSFetchedResultsController* fetchedResultsController;
 @property (nonatomic) LRPRecord* lastNewRecord;
 @property (nonatomic) UITableViewCell* lastNewRecordCell;
-@property (nonatomic) LRPAlertView* activityAlert;
+//@property (nonatomic) LRPAlertView* activityAlert;
 
 - (id)initWithMasterVC:(LRPMasterViewController*)masterVC;
 
@@ -36,6 +36,7 @@
 - (BOOL)loadUserRecordsFromContext;
 
 - (NSIndexPath*) getIndexForMatchingRecord: (LRPRecord*) inRecord;
+- (bool)recordTitleUsed:(NSString*)title;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 

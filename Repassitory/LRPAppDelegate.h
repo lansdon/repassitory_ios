@@ -28,6 +28,8 @@
 @property (strong, nonatomic) LRPDetailViewController *detailVC;
 @property (strong, nonatomic) LRPMasterViewController *masterVC;
 
+@property (nonatomic) UIFont* alertFontTitle;							// alert text title
+@property (nonatomic) UIFont* alertFontBody;							// alert text body
 
 @property (nonatomic) bool mastervc_loaded;
 @property (nonatomic) bool splitvc_loaded;

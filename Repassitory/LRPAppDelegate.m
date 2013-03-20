@@ -26,6 +26,9 @@
 @implementation LRPAppDelegate
 
 
+
+#pragma mark - Application Lifetime
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	//
@@ -41,11 +44,6 @@
 	self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"mastervc_did_load" object:nil];
-	/*
-	 [[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"splitvc_did_load" object:nil];
-	 [[NSNotificationCenter defaultCenter] addObserver:self selector:NSSelectorFromString(@"loadUserRecords") name:@"detailvc_did_load" object:nil];
-	 */
-	
 	
 	//
 	// IPHONE SPECIFIC
@@ -122,7 +120,8 @@
 	self.userLoaded = false;
 	
 	_splitVC = nil;
-//	_masterVC = nil;	// required to trigger reloading of records
+	_phoneRecordsNav = nil;
+	_masterVC = nil;	// required to trigger reloading of records
 
 	[self.window setRootViewController:nil];
 
@@ -149,16 +148,20 @@
 	// IPHONE SPECIFIC
 	//
 	if([LRPAppState isIphone]) {
+		self.alertFontTitle = [UIFont fontWithName:@"Copperplate" size:24];
+		self.alertFontBody = [UIFont fontWithName:@"Copperplate" size:18];
+		
 		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPhone" bundle: nil];
 		
 		if(!self.loginNavC) {
 			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
 		}
-		
 		if(!self.loginVC) {
 			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
 		}
-
+		if(!self.phoneRecordsNav) {
+			self.phoneRecordsNav = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"phoneRecordsNav"];
+		}
 		if(!self.masterVC) {
 			self.masterVC = (LRPMasterViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"masterVC"];
 		}
@@ -172,6 +175,10 @@
 	// IPAD SPECIFIC
 	//
 	else if([LRPAppState isIpad]) {
+
+		self.alertFontTitle = [UIFont fontWithName:@"Copperplate" size:40];
+		self.alertFontBody = [UIFont fontWithName:@"Copperplate" size:36];
+
 		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad" bundle: nil];
 
 		if(!self.loginNavC) {
@@ -293,7 +300,7 @@
 	
 	// Load user records here just in case master view is still in memory
 	if(self.mastervc_loaded) {
-//		[self loadUserRecords];
+		[self loadUserRecords];
 	}
 }
 
@@ -309,16 +316,16 @@
 		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
 		hud.mode = MBProgressHUDModeIndeterminate;
 		hud.labelText = [NSString stringWithFormat:@"Hello %@", [LRPAppState currentUser].username];
-		hud.labelFont = [UIFont boldSystemFontOfSize:40];
+		hud.labelFont = self.alertFontTitle;
 		hud.detailsLabelText = @"Loading records...";
-		hud.detailsLabelFont = [UIFont boldSystemFontOfSize:36];
+		hud.detailsLabelFont = self.alertFontBody;
 		hud.minShowTime = 1.0;
 		hud.dimBackground = true;
-		
+
+		[self setUserLoaded:true];
 		dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 			// Do something...
 			[self.masterVC loadUserRecordsFromContext];
-			[self setUserLoaded:true];
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[MBProgressHUD hideHUDForView:self.window animated:YES];

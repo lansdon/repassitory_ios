@@ -46,9 +46,16 @@
 
 	// Register with delegate
 	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
+    appDelegate.masterVC = self;
 
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
+	
+	// New Record Button
+	UIBarButtonItem * barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(newRecord)];
+		[self.navigationItem setRightBarButtonItem:barButtonItem animated:YES];
+	
+	
 
 	appDelegate.mastervc_loaded = true;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"mastervc_did_load" object:nil];
@@ -62,7 +69,7 @@
 	
     // register self with SplitVC
     appDelegate.splitVC = (LRPSplitViewController *)self.splitViewController;
-    appDelegate.masterVC = self;
+		appDelegate.masterVC = self;
 	
     // Check for valid Data Controller
     if (!_dataController) {
@@ -172,6 +179,14 @@
 
 
 #pragma mark - User Functions
+
+- (void) newRecord {
+	appDelegate.currentRecord = nil;
+//	appDelegate.detailVC a
+	
+	[self performSegueWithIdentifier:@"master_to_detail" sender:self];
+}
+
 - (BOOL)loadUserRecordsFromContext {	// helper function to call load from datacontroller
 	return [self.dataController loadUserRecordsFromContext];
 }

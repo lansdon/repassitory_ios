@@ -16,12 +16,14 @@
 #import "LRPScreenAdjust.h"
 #import "MBAlertView.h"
 
+
 @interface LRPNewUserViewController ()
+@property LRPAppDelegate* appDelegate;
 
 @end
 
 @implementation LRPNewUserViewController
-//@synthesize securityQuestions, picker;
+@synthesize appDelegate;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,6 +38,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
 /*
     self.securityQuestions = [[NSArray alloc]
                               initWithObjects:
@@ -98,6 +102,7 @@
      
          // ERROR CREATING USER - todo: send error message
 		 MBAlertView *alert = [MBAlertView alertWithBody:@"Error creating user account." cancelTitle:@"OK" cancelBlock:nil];
+		 alert.bodyFont = [appDelegate alertFontTitle];
 		 [alert addToDisplayQueue];
 
 		 NSLog(@"Error - Failed to create new user");
@@ -108,6 +113,7 @@
 
     NSLog(@"Logging in user:%@, pass:%@, key:%@", user.username, user.password, [LRPAppState getKey]);
 
+//	LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
     User* userLoggingIn = [CoreDataHelper getUser:user];
 	
     if(![userLoggingIn.username isEqualToString:@""] &&
@@ -119,7 +125,6 @@
     
         // Load new root view from app delegate
         [self dismissViewControllerAnimated:true completion:nil];
-        LRPAppDelegate *appDelegate = (LRPAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate openRecords];
     }
 
@@ -127,6 +132,7 @@
 	else {
 		[LRPAppState reset];
 		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
+		alert.bodyFont = appDelegate.alertFontBody;
 		[alert addToDisplayQueue];
    
         NSLog(@"Error - Login attempt failed for %@", [self.usernameInput text]);    
@@ -292,6 +298,7 @@
 		
 		MBAlertView *alert = [MBAlertView alertWithBody:@"Be sure not to lose your username/password! Do you want to save this user?" cancelTitle:@"Cancel" cancelBlock:nil];
 		[alert setTitle:@"Save User"];
+		alert.bodyFont = appDelegate.alertFontBody;
 		[alert addButtonWithText:@"Save" type:MBAlertViewItemTypePositive block:^{
 			[self saveUser:nil];
 		}];

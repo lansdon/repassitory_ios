@@ -83,7 +83,6 @@
                         <outlet property="passwordField" destination="CXj-ZZ-UpN" id="adK-p3-En0"/>
                         <outlet property="usernameField" destination="4ZD-eH-i6N" id="KmK-nn-KRB"/>
                         <segue destination="ysv-X5-Z3T" kind="push" identifier="newUserStart" id="3JH-9h-mI1"/>
-                        <segue destination="IX5-P4-6MO" kind="push" identifier="master_to_detail" id="xM2-LW-j8Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zr6-aW-f1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -286,7 +285,6 @@
                         <outlet property="saveButton" destination="YmY-WN-Sb0" id="k93-eZ-RmA"/>
                         <outlet property="usernameFeedback" destination="2Oi-2i-dBy" id="eSk-zX-KZs"/>
                         <outlet property="usernameInput" destination="VOF-YE-pg3" id="5P5-LH-Sw4"/>
-                        <segue destination="IX5-P4-6MO" kind="push" identifier="master_to_detail" id="EUR-gL-Tmy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35N-Iu-C8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -467,8 +465,7 @@
         <!--Navigation Controller-->
         <scene sceneID="fsm-4A-Wg6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ha2-ai-rET" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="phoneRecordsNav" toolbarHidden="NO" id="IX5-P4-6MO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="phoneRecordsNav" hidesBottomBarWhenPushed="YES" toolbarHidden="NO" id="IX5-P4-6MO" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
@@ -484,15 +481,16 @@
                         <segue destination="Bf0-l2-9p7" kind="relationship" relationship="rootViewController" id="ed6-Yn-1Jv"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ha2-ai-rET" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1000" y="608"/>
         </scene>
         <!--Master View Controller - Master-->
         <scene sceneID="Sjx-CA-0Gv">
             <objects>
-                <tableViewController storyboardIdentifier="masterVC" title="Master" hidesBottomBarWhenPushed="YES" clearsSelectionOnViewWillAppear="NO" id="Bf0-l2-9p7" customClass="LRPMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="masterVC" title="Master" clearsSelectionOnViewWillAppear="NO" id="Bf0-l2-9p7" customClass="LRPMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="s4h-Xe-oVh">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -526,7 +524,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Records" id="Ky4-Yr-ioS"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="o9u-Aq-Old" kind="push" identifier="master_to_detail" id="0fP-Yh-gI6"/>
                     </connections>
@@ -804,7 +801,6 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Stuff" id="A4E-R1-J9h"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
                     <connections>
                         <outlet property="btnDelete" destination="fkj-SF-Rh3" id="8K8-1c-oiJ"/>
                         <outlet property="btnEdit" destination="AYE-bO-uhl" id="DYM-fh-1bj"/>
@@ -834,6 +830,5 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="3JH-9h-mI1"/>
-        <segue reference="xM2-LW-j8Q"/>
     </inferredMetricsTieBreakers>
 </document>

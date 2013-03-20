@@ -15,9 +15,6 @@
 @interface LRPDetailViewController : UITableViewController <UISplitViewControllerDelegate> {
 }
 
-// This is the existing record being displayed
-//@property (strong, nonatomic) LRPRecord* record;
-
 // Editing/saving an existing record involves remove old record
 @property (assign, nonatomic) BOOL editingExistingRecord;
 

@@ -127,6 +127,18 @@
 }
 
 
+- (bool)recordTitleUsed:(NSString*)title {
+	if([_fetchedResultsController fetchedObjects]) {
+		for(int i=0; i<[self countOfListInSection:0]; ++i) {
+			Record* fetchedObject = [_fetchedResultsController fetchedObjects][i];
+			if([[fetchedObject title] isEqualToString:title]) {
+				return true;
+			}
+		}
+	}
+	return false; // no match
+}
+
 
 - (NSIndexPath*) getIndexForMatchingRecord: (LRPRecord*) inRecord {
 
