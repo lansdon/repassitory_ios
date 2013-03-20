@@ -183,8 +183,11 @@
 - (void) newRecord {
 	appDelegate.currentRecord = nil;
 //	appDelegate.detailVC a
-	
-	[self performSegueWithIdentifier:@"master_to_detail" sender:self];
+	if([LRPAppState isIphone]) {
+		[self performSegueWithIdentifier:@"master_to_detail" sender:self];
+	} else {
+		[appDelegate.detailVC dismissMasterVC];
+	}
 }
 
 - (BOOL)loadUserRecordsFromContext {	// helper function to call load from datacontroller

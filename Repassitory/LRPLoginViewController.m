@@ -179,7 +179,7 @@
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-//    [self animateTextField: textField up: NO];
+    [self.screenAdj viewBecameInactive:textField];
 }
 
 

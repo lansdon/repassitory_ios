@@ -44,5 +44,6 @@
 
 - (void)configureView;
 
+- (void) dismissMasterVC;
 
 @end

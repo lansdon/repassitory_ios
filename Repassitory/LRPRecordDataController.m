@@ -64,6 +64,23 @@
 }
 
 
+- (void)updateCurrentRecord:(LRPRecord*)updatedRecord {
+	LRPAppDelegate* appDelegate = ((LRPAppDelegate*)[[UIApplication sharedApplication] delegate]);	
+	//.currentRecord = (Record*)cdNewRecord;
+	if(appDelegate.currentRecord) {
+		Record* currentRecord = appDelegate.currentRecord;
+		currentRecord.title = updatedRecord.title;
+		currentRecord.username = updatedRecord.username;
+		currentRecord.password = updatedRecord.password;
+		currentRecord.url = updatedRecord.url;
+		currentRecord.notes = updatedRecord.notes;
+		currentRecord.updated = [[NSDate alloc] init];
+		[appDelegate saveContext];
+		[self setCheckmarkForNewRecord:false];
+		self.lastNewRecord = updatedRecord;
+	}
+}
+
 - (void)addRecord:(LRPRecord*)record {
 	NSLog(@"addRecord:%@", record.title);
 	
@@ -145,12 +162,14 @@
 	if([_fetchedResultsController fetchedObjects]) {
 		for(int i=0; i<[self countOfListInSection:0]; ++i) {
 			Record* fetchedObject = [_fetchedResultsController fetchedObjects][i];
+			NSLog(@"Testing fetched obj:%@ vs%@", fetchedObject.title, inRecord.title);
+			
 			if([[fetchedObject title]	isEqualToString:inRecord.title] &&
 			   [[fetchedObject username] isEqualToString:inRecord.username] &&
 			   [[fetchedObject password] isEqualToString:inRecord.password] &&
 			   //		   [fetchedObject isEqualToString:inRecord.url] &&
 			   [[fetchedObject notes]	isEqualToString:inRecord.notes] &&
-			   [fetchedObject user_id] == inRecord.user_id ) {
+			   ([[fetchedObject user_id] intValue] == [inRecord.user_id intValue]) ) {
 				return [NSIndexPath indexPathForRow:i inSection:0];
 			}
 		}

@@ -1,3 +1,4 @@
+        const float movementDuration = 0.3f; // tweak as needed
 //
 //  LRPScreenAdjust.m
 //  Repassitory
@@ -8,6 +9,15 @@
 
 #import "LRPScreenAdjust.h"
 
+#import "LRPAppDelegate.h"
+
+
+@interface LRPScreenAdjust () {
+	
+}
+@property (nonatomic) UIView* currentView;
+@end
+
 @implementation LRPScreenAdjust
 
 /*
@@ -15,6 +25,7 @@
 		views - array of uiviews which can become first responders and which
 				the screen is intended to be centered on. They should be tagged
 				in order of appearance starting with tag '0'.
+		inContainingView - This is the parent view containing all the subviews
 		tableView(optional) - tableView holding the cells that are activated. This can be set to nil. If it is valid, the rows of the table will be highlighted when the subview of that row is activated.
  */
 -(LRPScreenAdjust*)initWithActiveViews:(NSArray*)views inContainingView:(UIView*)view inTable:(UITableView*)tableView {
@@ -37,11 +48,13 @@
 
 
 -(void)viewBecameActive:(UIView*)view {
+	self.currentView = view;
+
 	NSInteger tag = view.tag;
 	NSInteger adjust = tag - self.currentRow;
 	self.currentRow += adjust;
-	
-	[self animateTextField:view up:YES numberOfMoves:adjust];
+
+	[self animateTextField:view];
 }
 
 -(void)viewBecameInactive:(UIView*)view {
@@ -93,30 +106,84 @@
 }
 
 
+-(id)getTopViewForView:(id)view {
+	if(![view superview]) {
+		return view;
+	} else {
+		return [self getTopViewForView:[view superview]];
+	}
+}
 
-
-- (void) animateTextField:(UIView*)view up:(BOOL)up numberOfMoves:(NSInteger)moves
+- (void) animateTextField:(UIView*)view
 {
-//	if(moves == 0) moves = 1; // don't multiply by zero
-
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+	[self reset];
+	
+	if(self.tableView) {
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+//		[self.tableView reloadData];
+		[view setNeedsDisplay];
+	}
+	
+	const float movementDuration = 0.3f; // tweak as needed
+//	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
+//	id topView = [self getTopViewForView:view];
+//	int screenHeight = self.view.frame.size.height;
 		
-	if(orientation == UIInterfaceOrientationLandscapeRight ||
-	   orientation == UIInterfaceOrientationLandscapeLeft) {
-//	if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        const int movementDistance = 60; // tweak as needed
-        const float movementDuration = 0.3f; // tweak as needed
-        int movement = 0;
-		movement = (up ? -movementDistance : movementDistance);
+//	NSLog(@"topview = %@", [topView class]);
+	
+	int targetHeight = [self getFocusHeight];    // center on view
+//	int currentHeight = self.currentView.frame.size.height;
+//	CGPoint convertedPoint = [view convertPoint:view.center toView:self.view];
+	CGPoint convertedPoint = [view convertPoint:view.center toView:self.view];
+	if(view.superview == self.view)
+		convertedPoint = view.center;
+	int viewHeightInWindow = convertedPoint.y;
+	int movement = targetHeight - viewHeightInWindow;
+	
+	NSLog(@"scrn_adj - targetHeight = %d, viewHeight=%d, movement=%d", targetHeight, viewHeightInWindow, movement);
+
+	
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+
+	// Lansdcape or iPhone Portrait does adjustments
+	if( UIDeviceOrientationIsLandscape(orientation) ||
+	   [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone ) {
         
         [UIView beginAnimations: @"anim" context: nil];
         [UIView setAnimationBeginsFromCurrentState: YES];
         [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement*moves);
+        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+		[self.view setNeedsDisplay];
+		[view setNeedsDisplay];
         [UIView commitAnimations];
     }
 }
 
+/*
+ ** Calculate display height where views are centered when the keyboard is up
+ - ipad portrait - no effect
+ - ipad landscape - center @ 25% height
+ - iphone portrait - center @ 25% height
+ - iphone landscape - center @ 25% height?
+ */
+-(int)getFocusHeight {
+	const float DEF_HEIGHT_PERC = 0.35;   // 25% of screen height
+	int screenHeight = self.view.bounds.size.height;
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+	if(UIDeviceOrientationIsLandscape(orientation)) {
+//		int screenHeight = self.view.frame.size.width;
+	}
+	return screenHeight * DEF_HEIGHT_PERC;
+	
+/*
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+		return true;
+	}
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+		return true;
+	}
+*/
+}
 
 // Set screen position back to default location
 -(void)reset {
@@ -127,6 +194,7 @@
 	[UIView commitAnimations];
 	
 	self.currentRow = 0;
+	self.currentView = nil;
 }
 
 @end

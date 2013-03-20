@@ -32,6 +32,7 @@
 
 - (void)addRecord:(LRPRecord*)record;
 - (void)deleteRecord:(Record*)record;
+- (void)updateCurrentRecord:(LRPRecord*)updatedRecord;
 
 - (BOOL)loadUserRecordsFromContext;
 

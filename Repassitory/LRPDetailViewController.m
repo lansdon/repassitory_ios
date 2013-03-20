@@ -125,6 +125,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+//    if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
+        //self.view = portraitView;
+//        [self changeTheViewToPortrait:YES andDuration:duration];
+		
+//    }
+//	if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
+        //self.view = landscapeView;
+//        [self.tableView reloadData];
+/*
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
+		[self.tableView setNeedsDisplay];
+    }
+ */
+}
+
+
 #pragma mark - Split view
 -(void) updateRecordVaultLabel {
 	if(self.btnRecordVault) {
@@ -152,6 +172,14 @@
     self.masterPopoverController = nil;
 }
 
+/*
+	Called when "Add" button on masterVC is pressed.
+	Detail goes in to create new record mode
+ */
+- (void) dismissMasterVC {
+	[self.masterPopoverController dismissPopoverAnimated:true];
+	[self setState:STATE_CREATE];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -253,6 +281,7 @@
 			
 		case STATE_CREATE:
 			[self setEditingExistingRecord:NO];
+			[self enableInputFields];
 			appDelegate.currentRecord = nil;
 			titleTextField.text = @"";
 			usernameTextField.text = @"";
@@ -260,7 +289,6 @@
 			urlTextField.text = @"";
 			dateLabel.text = @"";
 			notesTextField.text = @"";
-			[self enableInputFields];
 			break;
 			
 		case STATE_DISPLAY:
@@ -286,7 +314,7 @@
 			break;
 	}
 	[self updateButtonStates];
-	[self.tableView reloadData];
+//	[self.tableView reloadData];
 }
 
 
@@ -301,12 +329,12 @@
 }
 
 -(void) enableInputFields {
-	[self setActiveCellByRow:0];		// start with first cell
 	[titleTextField setEnabled:YES];
 	[usernameTextField setEnabled:YES];
 	[passwordTextField setEnabled:YES];
 	[urlTextField setEnabled:YES];
 	[notesTextField setEnabled:YES];
+	[self setActiveCellByRow:0];		// start with first cell
 }
 
 // Indicate whichi cells are active
@@ -339,7 +367,7 @@
 -(IBAction) saveRecord:(id)sender {
 	
 	// Validation - Don't allow empty titles or duplicate titles
-	if( ([titleTextField.text isEqualToString:@""]) || ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text]) ) {
+	if( ([titleTextField.text isEqualToString:@""]) || ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text] && !self.editingExistingRecord) ) {
 		NSString* errorTitle = [[NSString alloc] init];
 		NSString* errorBody = [[NSString alloc] init];
 
@@ -372,32 +400,34 @@
 		
 		//Save record to coredata
 		void(^saveBlock)(void) = ^{
-			
-			// Need to remove old record?   (this should be redone to use core data object directly?)
-			if(self.editingExistingRecord) {
-	//			[appDelegate.masterVC.dataController deleteRecord:record];
-				appDelegate.currentRecord = nil;
-			}
-			
-			// Update local record using input fields
+			// create record using input fields
 			LRPRecord* record = [LRPRecord alloc];
 			record = [record initWithTitle:titleTextField.text
-											username:usernameTextField.text
-											password:passwordTextField.text
-											url:urlTextField.text
-											notes:notesTextField.text];
+								  username:usernameTextField.text
+								  password:passwordTextField.text
+									   url:urlTextField.text
+									 notes:notesTextField.text];
+
+			// Updating existing Record
+			if(self.editingExistingRecord) {
+				[appDelegate.masterVC.dataController updateCurrentRecord:record];				
+			}
 			
-			// Clear previous record checkmarks
-			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
-			// Save local record to core data
-			[appDelegate.masterVC.dataController addRecord:record];
-			
-			// Update button states
-			[self setState:STATE_DISPLAY];
+			// Saving New Record
+			else {
+				
+				// Clear previous record checkmarks
+				[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
+				// Save local record to core data
+				[appDelegate.masterVC.dataController addRecord:record];
+				
+				// Update button states
+				[self setState:STATE_DISPLAY];
+			}
 		};
 		
 		void(^saveCompletionBlock)(void) = ^{
-			[appDelegate.masterVC reloadData];
+//			[appDelegate.masterVC reloadData];
 	//		[self displayMasterVC];
 			
 			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
@@ -419,7 +449,7 @@
 				
 		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 		hud.mode = MBProgressHUDModeIndeterminate;
-		hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
+		hud.labelText = [NSString stringWithFormat:@"Saving %@", self.titleTextField.text];
 		hud.labelFont = appDelegate.alertFontBody;
 		hud.minShowTime = 1.0;
 		hud.dimBackground = true;
@@ -444,8 +474,8 @@
 	[alert addButtonWithText:@"Delete" type:MBAlertViewItemTypeDestructive block:^{
 		[self deleteRecordConfirmed];
 	}];
-	alert.size = CGSizeMake(275, 175);
-	alert.bodyFont = appDelegate.alertFontTitle;;
+//	alert.size = CGSizeMake(250, 215);
+	alert.bodyFont = appDelegate.alertFontTitle;
 	[alert addToDisplayQueue];
 }
 
@@ -471,6 +501,8 @@
 
 -(IBAction) newRecord:(id)sender {
 	[self setState:STATE_CREATE];
+	[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:true];
+	[self.tableView setNeedsDisplay];
 	[self.titleTextField becomeFirstResponder];
 	[self setActiveCellByRow:0];
 }
@@ -480,7 +512,12 @@
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-//	[self setActiveCellByRow:textField.tag];
+/*
+	if(textField.tag == 4) {
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:false];
+		[self.tableView setNeedsDisplay];
+	}
+ */
 	[self.screenAdj viewBecameActive:textField];
 }
 
@@ -494,64 +531,47 @@
 
 - (IBAction)textFieldDidExit:(UITextField *)textField
 {
-	[self.screenAdj viewBecameInactive:textField];
 
 	switch (textField.tag) {
 
-			case 0: 
-			case 1: 
-			case 2: 
-			case 3: 
-				[self setActiveCellByRow:textField.tag+1];
-				break;
-				
-			case 4:
-//				[textField resignFirstResponder];
-//				[UIView beginAnimations: @"anim" context: nil];
-//				[UIView setAnimationBeginsFromCurrentState: YES];
-//				[UIView setAnimationDuration: 0.3];
-//				self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-//				[UIView commitAnimations];
-				[self saveRecord:nil];
-				[self setActiveCellByRow:-1];
-				break;
-			default:
-				[self setActiveCellByRow:textField.tag+1];
-				break;
-		}
-//	}
-	
-//    [self animateTextField: textField up: YES];
-}
-
-/*
-#pragma mark - Alert View Helpers/Response
-
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	// DELETE RECORD RESPONSE
-	if([alertView.title isEqualToString: @"Delete Record"]) {
-		if(buttonIndex == 1) { // YES
-			[self deleteRecordConfirmed];
-		} else if (buttonIndex == 0) { // NO
+		case 0: 
+		case 1: 
+		case 2: 
+		[self.screenAdj viewBecameInactive:textField];
+		[self setActiveCellByRow:textField.tag+1];
+		break;
+		case 3:
+			if(![self isRowVisible:4]) {
+//				if([LRPAppState isIphone]) {
+					[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+//					[self.tableView setNeedsDisplay];
+//				}
+			} else {
+				[self.screenAdj viewBecameInactive:textField];
+			}
+			[self setActiveCellByRow:textField.tag+1];
+			break;
 			
-		}
+		case 4:
+			[self.screenAdj viewBecameInactive:textField];
+			[self saveRecord:nil];
+			[self setActiveCellByRow:-1];
+			break;
+		default:
+			[self.screenAdj viewBecameInactive:textField];
+			[self setActiveCellByRow:textField.tag+1];
+			break;
 	}
 }
 
-
-
-// Confirmation Dialogue
--(void)doConfirmDialogueWithTitle:(NSString*)title message:(NSString*)msg {
-	UIAlertView *confirm = [[UIAlertView alloc] init];
-	[confirm setTitle:title];
-	[confirm setMessage:msg];
-	[confirm setDelegate:self];
-	[confirm addButtonWithTitle:@"No"];
-	[confirm addButtonWithTitle:@"Yes"];
-	[confirm show];
+-(BOOL)isRowVisible:(int)row {
+	NSArray *indexes = [self.tableView indexPathsForVisibleRows];
+	for (NSIndexPath *index in indexes) {
+		if (index.row == row) {
+			return YES;
+		}
+	}
+	return NO;
 }
-*/
 
 @end
