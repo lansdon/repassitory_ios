@@ -46,4 +46,6 @@
 
 - (void) dismissMasterVC;
 
+-(void)togglePasswordVisibility;
+
 @end

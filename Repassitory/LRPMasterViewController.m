@@ -52,10 +52,9 @@
     self.view.backgroundColor = [UIColor clearColor];
 	
 	// New Record Button
-	UIBarButtonItem * barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(newRecord)];
+//	UIBarButtonItem * barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(newRecord)];
+	UIBarButtonItem * barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newRecord)];
 		[self.navigationItem setRightBarButtonItem:barButtonItem animated:YES];
-	
-	
 
 	appDelegate.mastervc_loaded = true;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"mastervc_did_load" object:nil];

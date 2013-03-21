@@ -537,7 +537,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="detailVC" title="Details" id="o9u-Aq-Old" customClass="LRPDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="5" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Wcq-Ud-Hqn">
-                        <rect key="frame" x="0.0" y="64" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -561,7 +561,7 @@
                                                     <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                                     <size key="shadowOffset" width="-1" height="-1"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Title>" textAlignment="center" minimumFontSize="36" translatesAutoresizingMaskIntoConstraints="NO" id="krA-Em-4Ia">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Title>" textAlignment="center" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="krA-Em-4Ia">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="GhX-dn-kkR"/>

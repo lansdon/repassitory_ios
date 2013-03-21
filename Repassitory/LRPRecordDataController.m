@@ -162,7 +162,7 @@
 	if([_fetchedResultsController fetchedObjects]) {
 		for(int i=0; i<[self countOfListInSection:0]; ++i) {
 			Record* fetchedObject = [_fetchedResultsController fetchedObjects][i];
-			NSLog(@"Testing fetched obj:%@ vs%@", fetchedObject.title, inRecord.title);
+//			NSLog(@"Testing fetched obj:%@ vs%@", fetchedObject.title, inRecord.title);
 			
 			if([[fetchedObject title]	isEqualToString:inRecord.title] &&
 			   [[fetchedObject username] isEqualToString:inRecord.username] &&

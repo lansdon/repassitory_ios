@@ -64,10 +64,11 @@
 		59A7094216A73FA300267021 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A7094116A73FA300267021 /* MainStoryboard-iPad.storyboard */; };
 		59A7094C16A74C8400267021 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 59A7094B16A74C8400267021 /* Record.m */; };
 		59C28EAD16EE1928005F1994 /* LRPScreenAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */; };
+		59C4DD6016FAA19300D1CC95 /* checkmark_45.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59C4DD5E16FAA19300D1CC95 /* checkmark_45.PNG */; };
+		59C4DD6116FAA19300D1CC95 /* checkmark_90.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59C4DD5F16FAA19300D1CC95 /* checkmark_90.PNG */; };
 		59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */; };
 		59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */; };
 		59FDD97616F51105000618DF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FDD97516F51105000618DF /* MBProgressHUD.m */; };
-		59FDD97816F541B8000618DF /* checkmark.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 59FDD97716F541B8000618DF /* checkmark.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,11 +169,12 @@
 		59A7094B16A74C8400267021 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		59C28EAB16EE1928005F1994 /* LRPScreenAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPScreenAdjust.h; sourceTree = "<group>"; };
 		59C28EAC16EE1928005F1994 /* LRPScreenAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPScreenAdjust.m; sourceTree = "<group>"; };
+		59C4DD5E16FAA19300D1CC95 /* checkmark_45.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_45.PNG; sourceTree = "<group>"; };
+		59C4DD5F16FAA19300D1CC95 /* checkmark_90.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_90.PNG; sourceTree = "<group>"; };
 		59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blk_btn dissolve.PNG"; sourceTree = "<group>"; };
 		59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blk_btn_red_glow.png; sourceTree = "<group>"; };
 		59FDD97416F51105000618DF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		59FDD97516F51105000618DF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		59FDD97716F541B8000618DF /* checkmark.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = checkmark.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,7 +280,8 @@
 		594F8A9D16D2245F007AF3F1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				59FDD97716F541B8000618DF /* checkmark.jpeg */,
+				59C4DD5E16FAA19300D1CC95 /* checkmark_45.PNG */,
+				59C4DD5F16FAA19300D1CC95 /* checkmark_90.PNG */,
 				59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */,
 				59D86C8716D731B400AF6CF7 /* blk_btn dissolve.PNG */,
 				5999FD0C16D6094800F61353 /* repassitory-icon_72.png */,
@@ -515,7 +518,8 @@
 				594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */,
 				59D86C8816D731B400AF6CF7 /* blk_btn dissolve.PNG in Resources */,
 				59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */,
-				59FDD97816F541B8000618DF /* checkmark.jpeg in Resources */,
+				59C4DD6016FAA19300D1CC95 /* checkmark_45.PNG in Resources */,
+				59C4DD6116FAA19300D1CC95 /* checkmark_90.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

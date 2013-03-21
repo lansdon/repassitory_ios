@@ -118,30 +118,22 @@
 {
 	[self reset];
 	
+	// Make invisible (off the screen) cells visible
 	if(self.tableView) {
-		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
 //		[self.tableView reloadData];
-		[view setNeedsDisplay];
+//		[view setNeedsDisplay];
 	}
 	
 	const float movementDuration = 0.3f; // tweak as needed
-//	LRPAppDelegate* appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-//	id topView = [self getTopViewForView:view];
-//	int screenHeight = self.view.frame.size.height;
-		
-//	NSLog(@"topview = %@", [topView class]);
-	
 	int targetHeight = [self getFocusHeight];    // center on view
-//	int currentHeight = self.currentView.frame.size.height;
-//	CGPoint convertedPoint = [view convertPoint:view.center toView:self.view];
 	CGPoint convertedPoint = [view convertPoint:view.center toView:self.view];
 	if(view.superview == self.view)
 		convertedPoint = view.center;
 	int viewHeightInWindow = convertedPoint.y;
 	int movement = targetHeight - viewHeightInWindow;
 	
-	NSLog(@"scrn_adj - targetHeight = %d, viewHeight=%d, movement=%d", targetHeight, viewHeightInWindow, movement);
-
+//	NSLog(@"scrn_adj - targetHeight = %d, viewHeight=%d, movement=%d", targetHeight, viewHeightInWindow, movement);
 	
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 
@@ -167,22 +159,9 @@
  - iphone landscape - center @ 25% height?
  */
 -(int)getFocusHeight {
-	const float DEF_HEIGHT_PERC = 0.35;   // 25% of screen height
+	const float DEF_HEIGHT_PERC = 0.35;   // % of screen height
 	int screenHeight = self.view.bounds.size.height;
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	if(UIDeviceOrientationIsLandscape(orientation)) {
-//		int screenHeight = self.view.frame.size.width;
-	}
-	return screenHeight * DEF_HEIGHT_PERC;
-	
-/*
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-		return true;
-	}
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-		return true;
-	}
-*/
+	return screenHeight * DEF_HEIGHT_PERC;	
 }
 
 // Set screen position back to default location

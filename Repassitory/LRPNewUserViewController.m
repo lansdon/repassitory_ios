@@ -40,16 +40,7 @@
     [super viewDidLoad];
 	
 	self.appDelegate = (LRPAppDelegate*)[[UIApplication sharedApplication] delegate];
-/*
-    self.securityQuestions = [[NSArray alloc]
-                              initWithObjects:
-							  @"<Choose a question>",
-							  @"What's your favorite pet's name?",
-                              @"What city were you born in?",
-                              @"How many fingers am I holding up?",
-                              @"What's your favorite number?",
-                              @"How many digits of PI can you recite?", nil];
-*/    
+
     // opaque background exposes window image
     self.view.backgroundColor = [UIColor clearColor];
 	
@@ -69,11 +60,6 @@
     usernameOK = NO;
     passwordOK = NO;
     password2OK = NO;
-//	securityQuestionOK = NO;
-//	securityAnswerOK = NO;
-
-//	securityQuestionIndex = 0;
-
 	
 	[self validatePassword2:nil];
     [self updateSaveButton];
@@ -93,20 +79,29 @@
 #pragma mark - User functions
 // Save button pressed
 -(IBAction)saveUser:(id)sender {
-    LRPUser* newUser = [[LRPUser alloc] initWithName:[self.usernameInput text] password:[self.passwordInput text]];
+    if(usernameOK && passwordOK && password2OK) { // &&
+		LRPUser* newUser = [[LRPUser alloc] initWithName:[self.usernameInput text] password:[self.passwordInput text]];
 	
-     if([CoreDataHelper createNewUserFromObject:newUser]) {
-         // login after creation
-		 [self loginUser:newUser];
-	 } else {
-     
-         // ERROR CREATING USER - todo: send error message
-		 MBAlertView *alert = [MBAlertView alertWithBody:@"Error creating user account." cancelTitle:@"OK" cancelBlock:nil];
-		 alert.bodyFont = [appDelegate alertFontTitle];
-		 [alert addToDisplayQueue];
+		 if([CoreDataHelper createNewUserFromObject:newUser]) {
+			 // login after creation
+			 [self loginUser:newUser];
+		 } else {
+		 
+			 // ERROR CREATING USER - todo: send error message
+			 MBAlertView *alert = [MBAlertView alertWithBody:@"Error creating user account." cancelTitle:@"OK" cancelBlock:nil];
+			 alert.bodyFont = [appDelegate alertFontTitle];
+			 [alert addToDisplayQueue];
 
-		 NSLog(@"Error - Failed to create new user");
-     }
+			 NSLog(@"Error - Failed to create new user");
+		 }
+	} else {
+		// ERROR CREATING USER - todo: send error message
+		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid fields!" cancelTitle:@"OK" cancelBlock:nil];
+		alert.bodyFont = [appDelegate alertFontTitle];
+		[alert addToDisplayQueue];
+		
+		NSLog(@"Error - Failed to create new user(invalid fields)");		
+	}
 }
 
 -(bool)loginUser:(LRPUser*)user {
@@ -267,11 +262,11 @@
 #pragma mark - Update
 -(void)updateSaveButton {
     if(usernameOK && passwordOK && password2OK) { // && securityAnswerOK && securityQuestionOK) {
-//        [self.saveButton rightBarButtonItem].alpha = 1.0;
-//        self.saveButton.enabled = YES;
+        self.navigationController.navigationItem.rightBarButtonItem.enabled = true;
+//        self.navigationController.navigationItem.rightBarButtonItem. = 1.0;
     } else {
-//        self.saveButton.alpha = 0.4;
-//        self.saveButton.enabled = NO;
+        self.navigationController.navigationItem.rightBarButtonItem.enabled = false;
+//        [self.navigationController.navigationItem.rightBarButtonItem].alpha = 0.4;
     }
 }
 

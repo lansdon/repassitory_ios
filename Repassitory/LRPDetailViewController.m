@@ -97,6 +97,20 @@
 
 	self.editingExistingRecord = NO;
 	
+	
+	// Create and initialize a tap gesture
+	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+			initWithTarget:self
+			action:@selector(togglePasswordVisibility)];
+	
+	// Specify that the gesture must be a single tap
+	tapRecognizer.numberOfTapsRequired = 1;
+	
+	// Add the tap gesture recognizer to the view
+	[self.passwordTextField.superview addGestureRecognizer:tapRecognizer];
+
+	
+	
     [self configureView];
     
     // opaque background exposes window image
@@ -126,24 +140,9 @@
 }
 
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-//    if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
-        //self.view = portraitView;
-//        [self changeTheViewToPortrait:YES andDuration:duration];
-		
-//    }
-//	if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
-        //self.view = landscapeView;
-//        [self.tableView reloadData];
-/*
-		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
-		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
-		[self.tableView setNeedsDisplay];
-    }
- */
+-(void)togglePasswordVisibility {
+	passwordTextField.secureTextEntry = !passwordTextField.secureTextEntry;
 }
-
 
 #pragma mark - Split view
 -(void) updateRecordVaultLabel {
@@ -289,6 +288,7 @@
 			urlTextField.text = @"";
 			dateLabel.text = @"";
 			notesTextField.text = @"";
+			[titleTextField becomeFirstResponder];
 			break;
 			
 		case STATE_DISPLAY:
@@ -300,6 +300,10 @@
 			urlTextField.text = appDelegate.currentRecord.url;
 			dateLabel.text = [appDelegate.currentRecord getUpdateAsString];
 			notesTextField.text = appDelegate.currentRecord.notes;
+			
+			// security on password
+			passwordTextField.secureTextEntry = true;
+			
 			[self.tableView reloadData];
 			
 			[self disableInputFields];
@@ -427,8 +431,6 @@
 		};
 		
 		void(^saveCompletionBlock)(void) = ^{
-//			[appDelegate.masterVC reloadData];
-	//		[self displayMasterVC];
 			
 			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
 			
@@ -441,7 +443,7 @@
 			hud.labelFont = appDelegate.alertFontTitle;
 			hud.detailsLabelFont = appDelegate.alertFontBody;
 			hud.minShowTime = 1.0;
-			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.jpeg"]];
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.png"]];
 			hud.dimBackground = true;
 			[hud hide:YES afterDelay:1.0];
 
@@ -450,7 +452,7 @@
 		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 		hud.mode = MBProgressHUDModeIndeterminate;
 		hud.labelText = [NSString stringWithFormat:@"Saving %@", self.titleTextField.text];
-		hud.labelFont = appDelegate.alertFontBody;
+		hud.labelFont = appDelegate.alertFontTitle;
 		hud.minShowTime = 1.0;
 		hud.dimBackground = true;
 		[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
@@ -543,7 +545,7 @@
 		case 3:
 			if(![self isRowVisible:4]) {
 //				if([LRPAppState isIphone]) {
-					[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:true];
+					[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
 //					[self.tableView setNeedsDisplay];
 //				}
 			} else {
