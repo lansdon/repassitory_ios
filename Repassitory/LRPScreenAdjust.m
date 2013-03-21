@@ -76,7 +76,6 @@
 			[self reset];
 		}
 	}
-	
 }
 
 
@@ -133,7 +132,7 @@
 	int viewHeightInWindow = convertedPoint.y;
 	int movement = targetHeight - viewHeightInWindow;
 	
-//	NSLog(@"scrn_adj - targetHeight = %d, viewHeight=%d, movement=%d", targetHeight, viewHeightInWindow, movement);
+	NSLog(@"scrn_adj - targetHeight = %d, viewHeight=%d, movement=%d", targetHeight, viewHeightInWindow, movement);
 	
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 

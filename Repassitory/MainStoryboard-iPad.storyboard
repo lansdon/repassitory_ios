@@ -854,7 +854,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="bZU-8m-ukd" kind="push" id="7Vp-2n-hDa"/>
+                                                        <segue destination="bZU-8m-ukd" kind="push" identifier="startToLogin" id="7Vp-2n-hDa"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

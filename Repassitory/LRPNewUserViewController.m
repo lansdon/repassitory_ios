@@ -297,11 +297,32 @@
 		[alert addButtonWithText:@"Save" type:MBAlertViewItemTypePositive block:^{
 			[self saveUser:nil];
 		}];
-        alert.size = CGSizeMake(275, 175);
+//        alert.size = CGSizeMake(275, 175);
 		
 		[alert addToDisplayQueue];
 	}
-
+	
+	// INPUT INCOMPLETE
+	else {
+		if(textField.tag == 2 ||
+		   (textField.tag == 1 && !passwordOK) ) {
+			MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
+			alert.bodyFont = appDelegate.alertFontBody;
+			[alert addToDisplayQueue];
+		}
+		/*
+		// No first responder - send error and set invalid field to first responder
+		if(!([self.usernameInput isFirstResponder] || [self.passwordInput isFirstResponder] || [self.password2Input isFirstResponder]) ) {
+			MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:^{
+				if(!usernameOK) [self.usernameInput becomeFirstResponder];
+				else if(!passwordOK) [self.passwordInput becomeFirstResponder];
+				else if(!password2OK) [self.password2Input becomeFirstResponder];
+			}];
+			alert.bodyFont = appDelegate.alertFontBody;
+			[alert addToDisplayQueue];
+		}
+		 */
+	}
 }
 
 

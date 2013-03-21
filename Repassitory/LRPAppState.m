@@ -25,7 +25,7 @@
 #pragma mark - Version
 // PROGRAM VERSION
 +(NSString*) getVersion {
-	return @"0.8.0";
+	return @"0.8.1";
 }
 
 
@@ -49,7 +49,7 @@
 	MBAlertView *alert = [MBAlertView alertWithBody:aboutMsg cancelTitle:@"OK" cancelBlock:nil];
 	
 	if([self isIphone]) {
-		alert.bodyFont = [UIFont systemFontOfSize:15];
+		alert.bodyFont = [UIFont systemFontOfSize:14];
 	} else {
 		
 	}

@@ -115,15 +115,15 @@
 		[appDelegate openRecords];
 		
 	} else { // ERROR CREATING USER
-		[LRPAppState reset];		
+		[LRPAppState reset];
 		
 		MBAlertView *alert = [MBAlertView alertWithBody:@"Invalid username/password. Please try again." cancelTitle:@"OK" cancelBlock:nil];
-        alert.size = CGSizeMake(275, 175);
+//        alert.size = CGSizeMake(275, 175);
 		alert.bodyFont = appDelegate.alertFontTitle;
 		[alert addToDisplayQueue];
 		
 		[passwordField setText:@""];
-		[passwordField becomeFirstResponder];	
+//		[passwordField becomeFirstResponder];
 		NSLog(@"Error - Login attempt failed for %@", [usernameField text]);	
 	}
 }
@@ -132,25 +132,32 @@
 //  When we are done editing on the keyboard
 - (IBAction)resignAndLogin:(id)sender
 {
-	//  Get a reference to the text field on which the done button was pressed
-    UITextField *tf = (UITextField *)sender;
+	if([sender isMemberOfClass:[UITextField class]]) {
+		//  Get a reference to the text field on which the done button was pressed
+		UITextField *tf = (UITextField *)sender;
 
-	// Screen shift
-	[self.screenAdj viewBecameInactive:tf];
-    
-    //  Check the tag. If this is the username field, then jump to the password field automatically
-    if (tf.tag == 0) {
-        [passwordField becomeFirstResponder];
+		// Screen shift
+		[self.screenAdj viewBecameInactive:tf];
+		
+		//  Check the tag. If this is the username field, then jump to the password field automatically
+		if (tf.tag == 0) {
+			[passwordField becomeFirstResponder];
 
-    //  Otherwise we pressed done on the password field, and want to attempt login
-    } else {
-        //  First put away the keyboard
-		if([usernameField isFirstResponder]) {
-			[usernameField resignFirstResponder];
-		} else if([passwordField isFirstResponder]) {
-			[passwordField resignFirstResponder];
+		//  Otherwise we pressed done on the password field, and want to attempt login
+		} else {
+			//  First put away the keyboard
+			if([usernameField isFirstResponder]) {
+				[usernameField resignFirstResponder];
+			} else if([passwordField isFirstResponder]) {
+				[passwordField resignFirstResponder];
+			}
+			[self loginUser];
 		}
-        [self loginUser];
+	} else {
+		// dismiss keyboard
+		if([usernameField isFirstResponder]) [usernameField resignFirstResponder];
+		if([passwordField isFirstResponder]) [passwordField resignFirstResponder];
+		[self loginUser];
 	}
 }
 

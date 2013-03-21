@@ -29,6 +29,7 @@
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="&lt;Enter Password>" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CXj-ZZ-UpN">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="261" id="dmY-KX-vkl"/>
                                     <constraint firstAttribute="height" constant="49" id="rSI-MX-dyB"/>
                                 </constraints>
                                 <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -43,10 +44,10 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3U-mk-93a">
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="265" id="Nb2-GY-DC2"/>
-                                    <constraint firstAttribute="height" constant="50" id="tGm-4B-9NL"/>
+                                    <constraint firstAttribute="width" constant="184" id="6ry-Vr-uYp"/>
+                                    <constraint firstAttribute="height" constant="37" id="yRM-rs-HTz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="48"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -55,10 +56,10 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbH-k5-bGO">
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="BES-uc-tRb"/>
-                                    <constraint firstAttribute="width" constant="261" id="LiR-gW-AiB"/>
+                                    <constraint firstAttribute="height" constant="36" id="o4q-pW-lQB"/>
+                                    <constraint firstAttribute="width" constant="193" id="rsS-1c-PPy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="48"/>
+                                <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -66,15 +67,14 @@
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="t3U-mk-93a" firstAttribute="centerX" secondItem="2h2-RE-qav" secondAttribute="centerX" type="default" id="5DX-O8-RO9"/>
-                            <constraint firstItem="4ZD-eH-i6N" firstAttribute="top" secondItem="t3U-mk-93a" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="6g1-mQ-Fmq"/>
-                            <constraint firstItem="CXj-ZZ-UpN" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" constant="179" id="Oc0-Wy-BQ5"/>
-                            <constraint firstItem="4ZD-eH-i6N" firstAttribute="centerX" secondItem="lbH-k5-bGO" secondAttribute="centerX" type="default" id="cKn-QO-9TT"/>
-                            <constraint firstItem="lbH-k5-bGO" firstAttribute="top" secondItem="4ZD-eH-i6N" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fAn-74-WZe"/>
-                            <constraint firstItem="CXj-ZZ-UpN" firstAttribute="leading" secondItem="lbH-k5-bGO" secondAttribute="leading" type="default" id="h1V-BZ-Spx"/>
-                            <constraint firstItem="lbH-k5-bGO" firstAttribute="trailing" secondItem="CXj-ZZ-UpN" secondAttribute="trailing" type="default" id="kwh-BA-FCm"/>
-                            <constraint firstItem="t3U-mk-93a" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" type="default" id="rNc-pd-KWy"/>
-                            <constraint firstItem="4ZD-eH-i6N" firstAttribute="centerX" secondItem="t3U-mk-93a" secondAttribute="centerX" type="default" id="xix-HU-q3h"/>
+                            <constraint firstItem="t3U-mk-93a" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" constant="20" symbolic="YES" type="default" id="8hE-kl-gMX"/>
+                            <constraint firstItem="lbH-k5-bGO" firstAttribute="centerX" secondItem="2h2-RE-qav" secondAttribute="centerX" type="default" id="HHB-ZL-ciI"/>
+                            <constraint firstItem="CXj-ZZ-UpN" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" constant="167" id="IOH-N3-E7Z"/>
+                            <constraint firstItem="4ZD-eH-i6N" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" constant="58" id="WEq-4z-DUp"/>
+                            <constraint firstItem="lbH-k5-bGO" firstAttribute="centerX" secondItem="CXj-ZZ-UpN" secondAttribute="centerX" type="default" id="oZH-08-qhY"/>
+                            <constraint firstItem="lbH-k5-bGO" firstAttribute="centerX" secondItem="4ZD-eH-i6N" secondAttribute="centerX" type="default" id="qUc-MB-zPu"/>
+                            <constraint firstItem="t3U-mk-93a" firstAttribute="centerX" secondItem="4ZD-eH-i6N" secondAttribute="centerX" type="default" id="rEx-pJ-CKF"/>
+                            <constraint firstItem="lbH-k5-bGO" firstAttribute="top" secondItem="2h2-RE-qav" secondAttribute="top" constant="131" id="wmq-jQ-OaU"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -302,20 +302,11 @@
                         <sections>
                             <tableViewSection id="BsJ-4b-P8J">
                                 <cells>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="33" id="yGW-n4-PnZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="91" id="fkc-qL-DYq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="62" id="fkc-qL-DYq">
-                                        <rect key="frame" x="0.0" y="33" width="320" height="62"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="REPASSITORY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44s-BQ-72w">
@@ -337,34 +328,8 @@
                                             <constraint firstItem="44s-BQ-72w" firstAttribute="leading" secondItem="fkc-qL-DYq" secondAttribute="leading" type="default" id="uYd-dI-IWO"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="141" id="5ec-bo-EF9">
-                                        <rect key="frame" x="0.0" y="95" width="320" height="141"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="YOUR PERSONAL PASSWORD REPOSITORY" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="275" translatesAutoresizingMaskIntoConstraints="NO" id="OZ1-KC-Uld">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="275" id="Adg-RY-Uqb"/>
-                                                        <constraint firstAttribute="height" constant="115" id="vjO-h6-zrn"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="29"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
-                                                    <size key="shadowOffset" width="-2" height="-2"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="OZ1-KC-Uld" firstAttribute="top" secondItem="5ec-bo-EF9" secondAttribute="top" constant="12" id="Dly-H9-wLR"/>
-                                            <constraint firstItem="OZ1-KC-Uld" firstAttribute="centerX" secondItem="5ec-bo-EF9" secondAttribute="centerX" type="default" id="Qdq-3o-nVN"/>
-                                        </constraints>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="66" id="kmo-gU-vZP">
-                                        <rect key="frame" x="0.0" y="236" width="320" height="66"/>
+                                        <rect key="frame" x="0.0" y="91" width="320" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -373,7 +338,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvW-R2-Yio">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="CW7-5W-O4W"/>
-                                                        <constraint firstAttribute="width" constant="309" id="ilT-7c-21L"/>
+                                                        <constraint firstAttribute="width" constant="226" id="jfV-aP-6DW"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="36"/>
                                                     <state key="normal" title="NEW USER" backgroundImage="blk_btn_red_glow.png">
@@ -392,11 +357,11 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="EvW-R2-Yio" firstAttribute="centerY" secondItem="kmo-gU-vZP" secondAttribute="centerY" type="default" id="Hdh-Vp-5Pr"/>
-                                            <constraint firstItem="EvW-R2-Yio" firstAttribute="centerX" secondItem="kmo-gU-vZP" secondAttribute="centerX" type="default" id="KIJ-kH-N4B"/>
+                                            <constraint firstItem="EvW-R2-Yio" firstAttribute="centerX" secondItem="kmo-gU-vZP" secondAttribute="centerX" type="default" id="oxg-d8-eU0"/>
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="68" id="PVk-6v-eRg">
-                                        <rect key="frame" x="0.0" y="302" width="320" height="68"/>
+                                        <rect key="frame" x="0.0" y="157" width="320" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
@@ -404,8 +369,8 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlN-Ud-ut5">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="309" id="CVS-0x-7mZ"/>
                                                         <constraint firstAttribute="height" constant="55" id="Ss8-au-raQ"/>
+                                                        <constraint firstAttribute="width" constant="226" id="aVf-ke-DCc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate-Bold" family="Copperplate" pointSize="36"/>
                                                     <state key="normal" title="LOGIN" backgroundImage="blk_btn_red_glow.png">
@@ -424,7 +389,33 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="vlN-Ud-ut5" firstAttribute="top" secondItem="PVk-6v-eRg" secondAttribute="top" constant="6" id="DIa-pO-qZT"/>
-                                            <constraint firstItem="vlN-Ud-ut5" firstAttribute="centerX" secondItem="PVk-6v-eRg" secondAttribute="centerX" type="default" id="XnX-Lu-DBH"/>
+                                            <constraint firstItem="vlN-Ud-ut5" firstAttribute="centerX" secondItem="PVk-6v-eRg" secondAttribute="centerX" type="default" id="gKT-uR-jTk"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="197" id="5ec-bo-EF9">
+                                        <rect key="frame" x="0.0" y="225" width="320" height="197"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="196"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="YOUR PERSONAL PASSWORD REPOSITORY" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="275" translatesAutoresizingMaskIntoConstraints="NO" id="OZ1-KC-Uld">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="275" id="Adg-RY-Uqb"/>
+                                                        <constraint firstAttribute="height" constant="115" id="vjO-h6-zrn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="29"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
+                                                    <size key="shadowOffset" width="-2" height="-2"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="OZ1-KC-Uld" firstAttribute="top" secondItem="5ec-bo-EF9" secondAttribute="top" constant="40" id="BaQ-JZ-iZ8"/>
+                                            <constraint firstItem="OZ1-KC-Uld" firstAttribute="centerX" secondItem="5ec-bo-EF9" secondAttribute="centerX" type="default" id="Qdq-3o-nVN"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -829,6 +820,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3JH-9h-mI1"/>
+        <segue reference="DoM-8B-dO7"/>
     </inferredMetricsTieBreakers>
 </document>

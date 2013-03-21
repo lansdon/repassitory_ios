@@ -425,14 +425,20 @@
 				// Save local record to core data
 				[appDelegate.masterVC.dataController addRecord:record];
 				
-				// Update button states
-				[self setState:STATE_DISPLAY];
+			}
+
+			// Update button states
+			[self setState:STATE_DISPLAY];
+			// update nav bar title
+			if([LRPAppState isIphone]) {
+				self.navBar.title = [appDelegate currentRecord].title;
 			}
 		};
 		
 		void(^saveCompletionBlock)(void) = ^{
 			
 			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
+			[self updateRecordVaultLabel];
 			
 			// *** Second alert for success message
 			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
@@ -443,7 +449,7 @@
 			hud.labelFont = appDelegate.alertFontTitle;
 			hud.detailsLabelFont = appDelegate.alertFontBody;
 			hud.minShowTime = 1.0;
-			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.png"]];
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.PNG"]];
 			hud.dimBackground = true;
 			[hud hide:YES afterDelay:1.0];
 

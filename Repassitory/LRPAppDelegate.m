@@ -75,8 +75,7 @@
 		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad" bundle: nil];
 		if(!self.loginNavC) {
 			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
-		}
-		
+		}		
 		if(!self.loginVC) {
 			self.loginVC = (LRPLoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginVC"];
 		}
@@ -119,10 +118,13 @@
     self.currentRecord = nil;
 	self.userLoaded = false;
 	
-	_splitVC = nil;
-	_phoneRecordsNav = nil;
+//	self.loginNavC = nil;
+//	self.loginVC = nil;
+//	self.splitVC = nil;
+//	_phoneRecordsNav = nil;
 	_masterVC = nil;	// required to trigger reloading of records
-
+//	_detailVC = nil;
+	
 	[self.window setRootViewController:nil];
 
 }
@@ -180,7 +182,6 @@
 		self.alertFontBody = [UIFont fontWithName:@"Copperplate" size:36];
 
 		UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard-iPad" bundle: nil];
-
 		if(!self.loginNavC) {
 			self.loginNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"loginNavController"];
 		}
@@ -189,7 +190,8 @@
 		}
 		if(!self.splitVC) {
 			self.splitVC = (LRPSplitViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"splitVC"];
-		}		
+		}
+		
         UINavigationController *navigationController = [_splitVC.viewControllers lastObject];
         _splitVC.delegate = (id)navigationController.topViewController;
 		
