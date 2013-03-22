@@ -101,9 +101,6 @@
     [CoreDataHelper saveContext];
 	
 	((LRPAppDelegate*)[[UIApplication sharedApplication] delegate]).currentRecord = (Record*)cdNewRecord;
-//	[self loadUserRecordsFromContext];
-		
-//	[self setCheckmarkForNewRecord:YES];
 }
 
 
@@ -230,6 +227,9 @@
 			// scroll to new record
 			[self.masterVC.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:false];
 
+			// unselect selected record
+			[[self.masterVC.tableView cellForRowAtIndexPath:[self.masterVC.tableView indexPathForSelectedRow] ] setSelected:false];
+			
 			// Highlight and checkmark
 			self.lastNewRecordCell = [self.masterVC.tableView cellForRowAtIndexPath:indexPath];
 			if(self.lastNewRecordCell) {

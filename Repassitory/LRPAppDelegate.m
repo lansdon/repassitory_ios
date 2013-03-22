@@ -17,6 +17,7 @@
 #import "CoreDataHelper.h"
 #import "LRPAppState.h"
 #import "MBProgressHUD.h"
+#import "MBAlertView.h"
 
 
 @interface LRPAppDelegate ()
@@ -101,12 +102,15 @@
 
 
 - (void)applicationUnload {
-	// Remove views (we want to always come back on the login screen)
-//	for(int i = [[[self window] subviews] count]; i > 0; --i) {
-//		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
-//	}
-//	[self.alertQueue unload];
-//	self.alertQueue = nil;
+	// clear any alerts
+	while([MBAlertView alertIsVisible]) {
+		[MBAlertView dismissCurrentHUD];
+	}
+	
+	// remove old views
+	for(int i = [[[self window] subviews] count]; i > 0; --i) {
+		[[[[self window ] subviews] objectAtIndex:i-1] removeFromSuperview];
+	}
 	
 	// Set login view controller to top level view
 	[self.loginNavC popToRootViewControllerAnimated:YES];
@@ -198,8 +202,8 @@
 	}
 	
 	// Load Login first
-//	[self.loginNavC popToRootViewControllerAnimated:YES];
     [self.window setRootViewController:self.loginNavC];
+	[self.loginNavC popToRootViewControllerAnimated:YES];
 	
     // Start orientation calls
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];

@@ -66,6 +66,11 @@
 {
 	[super viewWillAppear:animated];
 	
+	// hide toolbar (iphone only)
+	if([LRPAppState isIphone]) {
+		[self.navigationController setToolbarHidden:YES animated:NO];
+	}
+	
     // register self with SplitVC
     appDelegate.splitVC = (LRPSplitViewController *)self.splitViewController;
 		appDelegate.masterVC = self;
@@ -75,16 +80,11 @@
         self.dataController = [[LRPRecordDataController alloc] initWithMasterVC:self];
     }
 
-//    [self reloadData];
-//	[self.dataController setCheckmarkForNewRecord:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-//	if(![self.dataController.lastNewRecord.title isEqualToString:@""]) {
-//		[self.dataController setCheckmarkForNewRecord:YES];
-//	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

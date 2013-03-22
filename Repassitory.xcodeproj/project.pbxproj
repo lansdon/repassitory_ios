@@ -12,6 +12,8 @@
 		5924735A16AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5924735616AD3FA800A8DD14 /* MainStoryboard-iPhone.storyboard */; };
 		5938C39616AD437700C2EBDE /* LRPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39016AD437700C2EBDE /* LRPDetailViewController.m */; };
 		5938C39816AD437700C2EBDE /* LRPRecordDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5938C39416AD437700C2EBDE /* LRPRecordDataController.m */; };
+		59430F8E16FBC3BF00805C2C /* repassitory-icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */; };
+		59430F9016FBC3F000805C2C /* repassitory-icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */; };
 		5945FD2316F5E98600476371 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5945FD2216F5E98600476371 /* QuartzCore.framework */; };
 		5945FD2816F5EC1000476371 /* MBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD2516F5EC1000476371 /* MBAlertView.m */; };
 		5945FD2916F5EC1000476371 /* MBHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5945FD2716F5EC1000476371 /* MBHUDView.m */; };
@@ -81,6 +83,8 @@
 		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
 		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
 		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
+		59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_57.png"; sourceTree = "<group>"; };
+		59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_114.png"; sourceTree = "<group>"; };
 		5945FD2216F5E98600476371 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5945FD2416F5EC1000476371 /* MBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertView.h; sourceTree = "<group>"; };
 		5945FD2516F5EC1000476371 /* MBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertView.m; sourceTree = "<group>"; };
@@ -301,6 +305,8 @@
 		59A7090A16A73E0500267021 = {
 			isa = PBXGroup;
 			children = (
+				59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */,
+				59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */,
 				59A7092116A73E0500267021 /* Repassitory */,
 				59A7092216A73E0500267021 /* Supporting Files */,
 				59A7091816A73E0500267021 /* Frameworks */,
@@ -520,6 +526,8 @@
 				59D86C8A16D734D400AF6CF7 /* blk_btn_red_glow.png in Resources */,
 				59C4DD6016FAA19300D1CC95 /* checkmark_45.PNG in Resources */,
 				59C4DD6116FAA19300D1CC95 /* checkmark_90.PNG in Resources */,
+				59430F8E16FBC3BF00805C2C /* repassitory-icon_57.png in Resources */,
+				59430F9016FBC3F000805C2C /* repassitory-icon_114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +649,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -653,6 +662,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Repassitory/Repassitory-Prefix.pch";
 				INFOPLIST_FILE = "Repassitory/Repassitory-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

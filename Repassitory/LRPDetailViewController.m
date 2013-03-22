@@ -50,6 +50,11 @@
 
 - (void)configureView
 {
+	// hide toolbar (iphone only)
+	if([LRPAppState isIphone]) {
+		[self.navigationController setToolbarHidden:NO animated:YES];
+	}
+	
     // Current User Label
     if ( [LRPAppState checkForUser] ) {
 		NSString* greeting = [NSString alloc];
@@ -89,15 +94,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-//	if(!record) record = [LRPRecord alloc];
-
+	
 	// Register with delegate
 	appDelegate = [(LRPAppDelegate*)[[UIApplication sharedApplication] delegate] registerViewController:self];
 
 	self.editingExistingRecord = NO;
-	
-	
+		
 	// Create and initialize a tap gesture
 	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
 			initWithTarget:self
@@ -181,28 +183,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{
-//	if(!appDelegate.currentRecord) {
-//		self.record = [LRPRecord alloc];
-//	}
-	
-//	[self.record clear];
-		
+{		
     [self configureView];
 }
 
-
-
-/*
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"DoLoginSegue"]) {
-        // Set managed object on Split View
-        LRPLoginViewController* loginVC = [segue destinationViewController];
-        loginVC.splitVC = self.splitVC;
-    }
-}
-*/
 
 
 
@@ -368,22 +352,22 @@
 
 
 #pragma mark - Database / Records
--(IBAction) saveRecord:(id)sender {
-	
+
+-(IBAction)saveRecord:(id)sender {
 	// Validation - Don't allow empty titles or duplicate titles
 	if( ([titleTextField.text isEqualToString:@""]) || ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text] && !self.editingExistingRecord) ) {
 		NSString* errorTitle = [[NSString alloc] init];
 		NSString* errorBody = [[NSString alloc] init];
-
+		
 		if([titleTextField.text isEqualToString:@""]) {
 			errorTitle = @"Error";
 			errorBody = @"You must enter a title.";
 		}
-		   
-	   else if([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text]) {
-		   errorTitle = @"Error";
-		   errorBody = @"That title has been taken";
-	   }
+		
+		else if([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text]) {
+			errorTitle = @"Error";
+			errorBody = @"That title has been taken";
+		}
 		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 		hud.mode = MBProgressHUDModeText;
 		hud.labelText = errorTitle;
@@ -393,76 +377,107 @@
 		hud.minShowTime = 1.0;
 		hud.dimBackground = true;
 		[hud hide:YES afterDelay:1.0];
-
-	}
+		
+	} // end validation/error
 	
 	// SAVE RECORD
 	else {
-		/*
-			Setup blocks to pass to alert buttons
-		 */
+		// new alert with confirmation (instead of progress)
+		MBAlertView *alert = [MBAlertView alertWithBody:@"Save this record?" cancelTitle:@"Cancel" cancelBlock:nil];
+		[alert addButtonWithText:@"Save" type:MBAlertViewItemTypePositive block:^{
+			[self saveRecordConfirmed];
+		}];
 		
-		//Save record to coredata
-		void(^saveBlock)(void) = ^{
-			// create record using input fields
-			LRPRecord* record = [LRPRecord alloc];
-			record = [record initWithTitle:titleTextField.text
-								  username:usernameTextField.text
-								  password:passwordTextField.text
-									   url:urlTextField.text
-									 notes:notesTextField.text];
+		//	alert.size = CGSizeMake(250, 215);
+		alert.bodyFont = appDelegate.alertFontTitle;
+		[alert addToDisplayQueue];
+	}
+}
 
-			// Updating existing Record
-			if(self.editingExistingRecord) {
-				[appDelegate.masterVC.dataController updateCurrentRecord:record];				
-			}
-			
-			// Saving New Record
-			else {
-				
-				// Clear previous record checkmarks
-				[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
-				// Save local record to core data
-				[appDelegate.masterVC.dataController addRecord:record];
-				
-			}
+-(void) saveRecordConfirmed {
+	
+	/*
+		Setup blocks to pass to alert buttons
+	 */
 
-			// Update button states
-			[self setState:STATE_DISPLAY];
-			// update nav bar title
-			if([LRPAppState isIphone]) {
-				self.navBar.title = [appDelegate currentRecord].title;
-			}
-		};
+	
+	void(^saveCompletionBlock)(void) = ^{
 		
-		void(^saveCompletionBlock)(void) = ^{
-			
-			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
-			[self updateRecordVaultLabel];
-			
-			// *** Second alert for success message
-			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-			hud.mode = MBProgressHUDModeCustomView;
-			hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
-			hud.detailsLabelText = @"Success!";
-			
-			hud.labelFont = appDelegate.alertFontTitle;
-			hud.detailsLabelFont = appDelegate.alertFontBody;
-			hud.minShowTime = 1.0;
-			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.PNG"]];
-			hud.dimBackground = true;
-			[hud hide:YES afterDelay:1.0];
-
-		};
-				
-		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-		hud.mode = MBProgressHUDModeIndeterminate;
-		hud.labelText = [NSString stringWithFormat:@"Saving %@", self.titleTextField.text];
+		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
+		[self updateRecordVaultLabel];
+		
+		// *** Second alert for success message
+		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+		hud.mode = MBProgressHUDModeCustomView;
+		hud.labelText = [NSString stringWithFormat:@"Saving %@", appDelegate.currentRecord.title];
+		hud.detailsLabelText = @"Success!";
+		
 		hud.labelFont = appDelegate.alertFontTitle;
+		hud.detailsLabelFont = appDelegate.alertFontBody;
 		hud.minShowTime = 1.0;
+		hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.PNG"]];
 		hud.dimBackground = true;
-		[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
-	} // end save
+		[hud hide:YES afterDelay:1.0];
+		
+	};
+
+	//Save record to coredata
+	void(^saveBlock)(void) = ^{
+		// create record using input fields
+		LRPRecord* record = [LRPRecord alloc];
+		record = [record initWithTitle:titleTextField.text
+							  username:usernameTextField.text
+							  password:passwordTextField.text
+								   url:urlTextField.text
+								 notes:notesTextField.text];
+
+		// Updating existing Record
+		if(self.editingExistingRecord) {
+			[appDelegate.masterVC.dataController updateCurrentRecord:record];				
+		}
+		
+		// Saving New Record
+		else {
+			
+			// Clear previous record checkmarks
+			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
+			// Save local record to core data
+			[appDelegate.masterVC.dataController addRecord:record];
+			
+		}
+
+		// Update button states
+		[self setState:STATE_DISPLAY];
+		// update nav bar title
+		if([LRPAppState isIphone]) {
+			self.navBar.title = [appDelegate currentRecord].title;
+		}
+		
+	};
+		
+
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeIndeterminate;
+	hud.labelText = [NSString stringWithFormat:@"Saving %@", self.titleTextField.text];
+	hud.labelFont = appDelegate.alertFontTitle;
+	hud.minShowTime = 1.0;
+	hud.dimBackground = true;
+	hud.graceTime = 1.0;
+	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
+
+	
+		
+
+/*
+		dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+			saveBlock;
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				saveCompletionBlock;
+			});
+		});
+*/
+
 }
 
 // Manually opens master view controller
