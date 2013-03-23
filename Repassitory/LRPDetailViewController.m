@@ -108,18 +108,8 @@
 
 	self.editingExistingRecord = NO;
 		
-	// Create and initialize a tap gesture
-	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-			initWithTarget:self
-			action:@selector(togglePasswordVisibility)];
-	
-	// Specify that the gesture must be a single tap
-	tapRecognizer.numberOfTapsRequired = 1;
-	
-	// Add the tap gesture recognizer to the view
-	[self.passwordTextField.superview addGestureRecognizer:tapRecognizer];
-
-	
+	// Setup Tap Gestures
+	[self configureTapGestures];
 	
     [self configureView];
     
@@ -144,7 +134,6 @@
 }
 
 
-
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -154,6 +143,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
+	
+	[self configureTapGestures];
 	
 	if(currentState == STATE_CREATE || [LRPAppState isIphone]) {
 		[titleTextField becomeFirstResponder];
@@ -170,6 +161,77 @@
 }
 
 
+
+#pragma mark - Tap Gestures
+
+
+-(void)configureTapGestures {
+	//	NSArray* cells = [self.tableView visibleCells];
+	for(int i=0; i<5; ++i) {
+		// Create and initialize a tap gesture
+		UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+												 initWithTarget:self
+												 action:@selector(didTapGesture:)];
+		
+		// Specify that the gesture must be a single tap
+		tapRecognizer.numberOfTapsRequired = 1;
+		
+		// Add the tap gesture recognizer to the view
+		//		[self.passwordTextField.superview addGestureRecognizer:tapRecognizer];
+		NSIndexPath* index = [NSIndexPath indexPathForRow:i inSection:0];
+		[[self.tableView cellForRowAtIndexPath:index] addGestureRecognizer:tapRecognizer];
+	}
+}
+
+
+- (void)didTapGesture:(UIGestureRecognizer *)gesture {
+    int row = gesture.view.tag;
+	MBAlertView *alert = nil;
+	
+	switch (currentState) {
+		case STATE_BLANK: {
+			// Edit confirmation
+			alert = [MBAlertView alertWithBody:@"Create NEW record?" cancelTitle:@"Cancel" cancelBlock:nil];
+			[alert addButtonWithText:@"New" type:MBAlertViewItemTypePositive block:^{
+				[self editRecord:nil];
+			}];
+			alert.bodyFont = appDelegate.alertFontTitle;
+			[alert addToDisplayQueue];
+			
+		} break;
+			
+		case STATE_EDIT: {
+			switch(row) {
+				case 0: [self.titleTextField becomeFirstResponder]; break;
+				case 1: [self.usernameTextField becomeFirstResponder]; break;
+				case 2: [self.passwordTextField becomeFirstResponder]; break;
+				case 3: [self.urlTextField becomeFirstResponder]; break;
+				case 4: [self.notesTextField becomeFirstResponder]; break;
+			}
+		} break;
+			
+		case STATE_DISPLAY:
+			// Tapping password toggles - otherwise, ask if they want to edit
+			if(row == 2) {
+				[self togglePasswordVisibility];
+			} else {
+				// Edit confirmation
+				//				MBAlertView *alert = [MBAlertView alertWithBody:@"Edit this record?" cancelTitle:@"Cancel" cancelBlock:nil];
+				alert = [MBAlertView alertWithBody:@"Edit this record?" cancelTitle:@"Cancel" cancelBlock:nil];
+				[alert addButtonWithText:@"Edit" type:MBAlertViewItemTypePositive block:^{
+					[self editRecord:nil];
+				}];
+				
+				//	alert.size = CGSizeMake(250, 215);
+				alert.bodyFont = appDelegate.alertFontTitle;
+				[alert addToDisplayQueue];
+			}
+			break;
+			
+	}
+}
+
+
 -(void)togglePasswordVisibility {
 	passwordTextField.secureTextEntry = !passwordTextField.secureTextEntry;
 }
@@ -177,7 +239,9 @@
 #pragma mark - Split view
 -(void) updateRecordVaultLabel {
 	if(self.btnRecordVault) {
-		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d items)", [appDelegate.masterVC.dataController countOfListInSection:0]];
+		NSUInteger count = [appDelegate.masterVC.dataController countOfListInSection:0];
+		NSString* itemStr = [[NSString alloc] initWithString:(count == 1) ? @"item" : @"items" ];
+		self.btnRecordVault.title = [NSString stringWithFormat:@"Record Vault (%d %@)", [appDelegate.masterVC.dataController countOfListInSection:0], itemStr];
 //		[self.navigationItem setLeftBarButtonItem:nil animated:YES];
 //		[self.navigationItem setLeftBarButtonItem:self.btnRecordVault animated:YES];
 		
@@ -349,9 +413,7 @@
 
 // Indicate whichi cells are active
 -(void)setActiveCellByRow:(int)row {
-//	NSArray* indexPaths = [self.tableView numberOfRowsInSection:0];
 	for(int i=0; i<[self.tableView numberOfRowsInSection:0]; ++i) {
-//		UITableViewCell* cell = indexPaths[i];
 		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
 		if(row == i) {
 			[cell setBackgroundColor:[UIColor blueColor]];
@@ -392,6 +454,8 @@
 			errorTitle = @"Error";
 			errorBody = @"That title has been taken";
 		}
+		
+		// Show Error
 		MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 		hud.mode = MBProgressHUDModeText;
 		hud.labelText = errorTitle;
@@ -422,9 +486,7 @@
 	
 	/*
 		Setup blocks to pass to alert buttons
-	 */
-
-	
+	 */	
 	void(^saveCompletionBlock)(void) = ^{
 		
 		[appDelegate.masterVC.dataController setCheckmarkForNewRecord:YES];
@@ -439,7 +501,11 @@
 		hud.labelFont = appDelegate.alertFontTitle;
 		hud.detailsLabelFont = appDelegate.alertFontBody;
 		hud.minShowTime = 1.0;
-		hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.PNG"]];
+		if([LRPAppState isIpad]) {
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_90.PNG"]];
+		} else {
+			hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark_45.PNG"]];
+		}
 		hud.dimBackground = true;
 		[hud hide:YES afterDelay:1.0];
 		
@@ -462,12 +528,10 @@
 		
 		// Saving New Record
 		else {
-			
 			// Clear previous record checkmarks
 			[appDelegate.masterVC.dataController setCheckmarkForNewRecord:false];
 			// Save local record to core data
 			[appDelegate.masterVC.dataController addRecord:record];
-			
 		}
 
 		// Update button states
@@ -484,23 +548,10 @@
 	hud.mode = MBProgressHUDModeIndeterminate;
 	hud.labelText = [NSString stringWithFormat:@"Saving %@", self.titleTextField.text];
 	hud.labelFont = appDelegate.alertFontTitle;
-	hud.minShowTime = 1.0;
+//	hud.minShowTime = 1.0;
 	hud.dimBackground = true;
 	hud.graceTime = 1.0;
 	[hud showAnimated:YES whileExecutingBlock:saveBlock onQueue:dispatch_get_main_queue() completionBlock:saveCompletionBlock];
-
-	
-		
-
-/*
-		dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-			saveBlock;
-			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				saveCompletionBlock;
-			});
-		});
-*/
 
 }
 
@@ -543,7 +594,6 @@
 	[self setState:STATE_EDIT];
 	[self.titleTextField becomeFirstResponder];
 	[self setActiveCellByRow:0];
-
 }
 
 -(IBAction) newRecord:(id)sender {
@@ -559,12 +609,8 @@
 #pragma mark - Reposition Text Fields (when keyboard is blocking them)
 - (IBAction)textFieldDidBeginEditing:(UITextField *)textField
 {
-/*
-	if(textField.tag == 4) {
-		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:false];
-		[self.tableView setNeedsDisplay];
-	}
- */
+	[self setActiveCellByRow:textField.tag];
+	
 	[self.screenAdj viewBecameActive:textField];
 }
 

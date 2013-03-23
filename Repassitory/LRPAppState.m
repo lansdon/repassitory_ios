@@ -22,7 +22,7 @@
 #pragma mark - Version
 // PROGRAM VERSION
 +(NSString*) getVersion {
-	return @"0.8.4";
+	return @"0.8.5";
 }
 
 
@@ -73,8 +73,6 @@
     [[LRPAppState currentUser] setUsername:newUser.username];
     [[LRPAppState currentUser] setPassword:newUser.password];
     [[LRPAppState currentUser] setUser_id:newUser.user_id];
-    [[LRPAppState currentUser] setSecurity_question:newUser.security_question];
-    [[LRPAppState currentUser] setSecurity_answer:newUser.security_answer];
     
     return [LRPAppState currentUser];
 }
@@ -84,8 +82,6 @@
     [[LRPAppState currentUser] setUsername:@""];
     [[LRPAppState currentUser] setPassword:@""];
     [[LRPAppState currentUser] setUser_id:[NSNumber numberWithInt:-2]];
-    [[LRPAppState currentUser] setSecurity_question:[NSNumber numberWithInt:-2]];
-    [[LRPAppState currentUser] setSecurity_answer:@""];
     }
 
 

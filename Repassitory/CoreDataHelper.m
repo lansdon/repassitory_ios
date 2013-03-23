@@ -186,8 +186,6 @@
         [cdNewUser setValue:newUser.username forKey:@"username"];
         [cdNewUser setValue:newUser.password forKey:@"password"];
         [cdNewUser setValue:newID forKey:@"user_id"];
-        [cdNewUser setValue:newUser.security_answer forKey:@"security_answer"];
-        [cdNewUser setValue:newUser.security_question forKey:@"security_question"];
         
         [CoreDataHelper saveContext];
         

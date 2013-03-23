@@ -49,8 +49,6 @@
 		594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 594F8AA216D2245F007AF3F1 /* blue_bk.jpg */; };
 		59951B5716A7BD5700C36331 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5616A7BD5700C36331 /* CoreDataHelper.m */; };
 		59951B5B16A7C50900C36331 /* LRPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59951B5A16A7C50900C36331 /* LRPLoginViewController.m */; };
-		5999FD0616D608FB00F61353 /* repassitory-icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0216D608FB00F61353 /* repassitory-icon_57.png */; };
-		5999FD0816D608FB00F61353 /* repassitory-icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0416D608FB00F61353 /* repassitory-icon_114.png */; };
 		5999FD0B16D6093400F61353 /* repassitory-icon_144.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0A16D6093400F61353 /* repassitory-icon_144.png */; };
 		5999FD0D16D6094800F61353 /* repassitory-icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5999FD0C16D6094800F61353 /* repassitory-icon_72.png */; };
 		59A7091A16A73E0500267021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A7091916A73E0500267021 /* UIKit.framework */; };
@@ -83,8 +81,8 @@
 		5938C39016AD437700C2EBDE /* LRPDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPDetailViewController.m; sourceTree = "<group>"; };
 		5938C39316AD437700C2EBDE /* LRPRecordDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPRecordDataController.h; sourceTree = "<group>"; };
 		5938C39416AD437700C2EBDE /* LRPRecordDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPRecordDataController.m; sourceTree = "<group>"; };
-		59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_57.png"; sourceTree = "<group>"; };
-		59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_114.png"; sourceTree = "<group>"; };
+		59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_57.png"; path = "../../repassitory-icon_57.png"; sourceTree = "<group>"; };
+		59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_114.png"; path = "../../repassitory-icon_114.png"; sourceTree = "<group>"; };
 		5945FD2216F5E98600476371 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5945FD2416F5EC1000476371 /* MBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertView.h; sourceTree = "<group>"; };
 		5945FD2516F5EC1000476371 /* MBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertView.m; sourceTree = "<group>"; };
@@ -150,8 +148,6 @@
 		59951B5616A7BD5700C36331 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		59951B5916A7C50900C36331 /* LRPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPLoginViewController.h; sourceTree = "<group>"; };
 		59951B5A16A7C50900C36331 /* LRPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPLoginViewController.m; sourceTree = "<group>"; };
-		5999FD0216D608FB00F61353 /* repassitory-icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_57.png"; sourceTree = "<group>"; };
-		5999FD0416D608FB00F61353 /* repassitory-icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repassitory-icon_114.png"; sourceTree = "<group>"; };
 		5999FD0A16D6093400F61353 /* repassitory-icon_144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_144.png"; path = "../../repassitory-icon_144.png"; sourceTree = "<group>"; };
 		5999FD0C16D6094800F61353 /* repassitory-icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repassitory-icon_72.png"; path = "../../repassitory-icon_72.png"; sourceTree = "<group>"; };
 		59A7091516A73E0500267021 /* Repassitory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repassitory.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +280,8 @@
 		594F8A9D16D2245F007AF3F1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */,
+				59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */,
 				59C4DD5E16FAA19300D1CC95 /* checkmark_45.PNG */,
 				59C4DD5F16FAA19300D1CC95 /* checkmark_90.PNG */,
 				59D86C8916D734D400AF6CF7 /* blk_btn_red_glow.png */,
@@ -291,8 +289,6 @@
 				5999FD0C16D6094800F61353 /* repassitory-icon_72.png */,
 				5999FD0A16D6093400F61353 /* repassitory-icon_144.png */,
 				594AFB3216D643F700F0ADFF /* green-checkmark.png */,
-				5999FD0216D608FB00F61353 /* repassitory-icon_57.png */,
-				5999FD0416D608FB00F61353 /* repassitory-icon_114.png */,
 				594F8A9E16D2245F007AF3F1 /* Background-568h@2x.png */,
 				594F8A9F16D2245F007AF3F1 /* Background-iPad.png */,
 				594F8AA016D2245F007AF3F1 /* Background.png */,
@@ -305,8 +301,6 @@
 		59A7090A16A73E0500267021 = {
 			isa = PBXGroup;
 			children = (
-				59430F8F16FBC3F000805C2C /* repassitory-icon_114.png */,
-				59430F8D16FBC3BF00805C2C /* repassitory-icon_57.png */,
 				59A7092116A73E0500267021 /* Repassitory */,
 				59A7092216A73E0500267021 /* Supporting Files */,
 				59A7091816A73E0500267021 /* Frameworks */,
@@ -517,8 +511,6 @@
 				594F8AA516D2245F007AF3F1 /* Background.png in Resources */,
 				594F8AA616D2245F007AF3F1 /* Background@2x.png in Resources */,
 				594F8AA716D2245F007AF3F1 /* blue_bk.jpg in Resources */,
-				5999FD0616D608FB00F61353 /* repassitory-icon_57.png in Resources */,
-				5999FD0816D608FB00F61353 /* repassitory-icon_114.png in Resources */,
 				5999FD0B16D6093400F61353 /* repassitory-icon_144.png in Resources */,
 				5999FD0D16D6094800F61353 /* repassitory-icon_72.png in Resources */,
 				594AFB3316D643F700F0ADFF /* green-checkmark.png in Resources */,

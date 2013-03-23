@@ -161,7 +161,7 @@
                                             <constraint firstAttribute="bottom" secondItem="oDk-1H-vNZ" secondAttribute="bottom" constant="20" type="default" id="t6R-7M-img"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.50000000000000011" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="h28-s4-T37">
+                                    <tableViewCell opaque="NO" alpha="0.50000000000000011" tag="1" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="h28-s4-T37">
                                         <rect key="frame" x="0.0" y="138" width="703" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -206,7 +206,7 @@
                                             <constraint firstItem="06s-d1-irl" firstAttribute="centerX" secondItem="43p-EC-Lin" secondAttribute="centerX" type="default" id="nDE-5r-nPr"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="qAA-9X-wbA">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="2" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="qAA-9X-wbA">
                                         <rect key="frame" x="0.0" y="238" width="703" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -250,7 +250,7 @@
                                             <constraint firstItem="bGb-S1-m6R" firstAttribute="leading" secondItem="qAA-9X-wbA" secondAttribute="leading" constant="20" type="default" id="akL-Hm-YCY"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="y7w-21-KaR">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="3" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="y7w-21-KaR">
                                         <rect key="frame" x="0.0" y="338" width="703" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -295,7 +295,7 @@
                                             <constraint firstAttribute="trailing" secondItem="48u-yq-hQ8" secondAttribute="trailing" constant="20" type="default" id="yyl-No-3WY"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="zaC-ma-s7S">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="4" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="zaC-ma-s7S">
                                         <rect key="frame" x="0.0" y="438" width="703" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

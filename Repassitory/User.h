@@ -15,7 +15,5 @@
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, retain) NSNumber * user_id;
-@property (nonatomic, retain) NSString * security_answer;
-@property (nonatomic, retain) NSNumber * security_question;
 
 @end

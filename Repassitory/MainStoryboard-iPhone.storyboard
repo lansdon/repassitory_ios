@@ -579,7 +579,7 @@
                                             <constraint firstItem="Vn8-6X-uCA" firstAttribute="top" secondItem="krA-Em-4Ia" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="kb1-kS-npc"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="59" id="Yzz-2r-TgV">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="1" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="59" id="Yzz-2r-TgV">
                                         <rect key="frame" x="0.0" y="92" width="320" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -624,7 +624,7 @@
                                             <constraint firstItem="TsG-le-5Yp" firstAttribute="top" secondItem="Yzz-2r-TgV" secondAttribute="top" constant="20" type="default" id="zuA-ZG-q5j"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="Zpk-A8-8Kd">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="2" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="Zpk-A8-8Kd">
                                         <rect key="frame" x="0.0" y="151" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -669,7 +669,7 @@
                                             <constraint firstItem="z1D-oL-tE0" firstAttribute="leading" secondItem="Zpk-A8-8Kd" secondAttribute="leading" constant="20" type="default" id="q0x-Pa-9ib"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="tM8-4J-L2o">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="3" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="tM8-4J-L2o">
                                         <rect key="frame" x="0.0" y="213" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -714,7 +714,7 @@
                                             <constraint firstItem="LI9-nD-OAM" firstAttribute="top" secondItem="tM8-4J-L2o" secondAttribute="top" type="default" id="s9u-4w-K4x"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" alpha="0.5" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="OUb-yn-sZ8">
+                                    <tableViewCell opaque="NO" alpha="0.5" tag="4" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="62" id="OUb-yn-sZ8">
                                         <rect key="frame" x="0.0" y="275" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -815,6 +815,73 @@
     <resources>
         <image name="blk_btn_red_glow.png" width="500" height="120"/>
     </resources>
+    <classes>
+        <class className="LRPDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteRecord:"/>
+                <relationship kind="action" name="saveRecord:"/>
+                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="btnDelete" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnEdit" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnNew" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnRecordVault" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnSave" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="notesTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="urlTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createNewUser:"/>
+                <relationship kind="action" name="resignAndLogin:"/>
+                <relationship kind="action" name="showAppInfo:"/>
+                <relationship kind="action" name="textFieldDidBeginEditing:" candidateClass="UITextField"/>
+                <relationship kind="action" name="textFieldDidEndEditing:" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPMasterViewController.h"/>
+        </class>
+        <class className="LRPNewUserViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPNewUserViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="saveUser:"/>
+                <relationship kind="action" name="textFieldDidExit:" candidateClass="UITextField"/>
+                <relationship kind="action" name="validatePassword2:"/>
+                <relationship kind="action" name="validatePassword:"/>
+                <relationship kind="action" name="validateUsername:"/>
+                <relationship kind="outlet" name="password2Feedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="password2Input" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="passwordInput" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="usernameFeedback" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="usernameInput" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="LRPStartViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LRPStartViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadLogin:"/>
+                <relationship kind="action" name="loadNewUser:"/>
+                <relationship kind="action" name="showAppInfo:"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -14,7 +14,5 @@
 @dynamic username;
 @dynamic password;
 @dynamic user_id;
-@dynamic security_answer;
-@dynamic security_question;
 
 @end
