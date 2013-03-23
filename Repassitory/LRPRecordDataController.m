@@ -111,16 +111,6 @@
 	[CoreDataHelper saveContext];
 }
 
-/*
-- (void) deleteRecord:(LRPRecord*)record {
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(title == %@ && url == %@ && notes == %@ && updated == %@ && user_id == %@)", record.title, record.url, record.notes, record.updated, record.user_id];
-	[CoreDataHelper deleteAllObjectsForEntity:@"Record" withPredicate:pred andContext:[CoreDataHelper managedObjectContext]];
-	[CoreDataHelper saveContext];
-	
-//	[self loadUserRecordsFromContext];
-}
-*/
-
 
 - (BOOL)loadUserRecordsFromContext {
 			
@@ -129,7 +119,7 @@
 	[NSFetchedResultsController deleteCacheWithName:@"Root"];
 	
 	// Build new Fetched Results Controller
-	self.fetchedResultsController = [self fetchedResultsController];	
+	self.fetchedResultsController = [self fetchedResultsController];
 	
 	// Execute the fetch request
 	NSError *error = nil;
@@ -316,7 +306,10 @@
 }
 
 
-
+-(void) clearTable {
+	[self.fetchedResultsController.fetchRequest setPredicate:[NSPredicate predicateWithValue:NO]];
+	[self.fetchedResultsController performFetch:nil];
+}
 
 
 @end

@@ -16,16 +16,13 @@
 @end
 
 
-//static NSString* _key = nil;            // Static variable for user key
-
-
 @implementation LRPAppState
 
 
 #pragma mark - Version
 // PROGRAM VERSION
 +(NSString*) getVersion {
-	return @"0.8.2";
+	return @"0.8.3";
 }
 
 

@@ -93,24 +93,24 @@
         <!--New User View Controller - New User-->
         <scene sceneID="aio-DL-9Rx">
             <objects>
-                <tableViewController title="New User" id="ysv-X5-Z3T" customClass="LRPNewUserViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CnO-wd-Bj2">
+                <tableViewController title="New User" wantsFullScreenLayout="YES" id="ysv-X5-Z3T" customClass="LRPNewUserViewController" sceneMemberID="viewController">
+                    <tableView key="view" contentMode="center" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CnO-wd-Bj2">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="7ck-jP-8dU">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="97" id="ugy-Qs-KN5">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="95" id="ugy-Qs-KN5">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-zx-oG7">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="Pp7-GN-33Z"/>
+                                                        <constraint firstAttribute="height" constant="23" id="dOa-PF-xQe"/>
                                                         <constraint firstAttribute="width" constant="154" id="k5H-xH-3hz"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -120,8 +120,8 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="0" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="&lt;Enter username>" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="VOF-YE-pg3">
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="47" id="3hO-Z1-h7v"/>
                                                         <constraint firstAttribute="width" constant="235" id="Xyb-DJ-lFY"/>
+                                                        <constraint firstAttribute="height" constant="37" id="ZBa-V6-9af"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                                     <fontDescription key="fontDescription" name="Courier-BoldOblique" family="Courier" pointSize="22"/>
@@ -135,7 +135,7 @@
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(*Required)" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="2Oi-2i-dBy">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="pKu-wH-JDX"/>
+                                                        <constraint firstAttribute="height" constant="24" id="cFD-9V-52V"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -145,26 +145,26 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="2Oi-2i-dBy" firstAttribute="leading" secondItem="ugy-Qs-KN5" secondAttribute="leading" constant="20" type="default" id="1bi-hY-d3s"/>
-                                            <constraint firstItem="Qvf-zx-oG7" firstAttribute="centerX" secondItem="2Oi-2i-dBy" secondAttribute="centerX" type="default" id="Go3-0w-Rb7"/>
-                                            <constraint firstItem="Qvf-zx-oG7" firstAttribute="centerX" secondItem="VOF-YE-pg3" secondAttribute="centerX" type="default" id="NDF-49-l0d"/>
-                                            <constraint firstItem="VOF-YE-pg3" firstAttribute="top" secondItem="ugy-Qs-KN5" secondAttribute="top" constant="24" id="Y0o-fB-3J3"/>
-                                            <constraint firstAttribute="trailing" secondItem="2Oi-2i-dBy" secondAttribute="trailing" constant="20" type="default" id="xGd-Hp-XnD"/>
-                                            <constraint firstItem="2Oi-2i-dBy" firstAttribute="top" secondItem="ugy-Qs-KN5" secondAttribute="top" constant="75" id="znC-Vg-ih0"/>
-                                            <constraint firstItem="Qvf-zx-oG7" firstAttribute="top" secondItem="ugy-Qs-KN5" secondAttribute="top" type="default" id="zs9-V5-GqA"/>
+                                            <constraint firstAttribute="trailing" secondItem="2Oi-2i-dBy" secondAttribute="trailing" constant="20" type="default" id="2Dj-M1-mSA"/>
+                                            <constraint firstItem="2Oi-2i-dBy" firstAttribute="centerX" secondItem="VOF-YE-pg3" secondAttribute="centerX" type="default" id="75S-dV-pcz"/>
+                                            <constraint firstItem="VOF-YE-pg3" firstAttribute="centerY" secondItem="ugy-Qs-KN5" secondAttribute="centerY" type="default" id="81y-hY-0dD"/>
+                                            <constraint firstItem="VOF-YE-pg3" firstAttribute="centerX" secondItem="Qvf-zx-oG7" secondAttribute="centerX" type="default" id="Yd0-Fa-pds"/>
+                                            <constraint firstItem="2Oi-2i-dBy" firstAttribute="leading" secondItem="ugy-Qs-KN5" secondAttribute="leading" constant="20" type="default" id="YtO-bC-rQb"/>
+                                            <constraint firstItem="Qvf-zx-oG7" firstAttribute="top" secondItem="ugy-Qs-KN5" secondAttribute="top" constant="4" id="ZPp-EI-Qm0"/>
+                                            <constraint firstAttribute="bottom" secondItem="2Oi-2i-dBy" secondAttribute="bottom" constant="9" id="nTz-KR-FwU"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="111" id="3Gj-sJ-cTk">
-                                        <rect key="frame" x="0.0" y="97" width="320" height="111"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="95" id="3Gj-sJ-cTk">
+                                        <rect key="frame" x="0.0" y="95" width="320" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VW-YF-GoN">
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="HWN-Nq-bcd"/>
                                                         <constraint firstAttribute="width" constant="162" id="UtL-r5-VKx"/>
-                                                        <constraint firstAttribute="height" constant="41" id="kQz-YB-87i"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -174,7 +174,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="232" id="AnR-0L-axP"/>
-                                                        <constraint firstAttribute="height" constant="44" id="qIv-3J-IUT"/>
+                                                        <constraint firstAttribute="height" constant="38" id="DkO-TB-9GM"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                                     <fontDescription key="fontDescription" name="Courier-BoldOblique" family="Courier" pointSize="22"/>
@@ -188,8 +188,8 @@
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(*Required)" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="vsv-5A-fw7">
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="19" id="4nb-Lb-1Sp"/>
                                                         <constraint firstAttribute="width" constant="316" id="Jrq-EG-72b"/>
-                                                        <constraint firstAttribute="height" constant="29" id="Snr-3b-3Ub"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -200,18 +200,18 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="nxC-ig-Ppt" firstAttribute="centerY" secondItem="3Gj-sJ-cTk" secondAttribute="centerY" type="default" id="6gA-8X-HfF"/>
-                                            <constraint firstItem="5VW-YF-GoN" firstAttribute="centerX" secondItem="3Gj-sJ-cTk" secondAttribute="centerX" type="default" id="SQS-5C-DvF"/>
-                                            <constraint firstAttribute="bottom" secondItem="vsv-5A-fw7" secondAttribute="bottom" constant="1" id="ej4-xu-bvv"/>
+                                            <constraint firstAttribute="bottom" secondItem="vsv-5A-fw7" secondAttribute="bottom" constant="12" id="Psy-9n-VWh"/>
+                                            <constraint firstItem="5VW-YF-GoN" firstAttribute="top" secondItem="3Gj-sJ-cTk" secondAttribute="top" constant="4" id="QxH-bM-GV6"/>
                                             <constraint firstItem="nxC-ig-Ppt" firstAttribute="centerX" secondItem="5VW-YF-GoN" secondAttribute="centerX" type="default" id="fkw-7L-TWQ"/>
-                                            <constraint firstItem="5VW-YF-GoN" firstAttribute="top" secondItem="3Gj-sJ-cTk" secondAttribute="top" type="default" id="kRv-9r-ZCd"/>
-                                            <constraint firstItem="vsv-5A-fw7" firstAttribute="centerX" secondItem="nxC-ig-Ppt" secondAttribute="centerX" type="default" id="xyo-Od-RLF"/>
+                                            <constraint firstItem="vsv-5A-fw7" firstAttribute="centerX" secondItem="nxC-ig-Ppt" secondAttribute="centerX" type="default" id="hT2-6x-aVE"/>
+                                            <constraint firstItem="5VW-YF-GoN" firstAttribute="centerX" secondItem="3Gj-sJ-cTk" secondAttribute="centerX" type="default" id="nYl-pZ-GNx"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="85" id="sgo-g9-ghc">
-                                        <rect key="frame" x="0.0" y="208" width="320" height="85"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="95" id="sgo-g9-ghc">
+                                        <rect key="frame" x="0.0" y="190" width="320" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Confirm Password" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTt-lu-TbM">
@@ -226,6 +226,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" restorationIdentifier="" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="&lt;Retype your password>" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="quk-FQ-e3k">
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="37" id="MZ3-4o-97e"/>
                                                         <constraint firstAttribute="width" constant="253" id="cfo-xc-TJd"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
@@ -240,7 +241,7 @@
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(*Required)" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="16" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="o1x-jc-iRP">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="MFV-zA-JVL"/>
+                                                        <constraint firstAttribute="height" constant="24" id="XGT-Kp-djP"/>
                                                         <constraint firstAttribute="width" constant="288" id="q7Z-Aq-Y3a"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -251,13 +252,12 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="o1x-jc-iRP" secondAttribute="bottom" constant="1" id="H3z-N3-crH"/>
+                                            <constraint firstItem="o1x-jc-iRP" firstAttribute="centerX" secondItem="sgo-g9-ghc" secondAttribute="centerX" type="default" id="KTX-Jc-LSh"/>
                                             <constraint firstItem="quk-FQ-e3k" firstAttribute="centerX" secondItem="o1x-jc-iRP" secondAttribute="centerX" type="default" id="Pee-eZ-Cr6"/>
-                                            <constraint firstItem="quk-FQ-e3k" firstAttribute="top" secondItem="sgo-g9-ghc" secondAttribute="top" constant="20" type="default" id="mG5-ti-1VC"/>
-                                            <constraint firstItem="RTt-lu-TbM" firstAttribute="top" secondItem="sgo-g9-ghc" secondAttribute="top" type="default" id="nZP-KA-eNL"/>
-                                            <constraint firstItem="quk-FQ-e3k" firstAttribute="centerY" secondItem="sgo-g9-ghc" secondAttribute="centerY" type="default" id="oQe-KS-Chf"/>
-                                            <constraint firstItem="RTt-lu-TbM" firstAttribute="centerX" secondItem="sgo-g9-ghc" secondAttribute="centerX" type="default" id="pK7-xF-RCu"/>
-                                            <constraint firstItem="RTt-lu-TbM" firstAttribute="centerX" secondItem="quk-FQ-e3k" secondAttribute="centerX" type="default" id="ri7-7c-u7A"/>
+                                            <constraint firstItem="RTt-lu-TbM" firstAttribute="top" secondItem="sgo-g9-ghc" secondAttribute="top" constant="8" id="SiB-Pg-eAT"/>
+                                            <constraint firstItem="quk-FQ-e3k" firstAttribute="top" secondItem="sgo-g9-ghc" secondAttribute="top" constant="28" id="YG1-Nr-LAV"/>
+                                            <constraint firstAttribute="bottom" secondItem="o1x-jc-iRP" secondAttribute="bottom" constant="10" id="ZGJ-6R-m1h"/>
+                                            <constraint firstItem="RTt-lu-TbM" firstAttribute="centerX" secondItem="quk-FQ-e3k" secondAttribute="centerX" type="default" id="gtE-YJ-XuC"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -552,14 +552,14 @@
                                                     <color key="shadowColor" red="0.96078437569999997" green="0.02745098248" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
                                                     <size key="shadowOffset" width="-1" height="-1"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Title>" textAlignment="center" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="krA-Em-4Ia">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Title>" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="krA-Em-4Ia">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="GhX-dn-kkR"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" type="user" id="Xfk-Yk-ndj"/>
                                                     </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="40"/>
+                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="24"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="o9u-Aq-Old" eventType="editingDidBegin" id="I3H-Lw-J4y"/>
@@ -599,11 +599,11 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Username>" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="TsG-le-5Yp">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="26" id="PP1-og-Xau"/>
+                                                        <constraint firstAttribute="height" constant="26" id="cCG-qo-w1h"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" type="user" id="jGE-V5-zTG"/>
                                                     </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
+                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="o9u-Aq-Old" eventType="editingDidBegin" id="PED-yV-Zjh"/>
@@ -646,9 +646,10 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" type="user" id="KQf-WG-hWg"/>
+                                                        <constraint firstAttribute="height" constant="41" id="j0h-CK-xGj"/>
                                                     </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
+                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="o9u-Aq-Old" eventType="editingDidBegin" id="G6r-kE-0b1"/>
@@ -693,7 +694,7 @@
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" type="user" id="ZrH-Bi-VJy"/>
                                                     </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
+                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="o9u-Aq-Old" eventType="editingDidBegin" id="hRO-vo-6f4"/>
@@ -734,12 +735,12 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;NOTES>" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="STU-u3-wj6">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="1tE-vx-C6W"/>
                                                         <constraint firstAttribute="width" constant="291" id="YOX-Un-NhS"/>
-                                                        <constraint firstAttribute="height" constant="32" id="ci0-mV-Z54"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" type="user" id="oOM-G2-ofi"/>
                                                     </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="36"/>
+                                                    <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="textFieldDidBeginEditing:" destination="o9u-Aq-Old" eventType="editingDidBegin" id="ezd-ee-CIq"/>
@@ -752,8 +753,8 @@
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="STU-u3-wj6" firstAttribute="centerX" secondItem="OUb-yn-sZ8" secondAttribute="centerX" type="default" id="5e2-DD-A7P"/>
                                             <constraint firstItem="STU-u3-wj6" firstAttribute="centerX" secondItem="hdZ-RF-QtK" secondAttribute="centerX" type="default" id="IoL-m0-W0Z"/>
-                                            <constraint firstItem="hdZ-RF-QtK" firstAttribute="centerX" secondItem="OUb-yn-sZ8" secondAttribute="centerX" type="default" id="ijy-OQ-2Rk"/>
                                             <constraint firstItem="STU-u3-wj6" firstAttribute="top" secondItem="OUb-yn-sZ8" secondAttribute="top" constant="20" type="default" id="jL8-vb-vj7"/>
                                             <constraint firstItem="hdZ-RF-QtK" firstAttribute="top" secondItem="OUb-yn-sZ8" secondAttribute="top" type="default" id="na0-Z6-egJ"/>
                                         </constraints>

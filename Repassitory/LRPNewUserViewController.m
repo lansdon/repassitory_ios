@@ -54,7 +54,6 @@
 					  inContainingView:self.view
 					  inTable:self.tableView];
 
-	[self.usernameInput becomeFirstResponder];
 	
     // Initialize Field Toggles
     usernameOK = NO;
@@ -71,7 +70,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	[self.usernameInput becomeFirstResponder];
+
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	
 	[self dismissViewControllerAnimated:false completion:nil];
 }
 

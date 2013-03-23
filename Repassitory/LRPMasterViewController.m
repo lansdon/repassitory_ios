@@ -115,6 +115,9 @@
 
 #pragma mark - Table View
 
+-(void) clearTable {
+	[self.dataController clearTable];
+}
 
 - (void) tableViewBeginUpdates {
 	[self.tableView beginUpdates];

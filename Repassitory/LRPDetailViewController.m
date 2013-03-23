@@ -135,6 +135,26 @@
 	NSLog(@"Detail - view did load");
 }
 
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+    [self configureView];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	if(currentState == STATE_CREATE || [LRPAppState isIphone]) {
+		[titleTextField becomeFirstResponder];
+	}
+}
+
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -181,12 +201,6 @@
 	[self.masterPopoverController dismissPopoverAnimated:true];
 	[self setState:STATE_CREATE];
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{		
-    [self configureView];
-}
-
 
 
 
@@ -253,7 +267,7 @@
 		case STATE_BLANK:
 			[self setEditingExistingRecord:NO];
 			[self disableInputFields];
-			titleTextField.text = @"(Select/create a record)";
+//			titleTextField.text = @"(Select/create a record)";
 			self.usernameTextField.text = @"";
 			self.passwordTextField.text = @"";
 			self.urlTextField.text = @"";

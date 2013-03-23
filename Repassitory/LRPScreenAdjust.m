@@ -10,6 +10,7 @@
 #import "LRPScreenAdjust.h"
 
 #import "LRPAppDelegate.h"
+#import "LRPAppState.h"
 
 
 @interface LRPScreenAdjust () {
@@ -121,7 +122,7 @@
 	if(self.tableView) {
 		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:false];
 //		[self.tableView reloadData];
-//		[view setNeedsDisplay];
+//		[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] ] setNeedsDisplay];
 	}
 	
 	const float movementDuration = 0.3f; // tweak as needed
@@ -143,7 +144,11 @@
         [UIView beginAnimations: @"anim" context: nil];
         [UIView setAnimationBeginsFromCurrentState: YES];
         [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//		if(self.tableView) {
+//			self.tableView.frame = CGRectOffset(self.tableView.frame, 0, movement);
+//		} else {
+			self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//		}
 		[self.view setNeedsDisplay];
 		[view setNeedsDisplay];
         [UIView commitAnimations];
@@ -159,7 +164,28 @@
  */
 -(int)getFocusHeight {
 	const float DEF_HEIGHT_PERC = 0.35;   // % of screen height
+	float heightPercentage = DEF_HEIGHT_PERC;
 	int screenHeight = self.view.bounds.size.height;
+	
+	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+	
+	// iPhone Specific
+	if([LRPAppState isIphone]) {
+		if( UIDeviceOrientationIsLandscape(orientation)) {
+			heightPercentage = 0.30;
+		} else { // portrait
+			heightPercentage = 0.30;
+		}
+	}
+	
+	// iPad Specific
+	else {
+		if( UIDeviceOrientationIsLandscape(orientation)) {
+			heightPercentage = 0.30;
+		} else { // portrait
+			heightPercentage = 0.0;
+		}
+	}
 	return screenHeight * DEF_HEIGHT_PERC;	
 }
 

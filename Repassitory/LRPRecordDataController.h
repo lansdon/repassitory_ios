@@ -45,4 +45,7 @@
 
 - (void) clearNewRecord;
 
+-(void) clearTable;
+
+
 @end

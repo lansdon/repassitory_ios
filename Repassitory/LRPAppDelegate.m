@@ -114,11 +114,14 @@
 	
 	// Set login view controller to top level view
 	[self.loginNavC popToRootViewControllerAnimated:YES];
-	
+	[self.phoneRecordsNav popToRootViewControllerAnimated:NO];
     // Reset App State (current user, etc)
 	[LRPAppState reset];
 	
 	// Reset the detail view so records aren't partially visible when reloading app
+//	[self.masterVC clearTable];
+	[self.masterVC.view setHidden:TRUE];
+	
     self.currentRecord = nil;
 	self.userLoaded = false;
 	
@@ -126,7 +129,7 @@
 //	self.loginVC = nil;
 //	self.splitVC = nil;
 //	_phoneRecordsNav = nil;
-	_masterVC = nil;	// required to trigger reloading of records
+//	_masterVC = nil;	// required to trigger reloading of records
 //	_detailVC = nil;
 	
 	[self.window setRootViewController:nil];
@@ -336,6 +339,7 @@
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[MBProgressHUD hideHUDForView:self.window animated:YES];
 				[self.masterVC reloadData];
+				[self.masterVC.view setHidden:false];
 			});
 		});
 	}
