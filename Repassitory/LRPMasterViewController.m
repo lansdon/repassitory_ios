@@ -155,7 +155,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//	LRPRecord* currentRecord = [self.dataController recordAtIndexPath:indexPath];
 	appDelegate.currentRecord = [self.dataController.fetchedResultsController objectAtIndexPath:indexPath];
 
 	// If the cell selected is different than lastNewRecord, clear lastNewRecord

@@ -76,6 +76,7 @@
     // Update the user interface for the detail item.
     if (appDelegate.currentRecord) {
 		[self setState:STATE_DISPLAY];
+		[self.screenAdj reset];
 		self.titleTextField.text = appDelegate.currentRecord.title;
 		self.dateLabel.text = [appDelegate.currentRecord getUpdateAsString];
 		self.usernameTextField.text = appDelegate.currentRecord.username;
@@ -83,6 +84,13 @@
 		self.urlTextField.text = appDelegate.currentRecord.url;
 		self.notesTextField.text = appDelegate.currentRecord.notes;
     } else {
+		self.titleTextField.text = @"";
+		self.dateLabel.text = @"";
+		self.usernameTextField.text = @"";
+		self.passwordTextField.text = @"";
+		self.urlTextField.text = @"";
+		self.notesTextField.text = @"";
+		
 		if([LRPAppState isIphone]) {
 			[self setState:STATE_CREATE];
 		} else {
@@ -369,7 +377,9 @@
 
 -(IBAction)saveRecord:(id)sender {
 	// Validation - Don't allow empty titles or duplicate titles
-	if( ([titleTextField.text isEqualToString:@""]) || ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text] && !self.editingExistingRecord) ) {
+	if( ([titleTextField.text isEqualToString:@""]) ||
+	   ([appDelegate.masterVC.dataController recordTitleUsed:titleTextField.text] && ![titleTextField.text isEqualToString:[[appDelegate currentRecord] title]]) ) {
+		
 		NSString* errorTitle = [[NSString alloc] init];
 		NSString* errorBody = [[NSString alloc] init];
 		

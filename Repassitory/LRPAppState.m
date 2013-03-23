@@ -22,7 +22,7 @@
 #pragma mark - Version
 // PROGRAM VERSION
 +(NSString*) getVersion {
-	return @"0.8.3";
+	return @"0.8.4";
 }
 
 
